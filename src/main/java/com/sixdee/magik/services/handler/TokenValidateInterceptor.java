@@ -7,8 +7,6 @@ package com.sixdee.magik.services.handler;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Enumeration;
-import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,17 +15,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.util.UrlPathHelper;
 
-import com.jcraft.jsch.UserAuth;
 /*import com.sixdee.magik.services.exception.DAOException;
 import com.sixdee.magik.services.redis.TokenMasterRedis;
 import com.sixdee.magik.services.redis.TokenRepositoryRedisDAO;
@@ -70,6 +63,10 @@ public class TokenValidateInterceptor implements HandlerInterceptor {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
+
+		System.out.println("CAme to Token Validator interceptor");
+
+		
 		return true;
 	}
 
@@ -84,10 +81,11 @@ public class TokenValidateInterceptor implements HandlerInterceptor {
 	public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)
 			throws Exception {
 		if (!request.getMethod().equals(OPTIONS)) {
-			long startTime = (Long) request.getAttribute("startTime");
-			long endTime = System.currentTimeMillis();
-			long executeTime = endTime - startTime;
-			logger.info("Request Execution Time : " + executeTime + " ms");
+			/*
+			 * long startTime = (Long) request.getAttribute("startTime"); long endTime =
+			 * System.currentTimeMillis(); long executeTime = endTime - startTime;
+			 * logger.info("Request Execution Time : " + executeTime + " ms");
+			 */
 		}
 
 	}
