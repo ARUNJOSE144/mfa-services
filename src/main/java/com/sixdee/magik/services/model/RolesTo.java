@@ -9,11 +9,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import lombok.Data;
+
 /**
  * @author: Arun Jose
  * @Date : March, 2021
  */
-
+@Data
 @Entity
 @Table(name = "MFS_ROLE_MASTER")
 public class RolesTo implements Serializable {
@@ -28,20 +30,6 @@ public class RolesTo implements Serializable {
 	@Column(name = "ROLE_NAME", nullable = false)
 	private String roleName;
 
-	public int getRoleId() {
-		return roleId;
-	}
-
-	public void setRoleId(int roleId) {
-		this.roleId = roleId;
-	}
-
-	public String getRoleName() {
-		return roleName;
-	}
-
-	public void setRoleName(String roleName) {
-		this.roleName = roleName;
-	}
+	
 
 }

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sixdee.magik.services.dao.RolesDAO;
+import com.sixdee.magik.services.model.CommonRespTo;
 import com.sixdee.magik.services.model.RolesTo;
 
 /**
@@ -28,16 +29,17 @@ public class RolesRestController {
 	RolesDAO rolesDao;
 
 	@PostMapping(value = "/getRoles")
-	public @ResponseBody List<RolesTo> getRolesList(HttpServletRequest httpServletRequest, @RequestBody RolesTo rolesTo)
-			throws IOException {
+	public @ResponseBody CommonRespTo<RolesTo> getRolesList(HttpServletRequest httpServletRequest,
+			@RequestBody RolesTo rolesTo) throws IOException {
 		List<RolesTo> list = null;
+		CommonRespTo<RolesTo> to = new CommonRespTo<RolesTo>();
 		try {
 			list = rolesDao.getRolesList(rolesTo);
+			to.setList(list);
 		} catch (Exception e) {
-			// TODO: handle exception
 			e.printStackTrace();
 		}
-		return list;
+		return to;
 	}
 
 }
