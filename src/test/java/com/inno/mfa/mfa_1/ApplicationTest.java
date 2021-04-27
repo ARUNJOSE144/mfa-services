@@ -1,4 +1,4 @@
-package com.sixdee.magik.Magik_10;
+package com.inno.mfa.mfa_1;
 
 public class ApplicationTest {
 

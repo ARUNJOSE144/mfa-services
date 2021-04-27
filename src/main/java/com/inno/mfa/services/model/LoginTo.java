@@ -1,6 +1,7 @@
 package com.inno.mfa.services.model;
 
 import java.io.Serializable;
+import java.util.List;
 
 import lombok.Data;
 
@@ -11,6 +12,7 @@ import lombok.Data;
 @Data
 public class LoginTo implements Serializable {
 
+	private static final long serialVersionUID = 1L;
 	public String resultCode;
 	public String responseMsg;
 	public String token;
@@ -20,7 +22,7 @@ public class LoginTo implements Serializable {
 	public String msisdn;
 	public int userId;
 	public String fullName;
-	public int[] privilages;
+	public List<Integer> privilages;
 	public String emailId;
 	public String password;
 
