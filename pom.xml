@@ -3,12 +3,12 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.sixdee.magik.services</groupId>
-	<artifactId>MagikServices_3.0</artifactId>
+	<groupId>com.sixdee.mfa.services</groupId>
+	<artifactId>MfaServices_3.0</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
-	<name>MagikServices_3.0</name>
-	<description>Magik Project (Spring-Boot-Restfull Maven Webapp)</description>
+	<name>MfaServices_3.0</name>
+	<description>Mfa Project (Spring-Boot-Restfull Maven Webapp)</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -188,19 +188,9 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
-			<!-- <plugin> <groupId>org.apache.axis2</groupId> <artifactId>axis2-wsdl2code-maven-plugin</artifactId> 
-				<version>1.6.2</version> <executions> <execution> <id>wsc_01</id> <goals> 
-				<goal>wsdl2code</goal> </goals> <configuration> <packageName>com.sixdee.magik.services.lmsService</packageName> 
-				<wsdlFile>http://10.0.0.85:48080/LMS/services/AccountManagement?wsdl</wsdlFile> 
-				</configuration> </execution> <execution> <id>wsc_02</id> <goals> <goal>wsdl2code</goal> 
-				</goals> <configuration> <packageName>com.sixdee.magik.services.lmsService</packageName> 
-				<wsdlFile>http://10.0.0.85:48080/LMS/services/PointManagement?wsdl</wsdlFile> 
-				</configuration> </execution> <execution> <id>wsc_03</id> <goals> <goal>wsdl2code</goal> 
-				</goals> <configuration> <packageName>com.sixdee.magik.services.lmsService</packageName> 
-				<wsdlFile>http://10.0.0.85:48080/LMS/services/TransactionManagement?wsdl</wsdlFile> 
-				</configuration> </execution> </executions> </plugin> -->
+		
 		</plugins>
-		<finalName>MagikServices_3.0</finalName>
+		<finalName>MfaServices_3.0</finalName>
 	</build>
 
 

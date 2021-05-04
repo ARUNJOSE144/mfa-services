@@ -7,6 +7,7 @@ import javax.transaction.Transactional;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
@@ -14,6 +15,8 @@ import org.springframework.stereotype.Service;
 
 import com.inno.mfa.services.model.LoginTo;
 import com.inno.mfa.services.model.RolePermissionsTo;
+import com.inno.mfa.services.model.UserMasterTo;
+import com.inno.mfa.services.util.Util;
 
 /**
  * @author Arun Jose
@@ -30,26 +33,24 @@ public class AuthenticationDAO {
 	private SessionFactory sessionFactory;
 
 	public LoginTo login() {
-		// TODO Auto-generated method stub
 		LoginTo loginTo = null;
+		UserMasterTo userMasterTo = null;
+		loginTo = new LoginTo();
 		try {
 			Session session = sessionFactory.getCurrentSession();
-			loginTo = new LoginTo();
+			userMasterTo = getUser(1, "", session);
 
 			loginTo.setResultCode("0");
 			loginTo.setResponseMsg("Success");
 			loginTo.setToken("12467e1b-e135-41a3-85a8-d229794308f9");
 			loginTo.setRefreshToken("d00aeaef-ae18-4fdd-bbce-9825773026c7");
-			loginTo.setUserName("c3lzYWRtaW4=");
-			loginTo.setUserId(1);
-			loginTo.setFullName("SysAdmin SysAdmin");
-			// List<Integer> privilages =
-
-			loginTo.setPrivilages(getPrivilages(1, session));
+			loginTo.setUserName(userMasterTo.getUserName());
+			loginTo.setUserId(userMasterTo.getUserId());
+			loginTo.setFullName(userMasterTo.getFullName());
+			loginTo.setPrivilages(getPrivilages(userMasterTo.getRoleId(), session));
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
 		}
-
 		return loginTo;
 	}
 
@@ -57,16 +58,32 @@ public class AuthenticationDAO {
 		List<RolePermissionsTo> list = null;
 		List<Integer> permissions = new ArrayList<Integer>();
 		try {
-			list = (List<RolePermissionsTo>) session.createCriteria(RolePermissionsTo.class).list();
+			list = (List<RolePermissionsTo>) session.createCriteria(RolePermissionsTo.class)
+					.add(Restrictions.eq("roleId", roleId)).list();
 			for (RolePermissionsTo rolePermissionsTo : list) {
 				System.out.println("-=-fEatture Id  : " + rolePermissionsTo.getFeatureId());
 				permissions.add(rolePermissionsTo.getFeatureId());
 			}
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
 		}
 		return permissions;
+	}
 
+	UserMasterTo getUser(int userId, String userName, Session session) {
+		UserMasterTo userMasterTo = null;
+		try {
+			if (userId != 0) {
+				userMasterTo = (UserMasterTo) session.createCriteria(UserMasterTo.class)
+						.add(Restrictions.eq("id", userId)).uniqueResult();
+			} else if (Util.validate(userName)) {
+				userMasterTo = (UserMasterTo) session.createCriteria(UserMasterTo.class)
+						.add(Restrictions.eq("userName", userName)).uniqueResult();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return userMasterTo;
 	}
 
 }
