@@ -111,25 +111,56 @@ public class RolesDAO {
 	public void create(RolesTo rolesTo) {
 		try {
 			Session session = sessionFactory.getCurrentSession();
-
 			session.save(rolesTo);
-
 			if (rolesTo.getFeatureIds().length > 0) {
 				List<RolePermissionsTo> permissionList = new ArrayList<RolePermissionsTo>();
 				for (int featureId : rolesTo.getFeatureIds()) {
-
 					RolePermissionsTo to = new RolePermissionsTo();
 					to.setFeatureId(featureId);
 					to.setRoleId(rolesTo.getRoleId());
 					permissionList.add(to);
 					session.save(to);
 				}
-
 			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@SuppressWarnings("unchecked")
+	public RolesTo view(RolesTo rolesTo) {
+		Criteria criteria = null;
+		Session session = null;
+
+		try {
+			session = sessionFactory.getCurrentSession();
+			criteria = session.createCriteria(RolesTo.class);
+			criteria.add(Restrictions.eq("roleId", rolesTo.getRoleId()));
+			rolesTo = (RolesTo) criteria.uniqueResult();
+
+			criteria = session.createCriteria(RolePermissionsTo.class);
+			criteria.add(Restrictions.eq("roleId", rolesTo.getRoleId()));
+			rolesTo.setFeatureList((List<RolePermissionsTo>) criteria.list());
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return rolesTo;
+	}
+
+	public void delete(RolesTo rolesTo) {
+		Session session = null;
+		String hql = null;
+		try {
+			session = sessionFactory.getCurrentSession();
+			session.delete(rolesTo);
+
+			hql = "delete from RolePermissionsTo where roleId=" + rolesTo.getRoleId();
+			session.createQuery(hql).executeUpdate();
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
 	}
-
 }

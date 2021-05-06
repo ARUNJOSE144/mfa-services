@@ -2,6 +2,7 @@ package com.inno.mfa.services.model;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -30,16 +31,6 @@ public class RolesTo implements Serializable {
 	@Column(name = "ROLE_ID")
 	private int roleId;
 
-	/*
-	 * @ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.DETACH,
-	 * CascadeType.MERGE, CascadeType.REFRESH, CascadeType.PERSIST }, targetEntity =
-	 * FeatureMasterTo.class)
-	 * 
-	 * @JoinTable(name = "ROLES_PERMISSIONS", joinColumns = @JoinColumn(name =
-	 * "ROLE_ID"), inverseJoinColumns = @JoinColumn(name = "FEATURE_ID"))
-	 */
-	//private Set<RolePermissionsTo> featureList;
-
 	@Column(name = "ROLE_NAME", nullable = false)
 	private String roleName;
 
@@ -51,5 +42,8 @@ public class RolesTo implements Serializable {
 
 	@Transient
 	private int[] featureIds;
+
+	@Transient
+	private List<RolePermissionsTo> featureList;
 
 }

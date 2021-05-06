@@ -66,4 +66,28 @@ public class RolesRestController {
 		return to;
 	}
 
+	@PostMapping(value = "/role/v1/view")
+	public @ResponseBody CommonRespTo<RolesTo> view(HttpServletRequest httpServletRequest, @RequestBody RolesTo rolesTo)
+			throws IOException {
+		CommonRespTo<RolesTo> to = new CommonRespTo<RolesTo>();
+		try {
+			to.setData(rolesDao.view(rolesTo));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return to;
+	}
+
+	@PostMapping(value = "/role/v1/delete")
+	public @ResponseBody CommonRespTo<RolesTo> delete(HttpServletRequest httpServletRequest,
+			@RequestBody RolesTo rolesTo) throws IOException {
+		CommonRespTo<RolesTo> to = new CommonRespTo<RolesTo>();
+		try {
+			rolesDao.delete(rolesTo);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return to;
+	}
+
 }
