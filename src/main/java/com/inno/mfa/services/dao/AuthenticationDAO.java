@@ -46,7 +46,7 @@ public class AuthenticationDAO {
 			loginTo.setRefreshToken("d00aeaef-ae18-4fdd-bbce-9825773026c7");
 			loginTo.setUserName(userMasterTo.getUserName());
 			loginTo.setUserId(userMasterTo.getUserId());
-			loginTo.setFullName(userMasterTo.getFullName());
+			loginTo.setFullName(userMasterTo.getName());
 			loginTo.setPrivilages(getPrivilages(userMasterTo.getRoleId(), session));
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -54,6 +54,7 @@ public class AuthenticationDAO {
 		return loginTo;
 	}
 
+	@SuppressWarnings("unchecked")
 	List<Integer> getPrivilages(int roleId, Session session) {
 		List<RolePermissionsTo> list = null;
 		List<Integer> permissions = new ArrayList<Integer>();

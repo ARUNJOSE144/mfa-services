@@ -33,17 +33,16 @@ public class UserMasterTo implements Serializable {
 	@Column(name = "PASSWORD", nullable = false)
 	private String password;
 
-	@Column(name = "FIRST_NAME", nullable = false)
-	private String firstName;
+	@Column(name = "NAME", nullable = false)
+	private String name;
 
-	@Column(name = "LAST_NAME", nullable = false)
-	private String lastName;
+	@Column(name = "WRONG_PWD_ATTEMPT", nullable = false)
+	private int wrongPasswordAttempts;
+
+	@Column(name = "STATUS", nullable = false)
+	private int status;
 
 	@Column(name = "ROLE_ID", nullable = false)
 	private int roleId;
-
-	public String getFullName() {
-		return this.firstName + " " + this.lastName;
-	}
 
 }
