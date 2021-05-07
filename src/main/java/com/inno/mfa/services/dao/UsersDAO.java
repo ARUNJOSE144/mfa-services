@@ -42,7 +42,8 @@ public class UsersDAO {
 				paginationTo.setDataTotalSize(getRowCount(paginationTo, session));
 			}
 
-			Criteria criteria = session.createCriteria(UserMasterTo.class);
+			Criteria criteria = session.createCriteria(UserMasterTo.class, "user");
+
 			if (Util.validate(paginationTo.getSearchKey1())) {
 				criteria.add(Restrictions.ilike("name", "%" + paginationTo.getSearchKey1() + "%"));
 			}
@@ -75,38 +76,19 @@ public class UsersDAO {
 		return count.intValue();
 	}
 
+	public void create(UserMasterTo UserMasterTo) {
+
+		try {
+			Session session = sessionFactory.getCurrentSession();
+			session.save(UserMasterTo);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+
 	/*
-	 * @SuppressWarnings("unchecked") public void
-	 * getModulePermission(CommonRespTo<ModuleMasterTo> to) { List<ModuleMasterTo>
-	 * masterTos = null; List<FeatureMasterTo> featureMasterTos = null; try {
-	 * Session session = sessionFactory.getCurrentSession(); Criteria criteria =
-	 * session.createCriteria(ModuleMasterTo.class); masterTos =
-	 * (List<ModuleMasterTo>) criteria.list();
-	 * 
-	 * criteria = session.createCriteria(FeatureMasterTo.class); featureMasterTos =
-	 * (List<FeatureMasterTo>) criteria.list();
-	 * 
-	 * for (ModuleMasterTo mto : masterTos) { List<FeatureMasterTo> list = new
-	 * ArrayList<FeatureMasterTo>(); for (FeatureMasterTo fto : featureMasterTos) {
-	 * if (fto.getModuleId() == mto.getModuleId()) { list.add(fto); } }
-	 * mto.setFeatures(list);
-	 * 
-	 * } to.setList(masterTos); } catch (Exception e) { e.printStackTrace(); }
-	 * 
-	 * }
-	 * 
-	 * public void create(UserMasterTo UserMasterTo) {
-	 * 
-	 * try { Session session = sessionFactory.getCurrentSession();
-	 * session.save(UserMasterTo); if (UserMasterTo.getFeatureIds().length > 0) {
-	 * List<RolePermissionsTo> permissionList = new ArrayList<RolePermissionsTo>();
-	 * for (int featureId : UserMasterTo.getFeatureIds()) { RolePermissionsTo to =
-	 * new RolePermissionsTo(); to.setFeatureId(featureId);
-	 * to.setRoleId(UserMasterTo.getRoleId()); permissionList.add(to);
-	 * session.save(to); } } } catch (Exception e) { e.printStackTrace(); }
-	 * 
-	 * }
-	 * 
 	 * @SuppressWarnings("unchecked") public UserMasterTo view(UserMasterTo
 	 * UserMasterTo) {
 	 * 
@@ -124,16 +106,16 @@ public class UsersDAO {
 	 * } catch (Exception e) { e.printStackTrace(); } return UserMasterTo;
 	 * 
 	 * }
-	 * 
-	 * public void delete(UserMasterTo UserMasterTo) { Session session = null;
-	 * String hql = null; try { session = sessionFactory.getCurrentSession();
-	 * session.delete(UserMasterTo);
-	 * 
-	 * hql = "delete from RolePermissionsTo where roleId=" +
-	 * UserMasterTo.getRoleId(); session.createQuery(hql).executeUpdate();
-	 * 
-	 * } catch (Exception e) { e.printStackTrace(); }
-	 * 
-	 * }
 	 */
+	public void delete(UserMasterTo UserMasterTo) {
+		Session session = null;
+		try {
+			session = sessionFactory.getCurrentSession();
+			session.delete(UserMasterTo);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+
 }

@@ -90,4 +90,15 @@ public class RolesRestController {
 		return to;
 	}
 
+	@GetMapping(value = "/role/v1/getAllRoles")
+	public @ResponseBody CommonRespTo<RolesTo> getAllRoles(HttpServletRequest httpServletRequest) throws IOException {
+		CommonRespTo<RolesTo> to = new CommonRespTo<RolesTo>();
+		try {
+			to.setList(rolesDao.getAllRoles());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return to;
+	}
+
 }

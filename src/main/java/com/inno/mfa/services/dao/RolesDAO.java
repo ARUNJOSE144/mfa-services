@@ -163,4 +163,20 @@ public class RolesDAO {
 		}
 
 	}
+
+	@SuppressWarnings("unchecked")
+	public List<RolesTo> getAllRoles() {
+		Criteria criteria = null;
+		Session session = null;
+		List<RolesTo> rolesTo = new ArrayList<RolesTo>();
+
+		try {
+			session = sessionFactory.getCurrentSession();
+			criteria = session.createCriteria(RolesTo.class);
+			rolesTo = (List<RolesTo>) criteria.list();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return rolesTo;
+	}
 }

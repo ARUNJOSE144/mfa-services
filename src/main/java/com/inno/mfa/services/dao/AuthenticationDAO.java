@@ -47,7 +47,7 @@ public class AuthenticationDAO {
 			loginTo.setUserName(userMasterTo.getUserName());
 			loginTo.setUserId(userMasterTo.getUserId());
 			loginTo.setFullName(userMasterTo.getName());
-			loginTo.setPrivilages(getPrivilages(userMasterTo.getRoleId(), session));
+			loginTo.setPrivilages(getPrivilages(userMasterTo.getRole().getRoleId(), session));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -75,10 +75,10 @@ public class AuthenticationDAO {
 		UserMasterTo userMasterTo = null;
 		try {
 			if (userId != 0) {
-				userMasterTo = (UserMasterTo) session.createCriteria(UserMasterTo.class)
+				userMasterTo = (UserMasterTo) session.createCriteria(UserMasterTo.class, "user")
 						.add(Restrictions.eq("id", userId)).uniqueResult();
 			} else if (Util.validate(userName)) {
-				userMasterTo = (UserMasterTo) session.createCriteria(UserMasterTo.class)
+				userMasterTo = (UserMasterTo) session.createCriteria(UserMasterTo.class, "user")
 						.add(Restrictions.eq("userName", userName)).uniqueResult();
 			}
 		} catch (Exception e) {
