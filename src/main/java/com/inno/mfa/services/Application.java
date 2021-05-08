@@ -18,7 +18,6 @@ import org.springframework.context.annotation.Configuration;
  * @Date : March, 2021
  */
 
-
 @SpringBootApplication
 @Configuration
 @EnableCaching
@@ -32,9 +31,8 @@ public class Application extends SpringBootServletInitializer {
 
 	public static void main(String[] args) throws Exception {
 		SpringApplication.run(Application.class, args);
-		
+
 	}
-	
 
 	@Bean
 	public CacheManager cacheManager() {
@@ -43,26 +41,20 @@ public class Application extends SpringBootServletInitializer {
 		System.out.println("Application.class");
 		System.out.println("*************************************************************************");
 		SimpleCacheManager cacheManager = new SimpleCacheManager();
-		cacheManager.setCaches(Arrays.asList(
-				new ConcurrentMapCache("UserStatus"),
-				new ConcurrentMapCache("UserAuth")
-				/*new ConcurrentMapCache("errorcodes"), 
-				new ConcurrentMapCache("locationAliasLookup"),
-				new ConcurrentMapCache("locationLookup"), 
-				new ConcurrentMapCache("LocationTypes"),100
-				new ConcurrentMapCache("LocationMaster"),
-				new ConcurrentMapCache("ModuleMaster"), 
-				new ConcurrentMapCache("UserAuth"),
-				new ConcurrentMapCache("ConfigParams"),
-				new ConcurrentMapCache("CompanyTypes"),
-				new ConcurrentMapCache("ProductMaster"),
-				new ConcurrentMapCache("UserStatus"),
-				new ConcurrentMapCache("DocumentMaster")*/
-				));
+		cacheManager.setCaches(Arrays.asList(new ConcurrentMapCache("UserStatus"), new ConcurrentMapCache("UserAuth")
+		/*
+		 * new ConcurrentMapCache("errorcodes"), new
+		 * ConcurrentMapCache("locationAliasLookup"), new
+		 * ConcurrentMapCache("locationLookup"), new
+		 * ConcurrentMapCache("LocationTypes"),100 new
+		 * ConcurrentMapCache("LocationMaster"), new ConcurrentMapCache("ModuleMaster"),
+		 * new ConcurrentMapCache("UserAuth"), new ConcurrentMapCache("ConfigParams"),
+		 * new ConcurrentMapCache("CompanyTypes"), new
+		 * ConcurrentMapCache("ProductMaster"), new ConcurrentMapCache("UserStatus"),
+		 * new ConcurrentMapCache("DocumentMaster")
+		 */
+		));
 		return cacheManager;
 	}
-	
-	
-	
 
 }

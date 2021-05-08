@@ -18,7 +18,7 @@ public class LoginTo implements Serializable {
 	public String token;
 	public String refreshToken;
 	public String tokenExpiry;
-	public String userName;
+	public String username;
 	public String msisdn;
 	public int userId;
 	public String fullName;

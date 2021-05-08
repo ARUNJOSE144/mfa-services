@@ -3,6 +3,7 @@ package com.inno.mfa.services.handler;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -53,7 +54,8 @@ public class TokenValidateInterceptor implements HandlerInterceptor {
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 
-		System.out.println("=======================Came to Token Validator interceptor");
+		System.out.println("Token : " + UUID.randomUUID().toString());
+
 
 		return true;
 	}

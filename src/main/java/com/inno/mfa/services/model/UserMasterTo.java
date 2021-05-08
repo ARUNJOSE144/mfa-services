@@ -34,7 +34,7 @@ public class UserMasterTo implements Serializable {
 	private RolesTo role;
 
 	@Column(name = "USER_NAME", nullable = false)
-	private String userName;
+	private String username;
 
 	@Column(name = "PASSWORD", nullable = false)
 	private String password = "admin123";

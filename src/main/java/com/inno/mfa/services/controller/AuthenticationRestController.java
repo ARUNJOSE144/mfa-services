@@ -30,9 +30,9 @@ public class AuthenticationRestController {
 	@PostMapping(value = "/v1/login")
 	public @ResponseBody LoginTo getRolesList(HttpServletRequest httpServletRequest, @RequestBody LoginTo loginTo)
 			throws IOException {
-		// LoginTo loginTo = null;
 		try {
-			loginTo = authenticationDAO.login();
+			logger.info("LoginTo in RestController: " + loginTo.toString());
+			loginTo = authenticationDAO.login(loginTo);
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -45,7 +45,7 @@ public class AuthenticationRestController {
 			@RequestHeader(value = "X-Auth-Token") String token) throws IOException {
 		LoginTo loginTo = null;
 		try {
-			loginTo = authenticationDAO.login();
+			loginTo = authenticationDAO.authorize(Integer.parseInt(userId));
 
 		} catch (Exception e) {
 			e.printStackTrace();
