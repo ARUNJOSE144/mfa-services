@@ -17,11 +17,9 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
-import com.inno.mfa.services.controller.AuthenticationRestController;
 import com.inno.mfa.services.model.LoginTo;
 import com.inno.mfa.services.model.RolePermissionsTo;
 import com.inno.mfa.services.model.UserMasterTo;
-import com.inno.mfa.services.util.Util;
 
 /**
  * @author Arun Jose
@@ -38,6 +36,9 @@ public class AuthenticationDAO {
 	@Qualifier("applicationSessionFactory")
 	private SessionFactory sessionFactory;
 
+	@Autowired
+	TokenDAO tokenDAO;
+
 	public LoginTo login(LoginTo loginTo) {
 
 		UserMasterTo userMasterTo = null;
@@ -48,8 +49,6 @@ public class AuthenticationDAO {
 			logger.info("Login : " + loginTo.toString());
 			Criteria criteria = session.createCriteria(UserMasterTo.class);
 			criteria.add(Restrictions.eq("username", loginTo.getUsername()));
-			// criteria.add(Restrictions.eq("status", 0));
-			// criteria.add(Restrictions.le("wrongPasswordAttempts", 3));
 			userMasterTo = (UserMasterTo) criteria.uniqueResult();
 
 			logger.info("User : " + userMasterTo.toString());
@@ -57,13 +56,16 @@ public class AuthenticationDAO {
 			if (userMasterTo != null) {
 				if (userMasterTo.getPassword().equals(loginTo.getPassword()) && userMasterTo.getStatus() == 0
 						&& userMasterTo.getWrongPasswordAttempts() < 3) {
+					String token = UUID.randomUUID().toString();
+					int userId = userMasterTo.getUserId();
+					tokenDAO.addSession(token, userId);
 					logger.info("==========User Loggin success");
 					loginTo.setResultCode("0");
 					loginTo.setResponseMsg("Success");
-					loginTo.setToken(UUID.randomUUID().toString());
+					loginTo.setToken(token);
 					loginTo.setRefreshToken(UUID.randomUUID().toString());
 					loginTo.setUsername(userMasterTo.getUsername());
-					loginTo.setUserId(userMasterTo.getUserId());
+					loginTo.setUserId(userId);
 					loginTo.setFullName(userMasterTo.getName());
 					loginTo.setPrivilages(getPrivilages(userMasterTo.getRole().getRoleId(), session));
 

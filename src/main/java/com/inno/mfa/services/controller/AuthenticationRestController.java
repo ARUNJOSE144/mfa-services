@@ -41,8 +41,9 @@ public class AuthenticationRestController {
 	}
 
 	@PostMapping(value = "/v1/authorize")
-	public @ResponseBody LoginTo authorize(@RequestHeader(value = "X-UserId") String userId,
-			@RequestHeader(value = "X-Auth-Token") String token) throws IOException {
+	public @ResponseBody LoginTo authorize(HttpServletRequest httpServletRequest,
+			@RequestHeader(value = "X-UserId") String userId, @RequestHeader(value = "X-Auth-Token") String token)
+			throws IOException {
 		LoginTo loginTo = null;
 		try {
 			loginTo = authenticationDAO.authorize(Integer.parseInt(userId));

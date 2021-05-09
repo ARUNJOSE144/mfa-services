@@ -3,7 +3,6 @@ package com.inno.mfa.services.handler;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -12,12 +11,17 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.util.UrlPathHelper;
 
+import com.inno.mfa.services.dao.TokenDAO;
 import com.inno.mfa.services.exception.DAOException;
 
 /**
@@ -40,22 +44,44 @@ public class TokenValidateInterceptor implements HandlerInterceptor {
 	public static final String DELETE = "DELETE";
 	public static final String OPTIONS = "OPTIONS";
 	public static final String BASIC = "Basic";
-//	public static final ArrayList<String> EXCLUDE_URL_LIST = new ArrayList<String>(
-//            Arrays.asList("/v1/doc/view", "/survey/v1/api/view", "/checkin/v1/api/submit/survey",
-//                    "/privilege/v1/authorize", "/v1/relogin","/getlanguages","/cachemessages","/scheduleDetailsOfRule","/getCampaignDetails","/saveRule"
-//                    )); 
 	public static final int AUTH_TOKEN = 1;
+	public static final ArrayList<String> EXCLUDE_URL_LIST = new ArrayList<String>(Arrays.asList("/v1/login"));
 
 	@Autowired
-	// SystemProperties properties;
-	public static ArrayList<String> EXCLUDE_URL_LIST = null;
+	TokenDAO tokenDao;
 
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
+		String resourcePath = new UrlPathHelper().getPathWithinApplication(request);
 
-		System.out.println("Token : " + UUID.randomUUID().toString());
+		try {
 
+			if (!EXCLUDE_URL_LIST.contains(resourcePath)) {
+				String token = request.getHeader(XTOKEN);
+				int userId = Integer.parseInt(request.getHeader(XUSER_ID));
+				System.out.println("Token : " + token);
+				System.out.println("userId : " + userId);
+
+				if (!tokenDao.sessionExist(token, userId)) {
+					throw new BadCredentialsException("Invalid Token.");
+				}
+			}
+		} catch (InternalAuthenticationServiceException internalAuthenticationServiceException) {
+			SecurityContextHolder.clearContext();
+			logger.error("Internal authentication service exception", internalAuthenticationServiceException);
+			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+		} catch (BadCredentialsException badCredentialsException) {
+			SecurityContextHolder.clearContext();
+			response.setHeader("Access-Control-Allow-Origin", "http://localhost:3000/");
+			//response.sendRedirect("http://localhost:3000/");
+			response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+			return false;
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error(" exception" + e.getMessage());
+			return false;
+		}
 
 		return true;
 	}
