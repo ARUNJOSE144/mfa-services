@@ -3,6 +3,7 @@ package com.inno.mfa.services.handler;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -55,32 +56,44 @@ public class TokenValidateInterceptor implements HandlerInterceptor {
 			throws Exception {
 		String resourcePath = new UrlPathHelper().getPathWithinApplication(request);
 
-		try {
+		if (!request.getMethod().equals(OPTIONS)) {
 
-			if (!EXCLUDE_URL_LIST.contains(resourcePath)) {
-				String token = request.getHeader(XTOKEN);
-				int userId = Integer.parseInt(request.getHeader(XUSER_ID));
-				System.out.println("Token : " + token);
-				System.out.println("userId : " + userId);
+			String transactionId = UUID.randomUUID().toString();
+			long startTime = System.currentTimeMillis();
+			request.setAttribute("startTime", startTime);
+			request.setAttribute("requestId", transactionId);
+			// MDC.put(MDCConstants.TRANSACTION_ID, transactionId);
 
-				if (!tokenDao.sessionExist(token, userId)) {
-					throw new BadCredentialsException("Invalid Token.");
+			response.setHeader(XTRANSACTION_ID, transactionId);
+			response.setHeader(XREQUEST_ID, request.getHeader(XREQUEST_ID));
+
+			try {
+
+				if (!EXCLUDE_URL_LIST.contains(resourcePath)) {
+					String token = request.getHeader(XTOKEN);
+					int userId = Integer.parseInt(request.getHeader(XUSER_ID));
+					System.out.println("Token : " + token);
+					System.out.println("userId : " + userId);
+
+					if (!tokenDao.sessionExist(token, userId)) {
+						throw new BadCredentialsException("Invalid Token.");
+					}
 				}
+			} catch (InternalAuthenticationServiceException internalAuthenticationServiceException) {
+				SecurityContextHolder.clearContext();
+				logger.error("Internal authentication service exception", internalAuthenticationServiceException);
+				response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+			} catch (BadCredentialsException badCredentialsException) {
+				logger.error("Inside the BadCredentialsException block");
+				SecurityContextHolder.clearContext();
+				response.setHeader("Access-Control-Allow-Origin", "/login");
+				response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+				return false;
+			} catch (Exception e) {
+				e.printStackTrace();
+				logger.error(" exception" + e.getMessage());
+				return false;
 			}
-		} catch (InternalAuthenticationServiceException internalAuthenticationServiceException) {
-			SecurityContextHolder.clearContext();
-			logger.error("Internal authentication service exception", internalAuthenticationServiceException);
-			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-		} catch (BadCredentialsException badCredentialsException) {
-			SecurityContextHolder.clearContext();
-			response.setHeader("Access-Control-Allow-Origin", "http://localhost:3000/");
-			//response.sendRedirect("http://localhost:3000/");
-			response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-			return false;
-		} catch (Exception e) {
-			e.printStackTrace();
-			logger.error(" exception" + e.getMessage());
-			return false;
 		}
 
 		return true;
@@ -103,15 +116,16 @@ public class TokenValidateInterceptor implements HandlerInterceptor {
 			 * logger.info("Request Execution Time : " + executeTime + " ms");
 			 */
 		}
-
 	}
 
+	@SuppressWarnings("unused")
 	private boolean postToAuthenticate(String resourcePath) {
 		if (AUTHENTICATE_URL_LIST.contains(resourcePath))
 			return true;
 		return false;
 	}
 
+	@SuppressWarnings("unused")
 	private boolean processTokenAuthentication(HttpServletRequest request, String userId, String token)
 			throws ClassNotFoundException {
 		UsernamePasswordAuthenticationToken requestAuthentication = new UsernamePasswordAuthenticationToken(userId,

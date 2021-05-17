@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -52,6 +54,27 @@ public class AuthenticationRestController {
 			e.printStackTrace();
 		}
 		return loginTo;
+	}
+
+	@RequestMapping(value = "/v1/logout", method = RequestMethod.POST)
+	public @ResponseBody LoginTo logout(@RequestHeader(value = "X-UserId") int userId,
+			@RequestHeader(value = "X-Auth-Token") String token) {
+		LoginTo response = new LoginTo();
+
+		try {
+
+			authenticationDAO.logout(token, userId);
+			response.setResultCode("0");
+			response.setResponseMsg("Success");
+
+		} catch (Exception e) {
+			// response.setResultCode(StatusCode.COMMON_FAIL);
+			response.setResponseMsg("Failure");
+			// LOGGER.error("LoginController :-> Exception : " + e.getMessage(), e);
+		}
+
+		return response;
+
 	}
 
 }

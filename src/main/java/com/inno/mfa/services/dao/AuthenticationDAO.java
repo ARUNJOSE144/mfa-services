@@ -147,4 +147,13 @@ public class AuthenticationDAO {
 		return userMasterTo;
 	}
 
+	public void logout(String token, int userId) {
+		try {
+			tokenDAO.deleteSession(token, userId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+
 }
