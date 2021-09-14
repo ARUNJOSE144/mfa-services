@@ -67,6 +67,7 @@ public class QuestionsDAO {
 			}
 
 			Criteria criteria = session.createCriteria(QuestionMasterTo.class);
+			criteria.add(Restrictions.eq("softDelete", 0));
 			if (Util.validate(paginationTo.getSearchKey1())) {
 				criteria.add(Restrictions.ilike("name", "%" + paginationTo.getSearchKey1() + "%"));
 			}
@@ -86,6 +87,7 @@ public class QuestionsDAO {
 		Long count = 0l;
 		try {
 			Criteria criteria = session.createCriteria(QuestionMasterTo.class);
+			criteria.add(Restrictions.eq("softDelete", 0));
 			criteria.setProjection(Projections.rowCount());
 			if (Util.validate(paginationTo.getSearchKey1())) {
 				criteria.add(Restrictions.ilike("roleName", "%" + paginationTo.getSearchKey1() + "%"));
@@ -159,6 +161,12 @@ public class QuestionsDAO {
 			Session session = sessionFactory.getCurrentSession();
 
 			Criteria criteria = session.createCriteria(QuestionMasterTo.class);
+			criteria.add(Restrictions.eq("softDelete", 0));
+
+			if (searchTO.getQuestionFrom() != null && Util.validate(searchTO.getQuestionFrom() + "")
+					&& searchTO.getQuestionFrom() != 0) {
+				criteria.add(Restrictions.eq("questionFrom", searchTO.getQuestionFrom()));
+			}
 
 			Disjunction orRes = Restrictions.disjunction();
 
@@ -170,6 +178,9 @@ public class QuestionsDAO {
 			}
 			if (Util.validate(searchTO.getAnswer())) {
 				orRes.add(Restrictions.ilike("answer", "%" + searchTO.getAnswer().trim() + "%"));
+			}
+			if (Util.validate(searchTO.getName())) {
+				orRes.add(Restrictions.ilike("name", "%" + searchTO.getName().trim() + "%"));
 			}
 			criteria.add(orRes);
 
@@ -195,18 +206,25 @@ public class QuestionsDAO {
 	 * rolesTo.setFeatureList((List<RolePermissionsTo>) criteria.list());
 	 * 
 	 * } catch (Exception e) { e.printStackTrace(); } return rolesTo; }
-	 * 
-	 * public void delete(RolesTo rolesTo) { Session session = null; String hql =
-	 * null; try { session = sessionFactory.getCurrentSession();
-	 * session.delete(rolesTo);
-	 * 
-	 * hql = "delete from RolePermissionsTo where roleId=" + rolesTo.getRoleId();
-	 * session.createQuery(hql).executeUpdate();
-	 * 
-	 * } catch (Exception e) { e.printStackTrace(); }
-	 * 
-	 * }
-	 * 
+	 */
+	public void delete(QuestionMasterTo to) {
+		Session session = null;
+		String hql = null;
+		try {
+			session = sessionFactory.getCurrentSession();
+			QuestionMasterTo questionMasterTo = (QuestionMasterTo) session.createCriteria(QuestionMasterTo.class)
+					.add(Restrictions.eq("id", to.getId())).uniqueResult();
+
+			questionMasterTo.setSoftDelete(1);
+			session.update(questionMasterTo);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	/*
 	 * @SuppressWarnings("unchecked") public List<RolesTo> getAllRoles() { Criteria
 	 * criteria = null; Session session = null; List<RolesTo> rolesTo = new
 	 * ArrayList<RolesTo>();

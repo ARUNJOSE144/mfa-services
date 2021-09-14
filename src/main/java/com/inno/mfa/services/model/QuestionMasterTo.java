@@ -44,8 +44,14 @@ public class QuestionMasterTo implements Serializable {
 	@Column(name = "ANSWER", nullable = true)
 	private String answer;
 
+	@Column(name = "QUESTION_FROM", nullable = true)
+	private Integer questionFrom;
+
 	@Column(name = "CREATED_TIME", nullable = true)
 	private Date createdTime;
+
+	@Column(name = "SOFT_DELETE", nullable = true)
+	private int softDelete;
 
 	@Transient
 	List<MultipartFile> files;

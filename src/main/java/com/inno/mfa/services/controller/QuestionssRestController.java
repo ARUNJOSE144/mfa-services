@@ -119,14 +119,20 @@ public class QuestionssRestController {
 	 * CommonRespTo<RolesTo> to = new CommonRespTo<RolesTo>(); try {
 	 * to.setData(rolesDao.view(rolesTo)); } catch (Exception e) {
 	 * e.printStackTrace(); } return to; }
-	 * 
-	 * @PostMapping(value = "/question/v1/delete") public @ResponseBody
-	 * CommonRespTo<RolesTo> delete(HttpServletRequest httpServletRequest,
-	 * 
-	 * @RequestBody RolesTo rolesTo) throws IOException { CommonRespTo<RolesTo> to =
-	 * new CommonRespTo<RolesTo>(); try { rolesDao.delete(rolesTo); } catch
-	 * (Exception e) { e.printStackTrace(); } return to; }
-	 * 
+	 */
+	@PostMapping(value = "/question/v1/delete")
+	public @ResponseBody CommonRespTo<QuestionMasterTo> delete(HttpServletRequest httpServletRequest,
+			@RequestBody QuestionMasterTo questionMasterTo) throws IOException {
+		CommonRespTo<QuestionMasterTo> to = new CommonRespTo<QuestionMasterTo>();
+		try {
+			questionsDAO.delete(questionMasterTo);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return to;
+	}
+
+	/*
 	 * @GetMapping(value = "/question/v1/getAllRoles") public @ResponseBody
 	 * CommonRespTo<RolesTo> getAllRoles(HttpServletRequest httpServletRequest)
 	 * throws IOException { CommonRespTo<RolesTo> to = new CommonRespTo<RolesTo>();
