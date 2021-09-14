@@ -1,9 +1,21 @@
 package com.inno.mfa.services.dao;
 
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 
 import org.apache.log4j.Logger;
@@ -15,10 +27,12 @@ import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import com.inno.mfa.services.model.PaginationTo;
+import com.inno.mfa.services.model.QuestionImageTo;
 import com.inno.mfa.services.model.QuestionMasterTo;
 import com.inno.mfa.services.util.Util;
 
@@ -36,7 +50,12 @@ public class QuestionsDAO {
 	@Qualifier("applicationSessionFactory")
 	private SessionFactory sessionFactory;
 
+	@Value("${IMAGE_BASE_PATH}")
+	private String imageBasePath;
+
 	static final Logger logger = Logger.getLogger(QuestionsDAO.class);
+
+	SimpleDateFormat format = new SimpleDateFormat("yyyyMMddHHmmssSSS");
 
 	@SuppressWarnings("unchecked")
 	public PaginationTo<QuestionMasterTo> getQustionList(PaginationTo<QuestionMasterTo> paginationTo) {
@@ -101,12 +120,33 @@ public class QuestionsDAO {
 	 * }
 	 */
 	public void create(QuestionMasterTo questionMasterTo) {
+		String newFileName = "";
 		try {
 			Session session = sessionFactory.getCurrentSession();
 			questionMasterTo.setCreatedTime(new Date());
 
-			logger.info("=========Question Record : " + questionMasterTo.toString());
+			logger.info("=========Create Question Record : " + questionMasterTo.toString());
 			session.save(questionMasterTo);
+
+			for (int i = 0; i < questionMasterTo.getFiles().size(); i++) {
+				newFileName = "IMG" + "_" + format.format(new Date()) + i + "."
+						+ questionMasterTo.getFiles().get(i).getOriginalFilename().split("\\.")[1];
+
+				String directory = imageBasePath + questionMasterTo.getId();
+				new File(directory).mkdirs();
+				String fileName = directory + "/" + newFileName;
+
+				Path filepath = Paths.get(fileName);
+				try (OutputStream os = Files.newOutputStream(filepath)) {
+					os.write(questionMasterTo.getFiles().get(i).getBytes());
+				}
+
+				QuestionImageTo imageTo = new QuestionImageTo();
+				imageTo.setQuestionId(questionMasterTo.getId());
+				imageTo.setImage(fileName);
+				session.save(imageTo);
+
+			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -119,14 +159,6 @@ public class QuestionsDAO {
 			Session session = sessionFactory.getCurrentSession();
 
 			Criteria criteria = session.createCriteria(QuestionMasterTo.class);
-			/* if (Util.validate(searchTO.getKey())) { */
-			/*
-			 * criteria.add(Restrictions.disjunction().add(Restrictions.ilike("key", "%" +
-			 * searchTO.getKey() + "%")) .add(Restrictions.ilike("question", "%" +
-			 * searchTO.getQuestion() + "%")) .add(Restrictions.ilike("answer", "%" +
-			 * searchTO.getAnswer() + "%")));
-			 */
-			/* } */
 
 			Disjunction orRes = Restrictions.disjunction();
 
@@ -184,4 +216,69 @@ public class QuestionsDAO {
 	 * criteria.list(); } catch (Exception e) { e.printStackTrace(); } return
 	 * rolesTo; }
 	 */
+
+	public void downloadFile(HttpServletRequest req, HttpServletResponse resp, String imageName) {
+
+		String file = imageName;
+		InputStream out = null;
+		BufferedInputStream bufferedInputStream = null;
+		InputStream fis = null;
+
+		OutputStream outex = null;
+		try {
+			outex = resp.getOutputStream();
+			resp.setContentType("APPLICATION/OCTET-STREAM");
+			resp.setHeader("Content-Disposition", "inline; filename=\"" + imageName + "\"");
+
+			file = file;
+			logger.info("File Path:" + file);
+			out = new FileInputStream(file);
+			bufferedInputStream = new BufferedInputStream(out);
+			int i;
+			while ((i = bufferedInputStream.read()) != -1) {
+				outex.write(i);
+			}
+			logger.info("Download Completed for Image : " + imageName);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (fis != null) {
+				try {
+					fis.close();
+					fis = null;
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+			if (outex != null) {
+				try {
+					outex.flush();
+					outex.close();
+					outex = null;
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+
+			}
+
+		}
+	}
+
+	public List<QuestionImageTo> getImageDetails(QuestionImageTo imageTo) {
+		List<QuestionImageTo> list = null;
+		try {
+			Session session = sessionFactory.getCurrentSession();
+
+			Criteria criteria = session.createCriteria(QuestionImageTo.class)
+					.add(Restrictions.eq("questionId", imageTo.getQuestionId()));
+
+			list = criteria.list();
+
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		return list;
+	}
 }
