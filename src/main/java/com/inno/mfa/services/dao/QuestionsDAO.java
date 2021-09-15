@@ -25,6 +25,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Disjunction;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.transform.Transformers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -67,6 +68,12 @@ public class QuestionsDAO {
 			}
 
 			Criteria criteria = session.createCriteria(QuestionMasterTo.class);
+			criteria.setProjection(Projections.projectionList().add(Projections.alias(Projections.property("id"), "id"))
+					.add(Projections.alias(Projections.property("name"), "name"))
+					.add(Projections.alias(Projections.property("key"), "key"))
+					.add(Projections.alias(Projections.property("questionFrom"), "questionFrom")))
+					.setResultTransformer(Transformers.aliasToBean(QuestionMasterTo.class));
+
 			criteria.add(Restrictions.eq("softDelete", 0));
 			if (Util.validate(paginationTo.getSearchKey1())) {
 				criteria.add(Restrictions.ilike("name", "%" + paginationTo.getSearchKey1() + "%"));
@@ -171,6 +178,12 @@ public class QuestionsDAO {
 
 			Criteria criteria = session.createCriteria(QuestionMasterTo.class);
 			criteria.add(Restrictions.eq("softDelete", 0));
+
+			criteria.setProjection(Projections.projectionList().add(Projections.alias(Projections.property("id"), "id"))
+					.add(Projections.alias(Projections.property("name"), "name"))
+					.add(Projections.alias(Projections.property("key"), "key"))
+					.add(Projections.alias(Projections.property("questionFrom"), "questionFrom")))
+					.setResultTransformer(Transformers.aliasToBean(QuestionMasterTo.class));
 
 			if (searchTO.getQuestionFrom() != null && Util.validate(searchTO.getQuestionFrom() + "")
 					&& searchTO.getQuestionFrom() != 0) {
