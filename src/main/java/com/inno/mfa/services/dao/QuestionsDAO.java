@@ -123,12 +123,21 @@ public class QuestionsDAO {
 	 */
 	public void create(QuestionMasterTo questionMasterTo) {
 		String newFileName = "";
+		int previousQuestionid = questionMasterTo.getId();
+		String hql = null;
 		try {
+
 			Session session = sessionFactory.getCurrentSession();
 			questionMasterTo.setCreatedTime(new Date());
 
 			logger.info("=========Create Question Record : " + questionMasterTo.toString());
-			session.save(questionMasterTo);
+			session.saveOrUpdate(questionMasterTo);
+
+			if (previousQuestionid != 0 && questionMasterTo.getFiles().size() > 0) {
+				hql = "delete from QuestionImageTo where questionId=" + previousQuestionid;
+				session.createQuery(hql).executeUpdate();
+
+			}
 
 			for (int i = 0; i < questionMasterTo.getFiles().size(); i++) {
 				newFileName = "IMG" + "_" + format.format(new Date()) + i + "."
@@ -193,20 +202,23 @@ public class QuestionsDAO {
 		return list;
 	}
 
-	/*
-	 * @SuppressWarnings("unchecked") public RolesTo view(RolesTo rolesTo) {
-	 * Criteria criteria = null; Session session = null;
-	 * 
-	 * try { session = sessionFactory.getCurrentSession(); criteria =
-	 * session.createCriteria(RolesTo.class); criteria.add(Restrictions.eq("roleId",
-	 * rolesTo.getRoleId())); rolesTo = (RolesTo) criteria.uniqueResult();
-	 * 
-	 * criteria = session.createCriteria(RolePermissionsTo.class);
-	 * criteria.add(Restrictions.eq("roleId", rolesTo.getRoleId()));
-	 * rolesTo.setFeatureList((List<RolePermissionsTo>) criteria.list());
-	 * 
-	 * } catch (Exception e) { e.printStackTrace(); } return rolesTo; }
-	 */
+	@SuppressWarnings("unchecked")
+	public QuestionMasterTo view(QuestionMasterTo dto) {
+		Criteria criteria = null;
+		Session session = null;
+
+		try {
+			session = sessionFactory.getCurrentSession();
+			criteria = session.createCriteria(QuestionMasterTo.class);
+			criteria.add(Restrictions.eq("id", dto.getId()));
+			dto = (QuestionMasterTo) criteria.uniqueResult();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return dto;
+	}
+
 	public void delete(QuestionMasterTo to) {
 		Session session = null;
 		String hql = null;

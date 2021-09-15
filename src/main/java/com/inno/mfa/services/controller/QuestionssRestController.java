@@ -112,14 +112,18 @@ public class QuestionssRestController {
 		return to;
 	}
 
-	/*
-	 * @PostMapping(value = "/question/v1/view") public @ResponseBody
-	 * CommonRespTo<RolesTo> view(HttpServletRequest
-	 * httpServletRequest, @RequestBody RolesTo rolesTo) throws IOException {
-	 * CommonRespTo<RolesTo> to = new CommonRespTo<RolesTo>(); try {
-	 * to.setData(rolesDao.view(rolesTo)); } catch (Exception e) {
-	 * e.printStackTrace(); } return to; }
-	 */
+	@PostMapping(value = "/question/v1/view")
+	public @ResponseBody CommonRespTo<QuestionMasterTo> view(HttpServletRequest httpServletRequest,
+			@RequestBody QuestionMasterTo dto) throws IOException {
+		CommonRespTo<QuestionMasterTo> to = new CommonRespTo<QuestionMasterTo>();
+		try {
+			to.setData(questionsDAO.view(dto));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return to;
+	}
+
 	@PostMapping(value = "/question/v1/delete")
 	public @ResponseBody CommonRespTo<QuestionMasterTo> delete(HttpServletRequest httpServletRequest,
 			@RequestBody QuestionMasterTo questionMasterTo) throws IOException {
