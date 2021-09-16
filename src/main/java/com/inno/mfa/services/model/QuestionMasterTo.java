@@ -56,4 +56,7 @@ public class QuestionMasterTo implements Serializable {
 	@Transient
 	List<MultipartFile> files;
 
+	@Transient
+	private int havingAnswer;
+
 }

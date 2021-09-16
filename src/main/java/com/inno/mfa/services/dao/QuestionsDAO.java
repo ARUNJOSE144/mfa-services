@@ -23,6 +23,7 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Disjunction;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.transform.Transformers;
@@ -71,17 +72,28 @@ public class QuestionsDAO {
 			criteria.setProjection(Projections.projectionList().add(Projections.alias(Projections.property("id"), "id"))
 					.add(Projections.alias(Projections.property("name"), "name"))
 					.add(Projections.alias(Projections.property("key"), "key"))
-					.add(Projections.alias(Projections.property("questionFrom"), "questionFrom")))
+					.add(Projections.alias(Projections.property("questionFrom"), "questionFrom"))
+					.add(Projections.alias(Projections.property("answer"), "answer")))
 					.setResultTransformer(Transformers.aliasToBean(QuestionMasterTo.class));
 
 			criteria.add(Restrictions.eq("softDelete", 0));
 			if (Util.validate(paginationTo.getSearchKey1())) {
 				criteria.add(Restrictions.ilike("name", "%" + paginationTo.getSearchKey1() + "%"));
 			}
+
+			criteria.addOrder(Order.desc("id"));
 			criteria.setFirstResult(paginationTo.getFirstRecord());
 			criteria.setMaxResults(paginationTo.getRecordCount());
 			list = criteria.list();
-			paginationTo.setList(list);
+
+			List<QuestionMasterTo> processedList = new ArrayList<QuestionMasterTo>();
+			for (QuestionMasterTo questionMasterTo : list) {
+				questionMasterTo.setHavingAnswer(questionMasterTo.getAnswer().equalsIgnoreCase("") ? 2 : 1);
+				questionMasterTo.setAnswer(null);
+				processedList.add(questionMasterTo);
+			}
+
+			paginationTo.setList(processedList);
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -179,6 +191,12 @@ public class QuestionsDAO {
 			Criteria criteria = session.createCriteria(QuestionMasterTo.class);
 			criteria.add(Restrictions.eq("softDelete", 0));
 
+			if (searchTO.getHavingAnswer() == 1) {
+				criteria.add(Restrictions.not(Restrictions.eq("answer", "")));
+			} else if (searchTO.getHavingAnswer() == 2) {
+				criteria.add(Restrictions.eq("answer", ""));
+			}
+
 			criteria.setProjection(Projections.projectionList().add(Projections.alias(Projections.property("id"), "id"))
 					.add(Projections.alias(Projections.property("name"), "name"))
 					.add(Projections.alias(Projections.property("key"), "key"))
@@ -205,6 +223,8 @@ public class QuestionsDAO {
 				orRes.add(Restrictions.ilike("name", "%" + searchTO.getName().trim() + "%"));
 			}
 			criteria.add(orRes);
+
+			criteria.addOrder(Order.desc("id"));
 
 			list = criteria.list();
 
