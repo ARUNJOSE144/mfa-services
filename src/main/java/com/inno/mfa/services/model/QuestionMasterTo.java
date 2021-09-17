@@ -53,6 +53,9 @@ public class QuestionMasterTo implements Serializable {
 	@Column(name = "SOFT_DELETE", nullable = true)
 	private int softDelete;
 
+	@Column(name = "SUBJECT")
+	private int subjectId;
+
 	@Transient
 	List<MultipartFile> files;
 

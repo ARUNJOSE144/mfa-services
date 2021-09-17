@@ -1,8 +1,10 @@
 package com.inno.mfa.services.dao;
 
 import java.io.BufferedInputStream;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -36,6 +38,7 @@ import org.springframework.stereotype.Service;
 import com.inno.mfa.services.model.PaginationTo;
 import com.inno.mfa.services.model.QuestionImageTo;
 import com.inno.mfa.services.model.QuestionMasterTo;
+import com.inno.mfa.services.model.SubjectCategoryTo;
 import com.inno.mfa.services.util.Util;
 
 /**
@@ -197,6 +200,10 @@ public class QuestionsDAO {
 				criteria.add(Restrictions.eq("answer", ""));
 			}
 
+			if (searchTO.getSubjectId() != 0) {
+				criteria.add(Restrictions.eq("subjectId", searchTO.getSubjectId()));
+			}
+
 			criteria.setProjection(Projections.projectionList().add(Projections.alias(Projections.property("id"), "id"))
 					.add(Projections.alias(Projections.property("name"), "name"))
 					.add(Projections.alias(Projections.property("key"), "key"))
@@ -343,5 +350,28 @@ public class QuestionsDAO {
 			e.printStackTrace();
 		}
 		return list;
+	}
+
+	public List<SubjectCategoryTo> getSubjects() {
+		List<SubjectCategoryTo> list = null;
+		Session session = sessionFactory.getCurrentSession();
+
+		list = (List<SubjectCategoryTo>) session.createCriteria(SubjectCategoryTo.class).list();
+
+		return list;
+	}
+
+	public void loadFileDataToDB(HttpServletRequest req, HttpServletResponse res, String filePath) throws IOException {
+		File file = new File(filePath);
+
+		BufferedReader br = new BufferedReader(new FileReader(file));
+
+		String st;
+		while ((st = br.readLine()) != null) {
+			System.out.println(st);
+			if (st == null) {
+				System.out.println("nullll");
+			}
+		}
 	}
 }

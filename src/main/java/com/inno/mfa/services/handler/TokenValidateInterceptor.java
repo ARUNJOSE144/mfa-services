@@ -47,7 +47,7 @@ public class TokenValidateInterceptor implements HandlerInterceptor {
 	public static final String BASIC = "Basic";
 	public static final int AUTH_TOKEN = 1;
 	public static final ArrayList<String> EXCLUDE_URL_LIST = new ArrayList<String>(
-			Arrays.asList("/v1/login", "/getDownloadFiles"));
+			Arrays.asList("/v1/login", "/getDownloadFiles", "/loadFileDataToDB"));
 
 	@Autowired
 	TokenDAO tokenDao;
@@ -70,7 +70,7 @@ public class TokenValidateInterceptor implements HandlerInterceptor {
 
 			try {
 				System.out.println("resourcePath : " + resourcePath);
-
+				System.out.println("EXCLUDE_URL_LIST :" + EXCLUDE_URL_LIST);
 				if (!EXCLUDE_URL_LIST.contains(resourcePath)) {
 					String token = request.getHeader(XTOKEN);
 					int userId = Integer.parseInt(request.getHeader(XUSER_ID));

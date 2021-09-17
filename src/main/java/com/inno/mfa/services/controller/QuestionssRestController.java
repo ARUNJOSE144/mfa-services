@@ -23,6 +23,7 @@ import com.inno.mfa.services.model.CommonRespTo;
 import com.inno.mfa.services.model.PaginationTo;
 import com.inno.mfa.services.model.QuestionImageTo;
 import com.inno.mfa.services.model.QuestionMasterTo;
+import com.inno.mfa.services.model.SubjectCategoryTo;
 
 /**
  * @author Arun Jose
@@ -136,13 +137,17 @@ public class QuestionssRestController {
 		return to;
 	}
 
-	/*
-	 * @GetMapping(value = "/question/v1/getAllRoles") public @ResponseBody
-	 * CommonRespTo<RolesTo> getAllRoles(HttpServletRequest httpServletRequest)
-	 * throws IOException { CommonRespTo<RolesTo> to = new CommonRespTo<RolesTo>();
-	 * try { to.setList(rolesDao.getAllRoles()); } catch (Exception e) {
-	 * e.printStackTrace(); } return to; }
-	 */
+	@GetMapping(value = "/question/v1/getSubjectCategories")
+	public @ResponseBody CommonRespTo<SubjectCategoryTo> getSubjects(HttpServletRequest httpServletRequest)
+			throws IOException {
+		CommonRespTo<SubjectCategoryTo> to = new CommonRespTo<SubjectCategoryTo>();
+		try {
+			to.setList(questionsDAO.getSubjects());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return to;
+	}
 
 	@GetMapping("/getDownloadFiles")
 	public String getDownloadAttachedFiles(HttpServletRequest req, HttpServletResponse res,
@@ -152,6 +157,20 @@ public class QuestionssRestController {
 		String resp = "";
 		try {
 			questionsDAO.downloadFile(req, res, imagePath);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return resp;
+	}
+
+	@GetMapping("/loadFileDataToDB")
+	public String loadFileDataToDB(HttpServletRequest req, HttpServletResponse res,
+			@RequestParam(name = "filePath") String filePath) {
+
+		System.out.println("Inside File Loading to Table Function  :File Name : " + filePath);
+		String resp = "";
+		try {
+			questionsDAO.loadFileDataToDB(req, res, filePath);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
