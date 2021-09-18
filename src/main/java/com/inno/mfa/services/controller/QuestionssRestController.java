@@ -165,12 +165,13 @@ public class QuestionssRestController {
 
 	@GetMapping("/loadFileDataToDB")
 	public String loadFileDataToDB(HttpServletRequest req, HttpServletResponse res,
-			@RequestParam(name = "filePath") String filePath) {
+			@RequestParam(name = "filePath") String filePath, @RequestParam(name = "subjectId") int subjectId,
+			@RequestParam(name = "questionFrom") int questionFrom, @RequestParam(name = "isSave") String isSave) {
 
 		System.out.println("Inside File Loading to Table Function  :File Name : " + filePath);
 		String resp = "";
 		try {
-			questionsDAO.loadFileDataToDB(req, res, filePath);
+			questionsDAO.loadFileDataToDB(filePath, subjectId, questionFrom, isSave);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

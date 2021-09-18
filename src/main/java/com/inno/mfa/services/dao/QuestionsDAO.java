@@ -361,16 +361,47 @@ public class QuestionsDAO {
 		return list;
 	}
 
-	public void loadFileDataToDB(HttpServletRequest req, HttpServletResponse res, String filePath) throws IOException {
+	public void loadFileDataToDB(String filePath, int subjectId, int questionFrom, String isSave) throws IOException {
 		File file = new File(filePath);
-
 		BufferedReader br = new BufferedReader(new FileReader(file));
+		Session session = sessionFactory.getCurrentSession();
 
+		QuestionMasterTo to = null;
 		String st;
+		int index = 0;
+		String commonString = "";
 		while ((st = br.readLine()) != null) {
-			System.out.println(st);
-			if (st == null) {
-				System.out.println("nullll");
+			// System.out.println(st);
+
+			index++;
+			if (st.equalsIgnoreCase("")) {
+				if (to != null) {
+
+					to.setQuestion(commonString);
+					to.setAnswer(commonString);
+					to.setCreatedTime(new Date());
+					to.setQuestionFrom(questionFrom);
+					to.setSubjectId(subjectId);
+					System.out.println("Inserting Data : " + to.toString());
+
+					if (isSave.equalsIgnoreCase("YES")) {
+						session.save(to);
+					}
+				}
+				to = new QuestionMasterTo();
+				index = 0;
+				st = "";
+				commonString = "";
+
+				// System.out.println("New question");
+			} else {
+				if (index == 1) {
+					to.setName(st.substring(3));
+					to.setKey(st.substring(3));
+					commonString += st.substring(3);
+				} else {
+					commonString += "\n" + st;
+				}
 			}
 		}
 	}
