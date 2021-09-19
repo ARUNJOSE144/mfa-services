@@ -369,12 +369,13 @@ public class QuestionsDAO {
 		QuestionMasterTo to = null;
 		String st;
 		int index = 0;
+		int questionNo = 1;
 		String commonString = "";
 		while ((st = br.readLine()) != null) {
 			// System.out.println(st);
 
 			index++;
-			if (st.equalsIgnoreCase("")) {
+			if (st.trim().equalsIgnoreCase("")) {
 				if (to != null) {
 
 					to.setQuestion(commonString);
@@ -382,8 +383,22 @@ public class QuestionsDAO {
 					to.setCreatedTime(new Date());
 					to.setQuestionFrom(questionFrom);
 					to.setSubjectId(subjectId);
-					System.out.println("Inserting Data : " + to.toString());
+					// System.out.println("Inserting Data : " + to.toString());
 
+					// printing All Info
+					System.out.println("");
+					System.out.println(
+							"==========================" + questionNo + "======================================");
+
+					System.out.println("Name:    " + to.getName());
+					System.out.println("Key:    " + to.getKey());
+					System.out.println("Question:    " + to.getQuestion());
+					System.out.println("Answer:    " + to.getAnswer());
+					System.out.println("Subject Category:    " + to.getSubjectId());
+
+					System.out.println("================================================================");
+
+					questionNo++;
 					if (isSave.equalsIgnoreCase("YES")) {
 						session.save(to);
 					}
