@@ -62,4 +62,10 @@ public class QuestionMasterTo implements Serializable {
 	@Transient
 	private int havingAnswer;
 
+	@Transient
+	private int rowCount;
+
+	@Transient
+	private int page;
+
 }

@@ -50,17 +50,18 @@ public class QuestionssRestController {
 	}
 
 	@PostMapping(value = "/question/v1/searchQuestion")
-	public @ResponseBody List<QuestionMasterTo> searchQuestion(HttpServletRequest httpServletRequest,
+	public @ResponseBody PaginationTo<List<QuestionMasterTo>> searchQuestion(HttpServletRequest httpServletRequest,
 			@RequestBody QuestionMasterTo searchTO) throws IOException {
 
+		PaginationTo<List<QuestionMasterTo>> paginationTo = new PaginationTo<List<QuestionMasterTo>>();
 		System.out.println("================Search Request : " + searchTO.toString());
 		List<QuestionMasterTo> list = null;
 		try {
-			list = questionsDAO.searchQuestion(searchTO);
+			paginationTo = questionsDAO.searchQuestion(searchTO);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return list;
+		return paginationTo;
 	}
 
 	@PostMapping(value = "/question/v1/getImageDetails")

@@ -186,10 +186,13 @@ public class QuestionsDAO {
 		}
 	}
 
-	public List<QuestionMasterTo> searchQuestion(QuestionMasterTo searchTO) {
+	public PaginationTo<List<QuestionMasterTo>> searchQuestion(QuestionMasterTo searchTO) {
 		List<QuestionMasterTo> list = new ArrayList<QuestionMasterTo>();
+		PaginationTo<List<QuestionMasterTo>> paginationTo = new PaginationTo<List<QuestionMasterTo>>();
 		try {
 			Session session = sessionFactory.getCurrentSession();
+
+			paginationTo.setDataTotalSize(getRowCountForSearch(searchTO, session));
 
 			Criteria criteria = session.createCriteria(QuestionMasterTo.class);
 			criteria.add(Restrictions.eq("softDelete", 0));
@@ -232,14 +235,17 @@ public class QuestionsDAO {
 			criteria.add(orRes);
 
 			criteria.addOrder(Order.desc("id"));
+			criteria.setFirstResult(0);
+			criteria.setMaxResults(searchTO.getRowCount());
 
 			list = criteria.list();
+			paginationTo.setData(list);
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
-		return list;
+		return paginationTo;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -419,5 +425,54 @@ public class QuestionsDAO {
 				}
 			}
 		}
+	}
+
+	public Integer getRowCountForSearch(QuestionMasterTo searchTO, Session session) {
+		Long count = 0l;
+		try {
+			// Session session = sessionFactory.getCurrentSession();
+
+			Criteria criteria = session.createCriteria(QuestionMasterTo.class);
+			criteria.add(Restrictions.eq("softDelete", 0));
+			criteria.setProjection(Projections.rowCount());
+
+			if (searchTO.getHavingAnswer() == 1) {
+				criteria.add(Restrictions.not(Restrictions.eq("answer", "")));
+			} else if (searchTO.getHavingAnswer() == 2) {
+				criteria.add(Restrictions.eq("answer", ""));
+			}
+
+			if (searchTO.getSubjectId() != 0) {
+				criteria.add(Restrictions.eq("subjectId", searchTO.getSubjectId()));
+			}
+
+			if (searchTO.getQuestionFrom() != null && Util.validate(searchTO.getQuestionFrom() + "")
+					&& searchTO.getQuestionFrom() != 0) {
+				criteria.add(Restrictions.eq("questionFrom", searchTO.getQuestionFrom()));
+			}
+
+			Disjunction orRes = Restrictions.disjunction();
+
+			if (Util.validate(searchTO.getKey())) {
+				orRes.add(Restrictions.ilike("key", "%" + searchTO.getKey().trim() + "%"));
+			}
+			if (Util.validate(searchTO.getQuestion())) {
+				orRes.add(Restrictions.ilike("question", "%" + searchTO.getQuestion().trim() + "%"));
+			}
+			if (Util.validate(searchTO.getAnswer())) {
+				orRes.add(Restrictions.ilike("answer", "%" + searchTO.getAnswer().trim() + "%"));
+			}
+			if (Util.validate(searchTO.getName())) {
+				orRes.add(Restrictions.ilike("name", "%" + searchTO.getName().trim() + "%"));
+			}
+			criteria.add(orRes);
+
+			count = (Long) criteria.uniqueResult();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return count.intValue();
 	}
 }
