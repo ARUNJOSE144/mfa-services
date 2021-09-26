@@ -203,20 +203,20 @@ public class QuestionsDAO {
 				criteria.add(Restrictions.eq("answer", ""));
 			}
 
-			if (searchTO.getSubjectId() != 0) {
-				criteria.add(Restrictions.eq("subjectId", searchTO.getSubjectId()));
+			if (searchTO.getSubjectIds() != null && searchTO.getSubjectIds().size() > 0) {
+				criteria.add(Restrictions.in("subjectId", searchTO.getSubjectIds()));
+			}
+
+			if (searchTO.getQuestionsFromIds() != null && searchTO.getQuestionsFromIds().size() > 0) {
+				criteria.add(Restrictions.in("questionFrom", searchTO.getQuestionsFromIds()));
 			}
 
 			criteria.setProjection(Projections.projectionList().add(Projections.alias(Projections.property("id"), "id"))
 					.add(Projections.alias(Projections.property("name"), "name"))
 					.add(Projections.alias(Projections.property("key"), "key"))
-					.add(Projections.alias(Projections.property("questionFrom"), "questionFrom")))
+					.add(Projections.alias(Projections.property("questionFrom"), "questionFrom"))
+					.add(Projections.alias(Projections.property("bookmark"), "bookmark")))
 					.setResultTransformer(Transformers.aliasToBean(QuestionMasterTo.class));
-
-			if (searchTO.getQuestionFrom() != null && Util.validate(searchTO.getQuestionFrom() + "")
-					&& searchTO.getQuestionFrom() != 0) {
-				criteria.add(Restrictions.eq("questionFrom", searchTO.getQuestionFrom()));
-			}
 
 			Disjunction orRes = Restrictions.disjunction();
 
@@ -234,6 +234,7 @@ public class QuestionsDAO {
 			}
 			criteria.add(orRes);
 
+			criteria.addOrder(Order.desc("bookmark"));
 			criteria.addOrder(Order.desc("id"));
 			criteria.setFirstResult(0);
 			criteria.setMaxResults(searchTO.getRowCount());
@@ -442,13 +443,12 @@ public class QuestionsDAO {
 				criteria.add(Restrictions.eq("answer", ""));
 			}
 
-			if (searchTO.getSubjectId() != 0) {
-				criteria.add(Restrictions.eq("subjectId", searchTO.getSubjectId()));
+			if (searchTO.getSubjectIds() != null && searchTO.getSubjectIds().size() > 0) {
+				criteria.add(Restrictions.in("subjectId", searchTO.getSubjectIds()));
 			}
 
-			if (searchTO.getQuestionFrom() != null && Util.validate(searchTO.getQuestionFrom() + "")
-					&& searchTO.getQuestionFrom() != 0) {
-				criteria.add(Restrictions.eq("questionFrom", searchTO.getQuestionFrom()));
+			if (searchTO.getQuestionsFromIds() != null && searchTO.getQuestionsFromIds().size() > 0) {
+				criteria.add(Restrictions.in("questionFrom", searchTO.getQuestionsFromIds()));
 			}
 
 			Disjunction orRes = Restrictions.disjunction();
@@ -474,5 +474,19 @@ public class QuestionsDAO {
 		}
 
 		return count.intValue();
+	}
+
+	public void bookMark(int id, int value) throws Exception {
+
+		Session session = sessionFactory.getCurrentSession();
+
+		QuestionMasterTo to = (QuestionMasterTo) session.createCriteria(QuestionMasterTo.class)
+				.add(Restrictions.eq("id", id)).uniqueResult();
+		if (to != null) {
+			to.setBookmark(value);
+			session.update(to);
+		} else {
+			throw new Exception();
+		}
 	}
 }

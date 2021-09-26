@@ -56,6 +56,9 @@ public class QuestionMasterTo implements Serializable {
 	@Column(name = "SUBJECT")
 	private int subjectId;
 
+	@Column(name = "BOOKMARK")
+	private int bookmark;
+
 	@Transient
 	List<MultipartFile> files;
 
@@ -67,5 +70,11 @@ public class QuestionMasterTo implements Serializable {
 
 	@Transient
 	private int page;
+
+	@Transient
+	private List subjectIds;
+
+	@Transient
+	private List questionsFromIds;
 
 }

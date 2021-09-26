@@ -178,4 +178,18 @@ public class QuestionssRestController {
 		}
 		return resp;
 	}
+
+	@GetMapping("/bookMark")
+	public String bookMark(HttpServletRequest req, HttpServletResponse res, @RequestParam(name = "id") int id,
+			@RequestParam(name = "value") int value) {
+
+		System.out.println("New book mark Value: for Id :  " + id + " , Value : " + value);
+		String resp = "";
+		try {
+			questionsDAO.bookMark(id, value);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return resp;
+	}
 }
