@@ -1,0 +1,65 @@
+/*
+SQLyog Community v13.1.5  (64 bit)
+MySQL - 5.6.19-log : Database - QUESTION_MANAGEMENT
+*********************************************************************
+*/
+
+/*!40101 SET NAMES utf8 */;
+
+/*!40101 SET SQL_MODE=''*/;
+
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/`QUESTION_MANAGEMENT` /*!40100 DEFAULT CHARACTER SET latin1 */;
+
+USE `QUESTION_MANAGEMENT`;
+
+/*Table structure for table `QUESTION_IMAGE_DETAILS` */
+
+DROP TABLE IF EXISTS `QUESTION_IMAGE_DETAILS`;
+
+CREATE TABLE `QUESTION_IMAGE_DETAILS` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `QUESTION_ID` int(11) NOT NULL,
+  `IMAGE` varchar(500) NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+
+/*Data for the table `QUESTION_IMAGE_DETAILS` */
+
+insert  into `QUESTION_IMAGE_DETAILS`(`ID`,`QUESTION_ID`,`IMAGE`) values 
+(1,1,'E:/Online_Teaching/APP/IMAGES/1/IMG_202109161857281290.png'),
+(2,1,'E:/Online_Teaching/APP/IMAGES/1/IMG_202109161857282441.png'),
+(3,1,'E:/Online_Teaching/APP/IMAGES/1/IMG_202109161857283932.png'),
+(4,3501,'E:/Online_Teaching/APP/IMAGES/3501/IMG_202110190849060600.png'),
+(5,3501,'E:/Online_Teaching/APP/IMAGES/3501/IMG_202110190849062201.png'),
+(6,3501,'E:/Online_Teaching/APP/IMAGES/3501/IMG_202110190849063802.png'),
+(7,3502,'E:/Online_Teaching/APP/IMAGES/3502/IMG_202110200837269880.png'),
+(8,3502,'E:/Online_Teaching/APP/IMAGES/3502/IMG_202110200837271571.png');
+
+/*Table structure for table `QUESTION_MASTER` */
+
+DROP TABLE IF EXISTS `QUESTION_MASTER`;
+
+CREATE TABLE `QUESTION_MASTER` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `NAME` varchar(500) CHARACTER SET latin1 DEFAULT NULL,
+  `QUESTION_KEYS` text CHARACTER SET utf8,
+  `QUESTION` longtext,
+  `ANSWER` longtext,
+  `CREATED_TIME` timestamp NULL DEFAULT NULL,
+  `SOFT_DELETE` int(11) DEFAULT '0',
+  `QUESTION_FROM` int(11) DEFAULT NULL,
+  `SUBJECT` int(11) NOT NULL DEFAULT '0',
+  `BOOKMARK` int(11) DEFAULT '0',
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=3504 DEFAULT CHARSET=utf8mb4;
+
+/*Data for the table `QUESTION_MASTER` */
+
+insert  into `QUESTION_MASTER`(`ID`,`NAME`,`QUESTION_KEYS`,`QUESTION`,`ANSWER`,`CREATED_TIME`,`SOFT_DELETE`,`QUESTION_FROM`,`SUBJECT`,`BOOKMARK`) values 
+(3501,'Create a view named “Atlanta_Charter_Crew_V” that includes the following “For each charter of aircraft to Atlanta (ATL), print the charter date, charter distance, and the corresponding crew (employee) number, last name, first name, and crew job”. Your answer should include both the SQL statement for view creation along with the contents of the view (you get the contents of the view by running the command select * from Atlanta_Charter_Crew_V;).','Create a view named “Atlanta_Charter_Crew_V” that includes the following “For each charter of aircraft to Atlanta (ATL), print the charter date, charter distance, and the corresponding crew (employee) number, last name, first name, and crew job”. Your answer should include both the SQL statement for view creation along with the contents of the view (you get the contents of the view by running the command select * from Atlanta_Charter_Crew_V;).','Create a view named “Atlanta_Charter_Crew_V” that includes the following “For each charter of aircraft to Atlanta (ATL), print the charter date, charter distance, and the corresponding crew (employee) number, last name, first name, and crew job”. Your answer should include both the SQL statement for view creation along with the contents of the view (you get the contents of the view by running the command select * from Atlanta_Charter_Crew_V;).','CREATE  VIEW Atlanta_Charter_Crew_V AS \nSELECT A.CHAT_DATE, A.CHAR_DISTANCE,B.BMP_NUM ,C.BMP_LNAME,C.BMP_FNAME,B.CREW_JOB\nFROM  CHARTER A,CREW B,EMPLOYEE C \nWHERE  A.CHAR_TRIP=B.CHAR_TRIP AND B.BMP_NUM=C.BMP_NUM\n\n\n\nSELECT * FROM Atlanta_Charter_Crew_V;','2021-10-19 08:49:06',0,3,14,0),
+(3502,'Guessing game Python Random number','Guessing game Python Random number','Guessing game Python Random number','#import for genereting random number\nimport random\n\n\nprint(\"Let\'s set up our guessing game!\")  \nprint(\"I\'ll pick a rendom integer between a certain min and max (inclusive) that you specify.\") \n\n#Reading minimum and Maximum Values\nminmum = int(input(\"Min : \"))\nmaximum = int(input(\"Max : \"))\n\n#initializing basic variables\ni=0\nminimumGuesses=0;\nmaximumGuesses=0;\n\n#Loop for iterating between each game\nwhile True:  \n    print(\"OK, let\'s play!\")\n    print(\"I\'m thinking of an integer between \", minmum,\" and \",maximum,\". inclusive.\")\n    \n    #Getting the Random Nuber from random function by passing min and max number\n    selectedNumber = random.randint(minmum,maximum)\n    \n    #Loop for reading guess number\n    while True: \n        \n        #Reading Guess number\n        guessNumber= int(input(\"Enter your guess :\"))\n        \n        #Incrementing the counter\n        i=i+1\n        \n        #Check for the guessNumber is equals to the selectedNumber\n        if selectedNumber==guessNumber:\n            print(\"Woohoo.you got it! It only took you \",i,\" tries\")\n            print(\"\")\n            print(\"Your stats so far:\")\n            \n            #Setting minimumGuesses and maximumGuesses\n            if minimumGuesses>i or minimumGuesses==0:\n                minimumGuesses=i\n            if maximumGuesses<i or maximumGuesses==0:\n                maximumGuesses=i\n            print(\"Minimum guesses taken:\",minimumGuesses)\n            print(\"Maximun guesses taken:\",maximumGuesses)\n            print(\"Average guesses taken:\",(minimumGuesses+maximumGuesses)/2)\n            print(\"\")\n            \n            #Resetting the counter once each game over\n            i=0\n            inputVal = input(\"Play again? (Y for Yes,anthing else for no)\")\n            if inputVal==\"Y\":\n                break\n            else:\n                quit()\n        else:\n            if selectedNumber >guessNumber:\n                print(\"Too low! Try again...\")\n            else:\n                print(\"Too high! Try again...\")\n    \n        \n    ','2021-10-20 08:37:58',0,3,21,0),
+(3503,'I have a qustion about binary search .  If I have an array consist of {1,1,1,2,2,2,2,2,4,5,5,6,6,6}  how can I Insert the Value 3 after number 2 ?   do I insert it before the first number 2 or after the last number 2 ?','I have a qustion about binary search .\n\nIf I have an array consist of {1,1,1,2,2,2,2,2,4,5,5,6,6,6}\n\nhow can I Insert the Value 3 after number 2 ? \n\ndo I insert it before the first number 2 or after the last number 2 ?','I have a qustion about binary search .\n\nIf I have an array consist of {1,1,1,2,2,2,2,2,4,5,5,6,6,6}\n\nhow can I Insert the Value 3 after number 2 ? \n\ndo I insert it before the first number 2 or after the last number 2 ?','In Binary search, the array which we are searching should be in sorted order. So if we are going to insert a new element in the array, that element should be placed in the proper position.\n\nhow can I Insert Value 3 after number 2?\n\nGiven the array : {1,1,1,2,2,2,2,2,4,5,5,6,6,6}\n\nHere we are going to insert value 3 in the array. The value 3 we can insert just before the immediate larger element. So here immediate large element is 4 . So we can push 3 just before the number 4.Please find the sample program for your understanding(Program in Python)\n\n#Given Array\narray=[1,1,1,2,2,2,2,2,4,5,5,6,6,6]\n\n#Insert value\nvalue=3\n\nindex=0\nfor x in array:\n    if value<x:\n        #inserting to the array in the position index\n        array.insert(index,value)\n        print (\"Output :\",array)\n        break\n    \n    #Incrementing position by 1\n    index=index+1\n    \n\n\n\n\ndo I insert it before the first number 2 or after the last number 2?\n\nIf the value you are going to insert is 3, then it should be inserted after the last occurrence of 2 . But Programatically it is better to insert before the next largest number(here it is 4), I implemented the same in the above program.','2021-10-20 09:19:30',0,3,21,0);
