@@ -47,12 +47,6 @@ public class TradeLogDetailsTo implements Serializable {
 	private String comments;
 
 	@Transient
-	private int rowCount;
-
-	@Transient
-	private int page;
-
-	@Transient
 	private TradeLogImageTo tradeLogImageTo;
 
 }

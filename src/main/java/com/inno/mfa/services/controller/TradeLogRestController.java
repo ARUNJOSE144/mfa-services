@@ -5,10 +5,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.inno.mfa.services.dao.TradeLogDAO;
 import com.inno.mfa.services.model.CommonRespTo;
+import com.inno.mfa.services.model.PaginationTo;
 import com.inno.mfa.services.model.TradeLogDetailsTo;
 import com.inno.mfa.services.model.TradeLogMasterTo;
 
@@ -67,6 +71,45 @@ public class TradeLogRestController {
 		CommonRespTo<String> to = new CommonRespTo<String>();
 		try {
 			tradeLogDAO.create(tradeLogMasterTo, to);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return to;
+	}
+
+	@PostMapping(value = "/tradeLog/v1/search")
+	public @ResponseBody PaginationTo<List<TradeLogMasterTo>> searchQuestion(HttpServletRequest httpServletRequest,
+			@RequestBody TradeLogMasterTo searchTO) throws IOException {
+
+		PaginationTo<List<TradeLogMasterTo>> paginationTo = new PaginationTo<List<TradeLogMasterTo>>();
+		System.out.println("================Search Request : " + searchTO.toString());
+		List<TradeLogMasterTo> list = null;
+		try {
+			paginationTo = tradeLogDAO.search(searchTO);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return paginationTo;
+	}
+
+	@PostMapping(value = "/tradeLog/v1/list")
+	public @ResponseBody PaginationTo<TradeLogMasterTo> getDaysList(HttpServletRequest httpServletRequest,
+			@RequestBody PaginationTo<TradeLogMasterTo> paginationTo) throws IOException {
+		System.out.println("================Search Request : " + paginationTo.toString());
+		try {
+			tradeLogDAO.getDaysList(paginationTo);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return paginationTo;
+	}
+
+	@PostMapping(value = "/tradeLog/v1/view")
+	public @ResponseBody CommonRespTo<TradeLogMasterTo> view(HttpServletRequest httpServletRequest,
+			@RequestBody TradeLogMasterTo dto) throws IOException {
+		CommonRespTo<TradeLogMasterTo> to = new CommonRespTo<TradeLogMasterTo>();
+		try {
+			to.setData(tradeLogDAO.view(dto));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

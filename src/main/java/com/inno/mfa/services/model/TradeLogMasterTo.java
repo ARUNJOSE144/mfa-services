@@ -38,6 +38,9 @@ public class TradeLogMasterTo implements Serializable {
 	@Column(name = "DAY", nullable = true)
 	private String day;
 
+	@Column(name = "DATE_", nullable = true)
+	private int date;
+
 	@Column(name = "COMMENTS", nullable = true)
 	private String comments;
 
@@ -78,6 +81,24 @@ public class TradeLogMasterTo implements Serializable {
 	private MultipartFile bankNiftyImage;
 
 	@Transient
-	private String respCode;
+	private MultipartFile finNiftyImage;
+
+	@Transient
+	private MultipartFile dowJohnsImage;
+
+	@Transient
+	private MultipartFile nasdaqImage;
+
+	@Transient
+	private MultipartFile sp500Image;
+
+	@Transient
+	private List<String> dayList;
+
+	@Transient
+	private List<Integer> dateList;
+
+	@Transient
+	private List<TradeLogImageTo> imageList;
 
 }
