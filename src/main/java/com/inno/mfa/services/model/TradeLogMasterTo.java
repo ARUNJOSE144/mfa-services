@@ -101,4 +101,7 @@ public class TradeLogMasterTo implements Serializable {
 	@Transient
 	private List<TradeLogImageTo> imageList;
 
+	@Transient
+	private List<Integer> showResultOf;
+
 }

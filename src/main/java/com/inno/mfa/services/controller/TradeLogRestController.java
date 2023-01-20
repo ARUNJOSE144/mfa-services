@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,8 +22,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.inno.mfa.services.dao.TradeLogDAO;
 import com.inno.mfa.services.model.CommonRespTo;
 import com.inno.mfa.services.model.PaginationTo;
+import com.inno.mfa.services.model.TradeEventsTo;
 import com.inno.mfa.services.model.TradeLogDetailsTo;
 import com.inno.mfa.services.model.TradeLogMasterTo;
+import com.inno.mfa.services.model.TradeSymbolTo;
 
 /**
  * @author Arun Jose
@@ -114,6 +117,30 @@ public class TradeLogRestController {
 			e.printStackTrace();
 		}
 		return to;
+	}
+
+	@GetMapping(value = "/tradeLog/v1/getEvents")
+	public @ResponseBody CommonRespTo<List<TradeEventsTo>> getEvents(HttpServletRequest httpServletRequest)
+			throws IOException {
+		CommonRespTo<List<TradeEventsTo>> list = new CommonRespTo<List<TradeEventsTo>>();
+		try {
+			list.setData(tradeLogDAO.getEvents());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	@GetMapping(value = "/tradeLog/v1/getSymbols")
+	public @ResponseBody CommonRespTo<List<TradeSymbolTo>> getSymbols(HttpServletRequest httpServletRequest)
+			throws IOException {
+		CommonRespTo<List<TradeSymbolTo>> list = new CommonRespTo<List<TradeSymbolTo>>();
+		try {
+			list.setData(tradeLogDAO.getSymbols());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
 	}
 
 }

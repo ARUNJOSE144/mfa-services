@@ -18,6 +18,7 @@ import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
@@ -30,9 +31,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.inno.mfa.services.model.CommonRespTo;
 import com.inno.mfa.services.model.PaginationTo;
+import com.inno.mfa.services.model.TradeEventsTo;
 import com.inno.mfa.services.model.TradeLogDetailsTo;
 import com.inno.mfa.services.model.TradeLogImageTo;
 import com.inno.mfa.services.model.TradeLogMasterTo;
+import com.inno.mfa.services.model.TradeSymbolTo;
 import com.inno.mfa.services.util.Util;
 
 /**
@@ -179,6 +182,14 @@ public class TradeLogDAO {
 				criteria.add(Restrictions.in("date", searchTO.getDateList()));
 			}
 
+			if (searchTO.getEvents() != null && !searchTO.getEvents().equalsIgnoreCase("")) {
+				criteria.add(Restrictions.like("events", searchTO.getEvents(), MatchMode.ANYWHERE));
+			}
+
+			if (searchTO.getComments() != null && !searchTO.getComments().equalsIgnoreCase("")) {
+				criteria.add(Restrictions.like("comments", searchTO.getComments(), MatchMode.ANYWHERE));
+			}
+
 			criteria.addOrder(Order.desc("id"));
 			criteria.setFirstResult(0);
 			criteria.setMaxResults(searchTO.getRowCount());
@@ -211,6 +222,14 @@ public class TradeLogDAO {
 
 			if (searchTO.getDate() != 0) {
 				criteria.add(Restrictions.in("date", searchTO.getDateList()));
+			}
+
+			if (searchTO.getEvents() != null && !searchTO.getEvents().equalsIgnoreCase("")) {
+				criteria.add(Restrictions.like("events", searchTO.getEvents(), MatchMode.ANYWHERE));
+			}
+
+			if (searchTO.getComments() != null && !searchTO.getComments().equalsIgnoreCase("")) {
+				criteria.add(Restrictions.like("comments", searchTO.getComments(), MatchMode.ANYWHERE));
 			}
 
 			count = (Long) criteria.uniqueResult();
@@ -289,6 +308,7 @@ public class TradeLogDAO {
 	public TradeLogMasterTo view(TradeLogMasterTo dto) {
 		Criteria criteria = null;
 		Session session = null;
+		TradeLogMasterTo tempRequest = dto;
 
 		try {
 			session = sessionFactory.getCurrentSession();
@@ -304,6 +324,9 @@ public class TradeLogDAO {
 
 			criteria = session.createCriteria(TradeLogDetailsTo.class);
 			criteria.add(Restrictions.eq("tradeLogId", dto.getId()));
+			if (tempRequest.getShowResultOf() != null && tempRequest.getShowResultOf().size() > 0) {
+				criteria.add(Restrictions.in("symbol", tempRequest.getShowResultOf()));
+			}
 			List<TradeLogDetailsTo> list = (List<TradeLogDetailsTo>) criteria.list();
 
 			for (TradeLogDetailsTo tradeLogDetailsTo : list) {
@@ -320,6 +343,38 @@ public class TradeLogDAO {
 			e.printStackTrace();
 		}
 		return dto;
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<TradeEventsTo> getEvents() {
+		Criteria criteria = null;
+		Session session = null;
+		List<TradeEventsTo> list = null;
+		try {
+			session = sessionFactory.getCurrentSession();
+			criteria = session.createCriteria(TradeEventsTo.class);
+			list = (List<TradeEventsTo>) criteria.list();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<TradeSymbolTo> getSymbols() {
+		Criteria criteria = null;
+		Session session = null;
+		List<TradeSymbolTo> list = null;
+		try {
+			session = sessionFactory.getCurrentSession();
+			criteria = session.createCriteria(TradeSymbolTo.class);
+			list = (List<TradeSymbolTo>) criteria.list();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
 	}
 
 }
