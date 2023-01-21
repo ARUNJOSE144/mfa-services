@@ -56,6 +56,9 @@ public class TradeLogMasterTo implements Serializable {
 	@Column(name = "MODIFIED_DATE", nullable = true, insertable = false)
 	private Date modifiedDate;
 
+	@Column(name = "SOFT_DELETE", nullable = true)
+	private int softDelete;
+
 	@Transient
 	List<MultipartFile> images;
 
@@ -91,6 +94,12 @@ public class TradeLogMasterTo implements Serializable {
 
 	@Transient
 	private MultipartFile sp500Image;
+
+	@Transient
+	private MultipartFile stock1Image;
+
+	@Transient
+	private MultipartFile stock2Image;
 
 	@Transient
 	private List<String> dayList;

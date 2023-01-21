@@ -76,11 +76,13 @@ public class TradeLogDAO {
 			logger.info("=========Create Question Record : " + tradeLogMasterTo.toString());
 			session.saveOrUpdate(tradeLogMasterTo);
 
-			if (tradeLogMasterTo.getImages().size() > 0) {
-				hql = "delete from TradeLogImageTo where tradeLogId=" + tradeLogMasterTo.getId();
-				session.createQuery(hql).executeUpdate();
-
-			}
+			/*
+			 * if (tradeLogMasterTo.getImages().size() > 0) { hql =
+			 * "delete from TradeLogImageTo where tradeLogId=" + tradeLogMasterTo.getId();
+			 * session.createQuery(hql).executeUpdate();
+			 * 
+			 * }
+			 */
 
 			for (MultipartFile image : tradeLogMasterTo.getImages()) {
 				uploadImage(image, "COMMON", tradeLogMasterTo.getId(), 0, session);
@@ -91,7 +93,7 @@ public class TradeLogDAO {
 					tradeLogDetailsTo.setTradeLogId(tradeLogMasterTo.getId());
 
 					System.out.println("tradeLogDetailsTo : " + tradeLogDetailsTo);
-					session.save(tradeLogDetailsTo);
+					session.saveOrUpdate(tradeLogDetailsTo);
 
 					if (tradeLogDetailsTo.getSymbol() == 1 && tradeLogMasterTo.getNiftyImage() != null) {
 						uploadImage(tradeLogMasterTo.getNiftyImage(), "NIFTY", tradeLogMasterTo.getId(),
@@ -117,6 +119,14 @@ public class TradeLogDAO {
 						uploadImage(tradeLogMasterTo.getSp500Image(), "SP_500", tradeLogMasterTo.getId(),
 								tradeLogDetailsTo.getId(), session);
 					}
+					if (tradeLogDetailsTo.getSymbol() == 7 && tradeLogMasterTo.getStock1Image() != null) {
+						uploadImage(tradeLogMasterTo.getStock1Image(), "STOCK_1", tradeLogMasterTo.getId(),
+								tradeLogDetailsTo.getId(), session);
+					}
+					if (tradeLogDetailsTo.getSymbol() == 8 && tradeLogMasterTo.getStock2Image() != null) {
+						uploadImage(tradeLogMasterTo.getStock2Image(), "STOCK_2", tradeLogMasterTo.getId(),
+								tradeLogDetailsTo.getId(), session);
+					}
 				}
 			}
 			to.setResultCode(0);
@@ -139,6 +149,7 @@ public class TradeLogDAO {
 	public void uploadImage(MultipartFile image, String type, int tradeLogId, int tradeLogDetailsId, Session session)
 			throws IOException {
 		String newFileName = "";
+		String hql = "";
 
 		newFileName = "IMG" + "_" + format.format(new Date()) + "_" + type + "."
 				+ image.getOriginalFilename().split("\\.")[1];
@@ -150,6 +161,13 @@ public class TradeLogDAO {
 		Path filepath = Paths.get(fileName);
 		try (OutputStream os = Files.newOutputStream(filepath)) {
 			os.write(image.getBytes());
+		}
+
+		if (tradeLogDetailsId != 0) {
+			hql = "delete from TradeLogImageTo where tradeLogDetailsId=" + tradeLogDetailsId + " and tradeLogId="
+					+ tradeLogId;
+			session.createQuery(hql).executeUpdate();
+
 		}
 
 		TradeLogImageTo tradeLogImageTo = new TradeLogImageTo();
@@ -169,6 +187,7 @@ public class TradeLogDAO {
 			paginationTo.setDataTotalSize(getRowCountForSearch(searchTO, session));
 
 			Criteria criteria = session.createCriteria(TradeLogMasterTo.class);
+			criteria.add(Restrictions.eq("softDelete", 0));
 
 			if (searchTO.getTradeDate() != null) {
 				criteria.add(Restrictions.eq("tradeDate", searchTO.getTradeDate()));
@@ -211,6 +230,7 @@ public class TradeLogDAO {
 
 			Criteria criteria = session.createCriteria(TradeLogMasterTo.class);
 			criteria.setProjection(Projections.rowCount());
+			criteria.add(Restrictions.eq("softDelete", 0));
 
 			if (searchTO.getTradeDate() != null) {
 				criteria.add(Restrictions.eq("tradeDate", searchTO.getTradeDate()));
@@ -251,6 +271,7 @@ public class TradeLogDAO {
 			}
 
 			Criteria criteria = session.createCriteria(TradeLogMasterTo.class);
+			criteria.add(Restrictions.eq("softDelete", 0));
 			/*
 			 * criteria.setProjection(Projections.projectionList().add(Projections.alias(
 			 * Projections.property("id"), "id"))
@@ -291,6 +312,7 @@ public class TradeLogDAO {
 		Long count = 0l;
 		try {
 			Criteria criteria = session.createCriteria(TradeLogMasterTo.class);
+			criteria.add(Restrictions.eq("softDelete", 0));
 			criteria.setProjection(Projections.rowCount());
 			if (Util.validate(paginationTo.getSearchKey1())) {
 				criteria.add(Restrictions.ilike("tradeDate", "%" + paginationTo.getSearchKey1() + "%"));
@@ -375,6 +397,23 @@ public class TradeLogDAO {
 			e.printStackTrace();
 		}
 		return list;
+	}
+
+	public void delete(TradeLogMasterTo to) {
+		Session session = null;
+		String hql = null;
+		try {
+			session = sessionFactory.getCurrentSession();
+			TradeLogMasterTo masterTo = (TradeLogMasterTo) session.createCriteria(TradeLogMasterTo.class)
+					.add(Restrictions.eq("id", to.getId())).uniqueResult();
+
+			masterTo.setSoftDelete(1);
+			session.update(masterTo);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 	}
 
 }

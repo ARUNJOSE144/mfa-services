@@ -46,7 +46,9 @@ public class TradeLogRestController {
 			@RequestParam(value = "file1", required = false) MultipartFile file1,
 			@RequestParam(value = "file2", required = false) MultipartFile file2,
 			@RequestParam(value = "file3", required = false) MultipartFile file3,
-			@RequestParam(value = "file4", required = false) MultipartFile file4) throws IOException {
+			@RequestParam(value = "file4", required = false) MultipartFile file4,
+			@RequestParam(value = "stock1", required = false) MultipartFile stock1,
+			@RequestParam(value = "stock2", required = false) MultipartFile stock2) throws IOException {
 		logger.info("Filesssss=====>" + file1);
 
 		List<MultipartFile> files = new ArrayList<MultipartFile>();
@@ -141,6 +143,18 @@ public class TradeLogRestController {
 			e.printStackTrace();
 		}
 		return list;
+	}
+
+	@PostMapping(value = "/tradeLog/v1/delete")
+	public @ResponseBody CommonRespTo<TradeLogMasterTo> delete(HttpServletRequest httpServletRequest,
+			@RequestBody TradeLogMasterTo tradeLogMasterTo) throws IOException {
+		CommonRespTo<TradeLogMasterTo> to = new CommonRespTo<TradeLogMasterTo>();
+		try {
+			tradeLogDAO.delete(tradeLogMasterTo);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return to;
 	}
 
 }
