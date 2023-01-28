@@ -1,0 +1,564 @@
+/*
+SQLyog Community v13.1.5  (64 bit)
+MySQL - 8.0.16 : Database - QUESTION_MANAGEMENT
+*********************************************************************
+*/
+
+/*!40101 SET NAMES utf8 */;
+
+/*!40101 SET SQL_MODE=''*/;
+
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/`QUESTION_MANAGEMENT` /*!40100 DEFAULT CHARACTER SET latin1 */ /*!80016 DEFAULT ENCRYPTION='N' */;
+
+USE `QUESTION_MANAGEMENT`;
+
+/*Table structure for table `MARKET_ANALYSER` */
+
+DROP TABLE IF EXISTS `MARKET_ANALYSER`;
+
+CREATE TABLE `MARKET_ANALYSER` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `SYMBOL` varchar(30) DEFAULT NULL,
+  `DATE` varchar(30) DEFAULT NULL,
+  `STOP_LOSS` int(11) DEFAULT NULL,
+  `PROFIT` int(11) DEFAULT NULL,
+  `IS_PROFIT` int(1) DEFAULT NULL COMMENT '1: Profit, 2: Loss',
+  `TRADE_TYPE` int(1) DEFAULT NULL COMMENT '1:9.30-Strategy, 2:9.49-Strategy, 3:Reversal strategy',
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=68 DEFAULT CHARSET=latin1;
+
+/*Data for the table `MARKET_ANALYSER` */
+
+insert  into `MARKET_ANALYSER`(`ID`,`SYMBOL`,`DATE`,`STOP_LOSS`,`PROFIT`,`IS_PROFIT`,`TRADE_TYPE`) values 
+(1,'M&M','05-05-2022',-500,500,0,1),
+(2,'M&M','05-05-2022',-1000,500,1,1),
+(3,'M&M','05-05-2022',-1000,1000,1,1),
+(4,'M&M','05-05-2022',-1000,1500,1,1),
+(5,'ITC','05-05-2022',-500,500,0,1),
+(6,'ITC','05-05-2022',-1000,500,1,1),
+(7,'ITC','05-05-2022',-1000,1000,1,1),
+(8,'ITC','05-05-2022',-1000,1500,1,1),
+(9,'COALINDIA','05-05-2022',-500,500,0,1),
+(10,'COALINDIA','05-05-2022',-1000,500,1,1),
+(11,'COALINDIA','05-05-2022',-1000,1000,1,1),
+(12,'COALINDIA','05-05-2022',-1000,1500,1,1),
+(13,'TATAMOTORS','05-05-2022',-500,500,1,1),
+(14,'TATAMOTORS','05-05-2022',-500,1000,1,1),
+(15,'ADANIPORTT','06-05-2022',-500,500,1,1),
+(16,'ADANIPORTT','06-05-2022',-500,1000,1,1),
+(17,'ADANIPORTT','06-05-2022',-500,1500,1,1),
+(18,'ADANIPORTT','06-05-2022',-500,2000,1,1),
+(19,'ADANIPORTT','06-05-2022',-500,2500,1,1),
+(20,'COALINDIA','06-05-2022',-500,500,1,1),
+(21,'COALINDIA','06-05-2022',-500,1000,1,1),
+(22,'COALINDIA','06-05-2022',-500,1500,0,1),
+(23,'COALINDIA','06-05-2022',-1000,1500,0,1),
+(24,'COALINDIA','06-05-2022',-1500,1500,0,1),
+(25,'COALINDIA','06-05-2022',-1500,1500,1,1),
+(26,'COALINDIA','06-05-2022',-1500,2000,1,1),
+(27,'NTPC','06-05-2022',-500,500,0,1),
+(28,'NTPC','06-05-2022',-1000,500,1,1),
+(29,'NTPC','06-05-2022',-1000,1000,1,1),
+(30,'NTPC','06-05-2022',-1000,1500,1,1),
+(31,'NTPC','06-05-2022',-1000,2000,1,1),
+(32,'NTPC','06-05-2022',-1000,2500,1,1),
+(33,'NTPC','06-05-2022',-1000,3000,1,1),
+(34,'CIPLA','09-05-2022',-500,500,0,1),
+(35,'CIPLA','09-05-2022',-1000,500,1,1),
+(36,'CIPLA','09-05-2022',-1000,1000,0,1),
+(37,'CIPLA','09-05-2022',-1500,1000,0,1),
+(38,'CIPLA','09-05-2022',-2000,1000,0,1),
+(39,'ICICIBANK','09-05-2022',-500,500,0,1),
+(40,'ICICIBANK','09-05-2022',-1000,500,0,1),
+(41,'ICICIBANK','09-05-2022',-1500,500,1,1),
+(42,'ICICIBANK','09-05-2022',-1500,1000,1,1),
+(43,'ICICIBANK','09-05-2022',-1500,1500,1,1),
+(44,'ICICIBANK','09-05-2022',-1500,2000,1,1),
+(45,'AXIXBANK','09-05-2022',-500,500,0,1),
+(46,'AXIXBANK','09-05-2022',-1000,500,0,1),
+(47,'AXIXBANK','09-05-2022',-1000,500,1,1),
+(48,'AXIXBANK','09-05-2022',-1500,1000,1,1),
+(49,'AXIXBANK','09-05-2022',-1500,1500,1,1),
+(50,'AXIXBANK','09-05-2022',-1500,2000,1,1),
+(51,'AXIXBANK','09-05-2022',-1500,2500,1,1),
+(52,'TATAMOTOS','11-05-2022',-500,500,1,1),
+(53,'TATAMOTOS','11-05-2022',-500,1000,1,1),
+(54,'TATAMOTOS','11-05-2022',-500,1500,1,1),
+(55,'TATAMOTOS','11-05-2022',-500,2000,1,1),
+(56,'TATAMOTOS','11-05-2022',-500,2500,1,1),
+(57,'TATAMOTOS','11-05-2022',-500,3000,1,1),
+(58,'WIPRO','11-05-2022',-500,500,1,1),
+(59,'WIPRO','11-05-2022',-500,1000,1,1),
+(60,'WIPRO','11-05-2022',-500,1500,1,1),
+(61,'WIPRO','11-05-2022',-500,2000,1,1),
+(62,'WIPRO','11-05-2022',-500,2500,1,1),
+(63,'ICICIBANK','11-05-2022',-500,500,1,1),
+(64,'ICICIBANK','11-05-2022',-500,1000,1,1),
+(65,'AXIXBANK','11-05-2022',-500,500,1,1),
+(66,'AXIXBANK','11-05-2022',-500,1000,1,1),
+(67,'AXIXBANK','11-05-2022',-500,1500,1,1);
+
+/*Table structure for table `QUESTION_IMAGE_DETAILS` */
+
+DROP TABLE IF EXISTS `QUESTION_IMAGE_DETAILS`;
+
+CREATE TABLE `QUESTION_IMAGE_DETAILS` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `QUESTION_ID` int(11) NOT NULL,
+  `IMAGE` varchar(500) NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+
+/*Data for the table `QUESTION_IMAGE_DETAILS` */
+
+insert  into `QUESTION_IMAGE_DETAILS`(`ID`,`QUESTION_ID`,`IMAGE`) values 
+(1,1,'E:/Online_Teaching/APP/IMAGES/1/IMG_202109161857281290.png'),
+(2,1,'E:/Online_Teaching/APP/IMAGES/1/IMG_202109161857282441.png'),
+(3,1,'E:/Online_Teaching/APP/IMAGES/1/IMG_202109161857283932.png'),
+(4,3501,'E:/Online_Teaching/APP/IMAGES/3501/IMG_202110190849060600.png'),
+(5,3501,'E:/Online_Teaching/APP/IMAGES/3501/IMG_202110190849062201.png'),
+(6,3501,'E:/Online_Teaching/APP/IMAGES/3501/IMG_202110190849063802.png'),
+(7,3502,'E:/Online_Teaching/APP/IMAGES/3502/IMG_202110200837269880.png'),
+(8,3502,'E:/Online_Teaching/APP/IMAGES/3502/IMG_202110200837271571.png'),
+(9,3504,'E:/Online_Teaching/APP/IMAGES/3504/IMG_202110291830441800.png');
+
+/*Table structure for table `QUESTION_MASTER` */
+
+DROP TABLE IF EXISTS `QUESTION_MASTER`;
+
+CREATE TABLE `QUESTION_MASTER` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `NAME` varchar(500) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
+  `QUESTION_KEYS` text CHARACTER SET utf8 COLLATE utf8_general_ci,
+  `QUESTION` longtext,
+  `ANSWER` longtext,
+  `CREATED_TIME` timestamp NULL DEFAULT NULL,
+  `SOFT_DELETE` int(11) DEFAULT '0',
+  `QUESTION_FROM` int(11) DEFAULT NULL,
+  `SUBJECT` int(11) NOT NULL DEFAULT '0',
+  `BOOKMARK` int(11) DEFAULT '0',
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=3562 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+/*Data for the table `QUESTION_MASTER` */
+
+insert  into `QUESTION_MASTER`(`ID`,`NAME`,`QUESTION_KEYS`,`QUESTION`,`ANSWER`,`CREATED_TIME`,`SOFT_DELETE`,`QUESTION_FROM`,`SUBJECT`,`BOOKMARK`) values 
+(3501,'Create a view named “Atlanta_Charter_Crew_V” that includes the following “For each charter of aircraft to Atlanta (ATL), print the charter date, charter distance, and the corresponding crew (employee) number, last name, first name, and crew job”. Your answer should include both the SQL statement for view creation along with the contents of the view (you get the contents of the view by running the command select * from Atlanta_Charter_Crew_V;).','Create a view named “Atlanta_Charter_Crew_V” that includes the following “For each charter of aircraft to Atlanta (ATL), print the charter date, charter distance, and the corresponding crew (employee) number, last name, first name, and crew job”. Your answer should include both the SQL statement for view creation along with the contents of the view (you get the contents of the view by running the command select * from Atlanta_Charter_Crew_V;).','Create a view named “Atlanta_Charter_Crew_V” that includes the following “For each charter of aircraft to Atlanta (ATL), print the charter date, charter distance, and the corresponding crew (employee) number, last name, first name, and crew job”. Your answer should include both the SQL statement for view creation along with the contents of the view (you get the contents of the view by running the command select * from Atlanta_Charter_Crew_V;).','CREATE  VIEW Atlanta_Charter_Crew_V AS \nSELECT A.CHAT_DATE, A.CHAR_DISTANCE,B.BMP_NUM ,C.BMP_LNAME,C.BMP_FNAME,B.CREW_JOB\nFROM  CHARTER A,CREW B,EMPLOYEE C \nWHERE  A.CHAR_TRIP=B.CHAR_TRIP AND B.BMP_NUM=C.BMP_NUM\n\n\n\nSELECT * FROM Atlanta_Charter_Crew_V;','2021-10-19 03:19:06',0,3,14,0),
+(3502,'Guessing game Python Random number','Guessing game Python Random number','Guessing game Python Random number','#import for genereting random number\nimport random\n\n\nprint(\"Let\'s set up our guessing game!\")  \nprint(\"I\'ll pick a rendom integer between a certain min and max (inclusive) that you specify.\") \n\n#Reading minimum and Maximum Values\nminmum = int(input(\"Min : \"))\nmaximum = int(input(\"Max : \"))\n\n#initializing basic variables\ni=0\nminimumGuesses=0;\nmaximumGuesses=0;\n\n#Loop for iterating between each game\nwhile True:  \n    print(\"OK, let\'s play!\")\n    print(\"I\'m thinking of an integer between \", minmum,\" and \",maximum,\". inclusive.\")\n    \n    #Getting the Random Nuber from random function by passing min and max number\n    selectedNumber = random.randint(minmum,maximum)\n    \n    #Loop for reading guess number\n    while True: \n        \n        #Reading Guess number\n        guessNumber= int(input(\"Enter your guess :\"))\n        \n        #Incrementing the counter\n        i=i+1\n        \n        #Check for the guessNumber is equals to the selectedNumber\n        if selectedNumber==guessNumber:\n            print(\"Woohoo.you got it! It only took you \",i,\" tries\")\n            print(\"\")\n            print(\"Your stats so far:\")\n            \n            #Setting minimumGuesses and maximumGuesses\n            if minimumGuesses>i or minimumGuesses==0:\n                minimumGuesses=i\n            if maximumGuesses<i or maximumGuesses==0:\n                maximumGuesses=i\n            print(\"Minimum guesses taken:\",minimumGuesses)\n            print(\"Maximun guesses taken:\",maximumGuesses)\n            print(\"Average guesses taken:\",(minimumGuesses+maximumGuesses)/2)\n            print(\"\")\n            \n            #Resetting the counter once each game over\n            i=0\n            inputVal = input(\"Play again? (Y for Yes,anthing else for no)\")\n            if inputVal==\"Y\":\n                break\n            else:\n                quit()\n        else:\n            if selectedNumber >guessNumber:\n                print(\"Too low! Try again...\")\n            else:\n                print(\"Too high! Try again...\")\n    \n        \n    ','2021-10-20 03:07:58',0,3,21,0),
+(3503,'I have a qustion about binary search .  If I have an array consist of {1,1,1,2,2,2,2,2,4,5,5,6,6,6}  how can I Insert the Value 3 after number 2 ?   do I insert it before the first number 2 or after the last number 2 ?','I have a qustion about binary search .\n\nIf I have an array consist of {1,1,1,2,2,2,2,2,4,5,5,6,6,6}\n\nhow can I Insert the Value 3 after number 2 ? \n\ndo I insert it before the first number 2 or after the last number 2 ?','I have a qustion about binary search .\n\nIf I have an array consist of {1,1,1,2,2,2,2,2,4,5,5,6,6,6}\n\nhow can I Insert the Value 3 after number 2 ? \n\ndo I insert it before the first number 2 or after the last number 2 ?','In Binary search, the array which we are searching should be in sorted order. So if we are going to insert a new element in the array, that element should be placed in the proper position.\n\nhow can I Insert Value 3 after number 2?\n\nGiven the array : {1,1,1,2,2,2,2,2,4,5,5,6,6,6}\n\nHere we are going to insert value 3 in the array. The value 3 we can insert just before the immediate larger element. So here immediate large element is 4 . So we can push 3 just before the number 4.Please find the sample program for your understanding(Program in Python)\n\n#Given Array\narray=[1,1,1,2,2,2,2,2,4,5,5,6,6,6]\n\n#Insert value\nvalue=3\n\nindex=0\nfor x in array:\n    if value<x:\n        #inserting to the array in the position index\n        array.insert(index,value)\n        print (\"Output :\",array)\n        break\n    \n    #Incrementing position by 1\n    index=index+1\n    \n\n\n\n\ndo I insert it before the first number 2 or after the last number 2?\n\nIf the value you are going to insert is 3, then it should be inserted after the last occurrence of 2 . But Programatically it is better to insert before the next largest number(here it is 4), I implemented the same in the above program.','2021-10-20 03:49:30',0,3,21,0),
+(3504,'Calculate the average of quiz marks for student','Calculate the average of quiz marks for student','Calculate the average of quiz marks for student','Source Code\n\n// C program to store mark of the students.\n#include <stdio.h>\nconst int STUDENTS = 4;\nconst int QUIZ = 3;\nint main()\n{\n  float marks[STUDENTS][QUIZ];\n  float average=0.0;\n  float sum;\n\n  // Using nested loop to store values in a 2d array\n  for (int i = 0; i < STUDENTS; ++i)\n  {\n    printf(\"Student %d \\n\",i+1);\n    for (int j = 0; j < QUIZ; ++j)\n    {\n      printf(\" Enter Quiz %d marks :\",j+1);\n      scanf(\"%f\", &marks[i][j]);\n    }\n  }\n  printf(\"\\nDisplaying values: \\n\\n\");\n\n  // Using nested loop to iterate vlues of a 2d array\n  for (int i = 0; i < STUDENTS; ++i)\n  {\n     sum=0.0;\n     average=0.0;\n    for (int j = 0; j < QUIZ; ++j)\n    {\n     sum+=marks[i][j];\n    }\n    average=sum/3;\n    printf(\"Student  %d average  ===> %f  \\n\",i+1,average);\n  }\n  return 0;\n}\n\n','2021-10-29 13:00:44',0,3,2,0),
+(3505,'Sort c++ write to file','Sort c++ write to file','Sort c++ write to file','#include <iostream>\n#include <cstdlib>\n#include <fstream>\nusing namespace std;\nusing std::cerr;\nusing std::endl;\nusing std::ofstream;\n\n\nint main() {\n  int num[100], n;\n  ofstream outdata;\n  int i, j, man;\n  cout << \"Enter n for the numbers you want to sort\" << endl << endl;\n  cin >> n;\n  cout << \"Enter the numbers\" << endl;\n  for (i = 0; i < n; i++) {\n    cin >> num[i];\n  }\n  for (i = 0; i < n; i++) {\n    for (j = 0; j < n; j++) {\n      if (num[i] < num[j]) {\n        man = num[i];\n        num[i] = num[j];\n        num[j] = man;\n      }\n    }\n  }\n  cout << \"The elements after sorting in Ascending order \" << endl;\n  for (i = 0; i < n; i++) {\n    cout << \" \" << num[i] << endl;;\n  }\n  outdata.open(\"data.txt\");\n  if (!outdata) {\n    cerr << \"Error: file could not be opened\" << endl;\n    exit(1);\n  }\n\n  for (i = 0; i < n; ++i)\n    outdata << num[i] << endl;\n  outdata.close();\n  return 0;\n}','2021-11-03 11:47:25',0,3,4,0),
+(3506,'last digit divisible by 3,python','last digit divisible by 3,python','Write a program to check whether the last digit of a number( entered by user ) is divisible by 3 or not.\n(hint : any number % 10 will return the last digit)\n\nPYTHON!!!!!','number=int(input(\"Enter the number : \"))\n\nlast_digit=number%10\n\nif(last_digit%3==0):\n    print(\"{} is divisible by 3 \".format(last_digit))\nelse:\n    print(\"{} is not divisible by 3\".format(last_digit))\n\n','2021-11-03 11:49:16',0,3,21,0),
+(3507,'centigrade,Fahreinheit,C++','centigrade,Fahreinheit,C++','centigrade to Fahreinheit in C++','#include<iostream>\nusing namespace std;\n\nint main()\n{\n    float temp_centigrade, temp_fahrenheit;\n    cout<<\"Please Enter the Temperature in centigrade: \";\n    cin>>temp_centigrade;\n    \n    temp_fahrenheit = (temp_centigrade*1.8)+32;\n    \n    cout<<\"\\nThe Equivalent Temperature in Fahreinheit is: \"<<temp_fahrenheit;\n    cout<<endl;\n    \n    return 0;\n}','2021-11-03 12:41:45',0,3,0,0),
+(3508,'Area of two rectangles','Two Rectangles area in Python','Write a program that compares the area of two rectangles. You can do this several ways, one way is to add the length and width of each rectangle to get it\'s area and then compare the two areas together. The program should ask for the length and width of two rectangles and then tell the user which rectangle has the greater area, or if the areas are the same. The area of a rectangle is the rectangle\'s length times its width. Name the source code file yourName_HW4.py. ','\n#Reading the First rectangle inputs\nl1 = float(input(\'Enter the length of the First Rectangle: \'))\nb1 = float(input(\'Enter the breadth of the First Rectangle: \'))\n\n#Reading the Second rectangle inputs\nl2 = float(input(\'Enter the length of the Second Rectangle: \'))\nb2 = float(input(\'Enter the breadth of the Second Rectangle: \'))\n\n\n#Calculating the area by multiplying length and breadth\nArea1 = l1 * b1\nArea2 = l2 * b2\n\n#check for the area.\nif Area1==Area2:\n    print(\"Area is Same for both the Rectangles\")\nelif Area1>Area2:\n    print(\"First Rectangle is the Greater one\")\nelse:\n    print(\"Second  Rectangle is the Greater one\")\n\n\n\n\nOutput\n\nEnter the length of the First Rectangle: 1.6. \nEnter the breadth of the First Rectangle: 2.6\nEnter the length of the Second Rectangle: 16.9\nEnter the breadth of the Second Rectangle: 17.8\nSecond  Rectangle is the Greater one\n','2021-11-04 02:49:17',0,3,21,0),
+(3509,'Basic HTML From screens','Basic HTML From screens','To do this assignment,create correct HTML pages that display in a modern browser.use HTML form elements (like, and ) to create a web application\n.use CSS to layout and style HTML elements.use Javascript (and jQuery) to add event handlers and bindingsto respond to user input;','<!DOCTYPE html>\n\n<html>\n\n<head>\n\n<style>\n\nspan {\n\ncolor: red;\n\n}\n\ntable {\n\nborder-collapse: collapse\n\n}\n\ntr {\n\nborder-bottom: 1px solid black\n\n}\n\ntd {\n\npadding: 10px;\n\n}\n\n</style>\n\n</head>\n\n<body>\n\n<label style=\"padding: 20px;\">Please complete the form below.Mandatory fields are marked <span>*</span></label>\n\n<fieldset>\n\n<legend style=\"font-weight: bold;\">Delivery Detailes:</legend>\n\n<table>\n\n<tr>\n\n<td>Name <span>*</span></td>\n\n<td><input type=\"text\" id=\"name\" /></td>\n\n</tr>\n\n<tr>\n\n<td>Address <span>*</span></td>\n\n<td><input type=\"text\" id=\"address\" /></td>\n\n</tr>\n\n<tr>\n\n<td>Town/City <span>*</span></td>\n\n<td><input type=\"text\" id=\"town\" /></td>\n\n</tr>\n\n<tr>\n\n<td>Country <span>*</span></td>\n\n<td><input type=\"text\" id=\"country\" /></td>\n\n</tr>\n\n<tr>\n\n<td>Postcode <span>*</span></td>\n\n<td><input type=\"text\" id=\"postcode\" /></td>\n\n</tr>\n\n</table>\n\n</fieldset>\n\n<button onclick=\"submit()\">Submit</button>\n\n</body>\n\n<script>\n\nfunction submit() {\n\nif (!validate(document.getElementById(\"name\").value)) {\n\nalert(\"Plese enter the Name\");\n\nreturn;\n\n}\n\nif (!validate(document.getElementById(\"address\").value)) {\n\nalert(\"Plese enter the Address\");\n\nreturn;\n\n}\n\nif (!validate(document.getElementById(\"town\").value)) {\n\nalert(\"Plese enter the City/Town\");\n\nreturn;\n\n}\n\nif (!validate(document.getElementById(\"country\").value)) {\n\nalert(\"Plese enter the Country\");\n\nreturn;\n\n}\n\nif (!validate(document.getElementById(\"postcode\").value)) {\n\nalert(\"Plese enter the Postcode\");\n\nreturn;\n\n}\n\nalert(\"Congratzzz..All data validated successfully...\");\n\n}\n\nfunction validate(val) {\n\nif (val != null && val != undefined && val != \"\") {\n\nreturn true\n\n} else {\n\nreturn false;\n\n}\n\n}\n\n</script>\n\n</html>','2021-11-04 09:23:54',0,2,3,0),
+(3510,'java,sum of prime numbers,2D array,diagonal elements,random numbers','java,sum of prime numbers,2D array,diagonal elements,random numbers','java,sum of prime numbers,2D array,diagonal elements,random numbers','package QuestionAns;\n\nimport java.util.Random;\nimport java.util.Scanner;\n\npublic class Matrix {\n	public static void main(String args[]) {\n		Random r = new Random();\n		int arr[][] = new int[5][5];\n\n		Scanner sc = new Scanner(System.in);\n		int low = 10;\n		int high = 75;\n		for (int i = 0; i < 5; i++) {\n			for (int j = 0; j < 5; j++) {\n				arr[i][j] = r.nextInt(high - low) + low;\n			}\n		}\n\n		// DisplayArray\n		displayArray(arr);\n\n		// Sum of prime number\n		sumOfPrimeElements(arr);\n\n		// display diagonal elements\n		diagonalElements(arr);\n\n	}\n\n	private static void sumOfPrimeElements(int[][] arr) {\n		int sumOfPrime = 0;\n		for (int i = 0; i < 5; i++) {\n			for (int j = 0; j < 5; j++) {\n				if (isPrime(arr[i][j])) {\n					sumOfPrime += arr[i][j];\n				}\n			}\n		}\n		System.out.println(\"\\n2) Output the sum of prime numbers in the array\\n\" + sumOfPrime);\n\n	}\n\n	private static void diagonalElements(int[][] arr) {\n		System.out.println(\"\\n3) Output the elements in the main diagonal\");\n		for (int i = 0; i < 5; i++) {\n			for (int j = 0; j < 5; j++) {\n				if (i == j) {\n\n					System.out.print(arr[i][j] + \" \");\n				}\n			}\n		}\n\n	}\n\n	private static boolean isPrime(int number) {\n		for (int i = 2; i < number / 2; i++) {\n			if (number % i == 0) {\n				return false;\n			}\n		}\n		return true;\n\n	}\n\n	private static void displayArray(int[][] arr) {\n		System.out.println(\"\\n1) Output of the Array elements\");\n		for (int i = 0; i < 5; i++) {\n			for (int j = 0; j < 5; j++) {\n				System.out.print(arr[i][j] + \"  \");\n			}\n			System.out.println();\n		}\n	}\n\n}\nOutput\n\n1) Output of the Array elements\n56  71  63  32  21  \n37  49  66  30  59  \n15  16  41  12  56  \n55  20  44  60  12  \n17  16  73  28  12  \n\n2) Output the sum of prime numbers in the array\n298\n\n3) Output the elements in the main diagonal\n56 49 41 60 12 ','2021-11-04 13:05:00',0,3,1,0),
+(3511,'Date validation in Python using substring','Date validation in Python using substring','Question\nComplete main() to read dates from input, one date per line. Each date\'s format must be as follows: March 1, 1990. Any date not following that format is incorrect and should be ignored. Use the substring() method to parse the string and extract the date. The input ends with -1 on a line alone. Output each correct date as: 3/1/1990.\n\nI want the answer for this in python.','\ndef get_month_as_int (monthstring):\n    if monthstring == \'January\':\n        month_int = 1 \n    elif monthstring == \'February\':\n        month_int = 2 \n    elif monthstring == \'March\':\n        month_int = 3 \n    elif monthstring == \'April\':\n        month_int = 4 \n    elif monthstring == \'May\':\n        month_int = 5 \n    elif monthstring == \'June\':\n        month_int = 6 \n    elif monthstring == \'July\':\n        month_int = 7 \n    elif monthstring == \'August\':\n        month_int = 8\n    elif monthstring == \'September\':\n        month_int = 9 \n    elif monthstring == \'October\':\n        month_int = 10 \n    elif monthstring == \'November\':\n        month_int = 11 \n    elif monthstring == \'December\':\n        month_int = 12 \n    else:\n        month_int = 0\n    return month_int\n\nprint(\"Please Enter the dates(Enter \'-1\' for Exit)\")\nuser_string=[]\nn=0;\n\n#loop till value \"-1\"\nwhile True:\n    str=input()\n    if str== \"-1\":\n        break\n    n=n+1\n    user_string.append(str)\n    \nprint(\"\\n Valid Dates are...\")\nfor i in range(0,n):\n    x = user_string[i].split(\",\")\n    if len(x)==2:\n        if len(x[1])==5:\n            y= x[0].split(\" \")\n            if len(y)==2:\n                #Using substring function\n                print(get_month_as_int(y[0]),\"/\",y[1].strip(),\"/\",x[1][1:])\n                \n\nOutput\n\nPlease Enter the dates(Enter \'-1\' for Exit)\nMArch 23 320   2020\nJanuary 1, 2020\nJun 34 ,23234\nJune 21, 2021\n-1\n\n Valid Dates are...\n1 / 1 / 2020\n6 / 21 / 2021\n','2021-11-04 16:16:59',0,3,21,0),
+(3512,'Exception Handling in Python for  TypeError and  ValueError','Exception Handling in Python for  TypeError and  ValueError','Exception Handling in Python for  TypeError and  ValueError','#Initializing the variables\nnumber=20;\nname=\'ALex\'\n\n#try block starts here\ntry:\n    #this statement will cause an \'TypeError\' Error\n    str=number+name  \nexcept TypeError:\n    #Exception block to catch TypeError\n    print(\"Oops! Plese combine same datatype variables\")\n    \n    \n#try block starts here\ntry:\n    #this statement will cause an \'ValueError\' Error\n    x=int(name)\nexcept ValueError:\n     #Exception block to catch ValueError\n    print(\"Oops!  That was no valid number.\")','2021-11-05 04:59:31',0,3,21,0),
+(3513,'File reading poppulation java average United Kingdom','File reading poppulation java average United Kingdom','In java program, please find out the total population for United Kingdom with data that store in text file. The program also should able to display how much average new born per day based the dataset for country specify by user.\nText file: (actual file have 500 rows and more country)\ncountry,date,total_population,new_born, new_death\nUnited Kingdom, 2020-02-24, 63475839, 354, 34,\nAfghanistan, 2020-02-24, 56213485, 524, 29,\nUnited Kingdom, 2020-02-24, 63475702, 602, 56,\nAfghanistan, 2020-02-25, 56213954, 601, 65,','\nimport java.io.BufferedReader;\nimport java.io.File;\nimport java.io.FileReader;\nimport java.io.IOException;\nimport java.util.Scanner;\n\npublic class FileData {\n	public static void main(String args[]) {\n		try {\n\n			Scanner sc = new Scanner(System.in);\n			String country;\n			// Initializing the variables\n			int totalPoppulation = 0, record_count = 0;\n			float sum_of_new_born_babys = 0.0f;\n\n			System.out.println(\"Please enter the Coutry name to Process the data\");\n			country = sc.nextLine(); // reads string.\n\n			// file is loading here. provide the full file path\n			File file = new File(\"E:\\\\input.txt\");\n\n			FileReader fr = new FileReader(file);\n			BufferedReader br = new BufferedReader(fr);\n			StringBuffer sb = new StringBuffer();\n			String line;\n\n			// looping the file content line by line\n			while ((line = br.readLine()) != null) {\n				sb.append(line);\n				sb.append(\"\\n\");\n\n				// processing the data using the split statement : Index[0]=>County Name,\n				// Index[1]=>date,\n				// Index[1]=>total_population,Index[3]=>new_born,Index[4]=>new_death,\n				if (line.split(\",\")[0].trim().equalsIgnoreCase(country)) {\n\n					// adding the poppulation\n					totalPoppulation += Integer.parseInt(line.split(\",\")[2].trim());\n\n					// Adding the new born bayyes count\n					sum_of_new_born_babys += Integer.parseInt(line.split(\",\")[3].trim());\n\n					record_count++;\n				}\n\n			}\n			// closing the file\n			fr.close();\n\n			System.out.println(\"Number of data sets for \" + country + \" :\" + record_count);\n			System.out.println(\"Total pupulation in \" + country + \"  : \" + totalPoppulation);\n			System.out.println(\n					\"Average no.of new born babys in  \" + country + \"  : \" + sum_of_new_born_babys / record_count);\n		} catch (IOException e) {\n			e.printStackTrace();\n		}\n	}\n}\n\n\n\n\nOutput\n\n\nPlease enter the Coutry name to Process the data\nUnited Kingdom\nNumber of data sets for United Kingdom :2\nTotal pupulation in United Kingdom  : 126951541\nAverage no.of new born babys in  United Kingdom  : 478.0\n','2021-11-05 08:13:24',0,3,1,0),
+(3514,'HTML bottom top moving link','HTML bottom top moving link','HTML bottom top moving link','<!DOCTYPE html>\n<html>\n\n<body>\n\n    <div>\n        <!-- Goto bottom link -->\n        <a id=\"top\" href=\"#bottom\">Link to bottom</a>\n\n        <!-- for Space -->\n        <div>\n            It is a long established fact that a reader will be distracted by the readable content of a page when\n            looking at its layout.\n            The point of usin sfsdf sd df sd f df s df sdf s s df zeadable English. Many desktop publishing packages\n            and web page editors now use Lorem Ipsum\n            as their default model text, and a gdf gd f search for \'lorem ipsum\' will uncover many web sites still in\n            their infancy. Various versions\n            have evolved over the efsd fs df , sometimes by accident, sometimes on sdfsfspurpose (injected humour and\n            the like).\n        </div>\n        <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br>\n        <br> <br>\n        <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br>\n        <br> <br> <br> <br> <br>\n        <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br>\n\n        <!-- Goto top link -->\n        <a id=\"bottom\" href=\"#top\">Link to Top</a>\n\n        <body>\n\n</html>\n\n','2021-11-05 13:11:26',0,3,3,0),
+(3515,'regex pattern validation for email in java','regex pattern validation for email in java','regex pattern validation for email in java','import java.util.Scanner;\nimport java.util.regex.Matcher;\nimport java.util.regex.Pattern;\n\npublic class EmailRegexValidation {\n	public static void main(String[] args) {\n		String email;\n		Scanner scanner = new Scanner(System.in);\n		System.out.print(\"Enter Email Id  : \");\n		email = scanner.nextLine();\n\n		// Email regex pattern\n		String regex = \"^(.+)@(.+)$\";\n\n		// Compiling the pattern\n		Pattern pattern = Pattern.compile(regex);\n\n		// Matching the inputted string with regex\n		Matcher matcher = pattern.matcher(email);\n\n		if (matcher.matches()) {\n			System.out.println(\"Its a valid Email Id\");\n		} else {\n			System.out.println(\"Its not a valid Email Id\");\n		}\n\n	}\n\n}\n\n\n\n\nOutput\n\nEnter Email Id  : alexgmail.com\nIts not a valid Email Id\n','2021-11-05 14:18:24',0,3,1,0),
+(3516,'java program for file to find average,minnimum and maximum','java program for file to find average,minnimum and maximum','java program for file to find average,minnimum and maximum','import java.io.FileNotFoundException;\nimport java.io.FileReader;\nimport java.io.IOException;\nimport java.util.Scanner;\n\npublic class Main {\n public static void main(String args[]) {\n  double min = 0, max = 0, sum = 0, num;\n  int count = 0;\n\n  FileReader fin;\n  try {\n   fin = new FileReader(\"E://sails.txt\");\n\n   Scanner fileScanner = new Scanner(fin);\n\n   while (fileScanner.hasNext()) {\n    num = fileScanner.nextDouble();\n    if (count == 0) {\n     min = num;\n     max = num;\n    }\n\n    if (num < min) {\n     min = num;\n    }\n    if (num > max) {\n     max = num;\n    }\n    sum += num;\n    count++;\n   }\n   System.out.println(\"Lowest Sail is :\" + min);\n   System.out.println(\"Heighest Sail is :\" + max);\n   System.out.println(\"Average of sail is :\" + sum / count);\n\n   fin.close();\n  } catch (FileNotFoundException e) {\n   System.out.println(\"File does\'t Exist!!!\");\n  } catch (IOException e) {\n   System.out.println(\"IO Exception!!!\");\n  }\n\n }\n\n}','2021-11-06 15:05:56',0,3,1,0),
+(3517,'Program for pointer to find out the minimum value in the array','Program for pointer to find out the minimum value in the array','Program for pointer to find out the minimum value in the array','#include <bits/stdc++.h>\n\nusing namespace std;\n\nint main() {\n    int length;\n    cout << \"Enter the number of values in the set: \";\n    cin >> length;\n    \n    int *arr = new int[length];\n    \n    cout << \"Enter \" << length << \" values:\\n\";\n    \n    for(int i = 0; i < length; ++i) {\n        cin >> arr[i];\n    }\n    \n    int *max_Pnt = arr;\n    \n    for(int i = 0; i < length; ++i) {\n        if(arr[i] > *max_Pnt) {\n            max_Pnt = arr+i;\n        }\n    }\n    \n    cout << \"Maximum value in the set is: \"<<*max_Pnt;\n    cout << \"\\nPointer to the Maximum value is: \"<<max_Pnt;\n    return 0;\n}','2021-11-06 15:08:18',0,3,4,0),
+(3518,'cpp program for BST(binart search tree) delete insert and traversal','cpp program for BST(binart search tree) delete insert and traversal','cpp program for BST(binart search tree) delete insert and traversal','#include <bits/stdc++.h>\n\nusing namespace std;\n\nstruct node {\n  int key;\n  struct node * left, * right;\n};\n\nstruct node * newNode(int item) // create a new BST node\n{\n  struct node * temp = (struct node * ) malloc(sizeof(struct node));\n  temp -> key = item;\n  temp -> left = temp -> right = NULL;\n  return temp;\n}\n\nvoid inorder(struct node * root) {\n  if (root != NULL) {\n    inorder(root -> left);\n    cout << root -> key << \" \";\n    inorder(root -> right);\n  }\n}\n\nstruct node * insert(struct node * node, int key) {\n  if (node == NULL) // If the tree is empty then return new node\n    return newNode(key);\n\n  if (key < node -> key) // else, recur down tree\n    node -> left = insert(node -> left, key);\n  else\n    node -> right = insert(node -> right, key);\n  return node;\n}\n\nstruct node * minValueNode(struct node * node) {\n  struct node * current = node;\n  while (current && current -> left != NULL) // loop to leftmost leaf\n    current = current -> left;\n  return current;\n}\n\nstruct node * deleteNode(struct node * root, int key) {\n\n  if (root == NULL) // base case\n    return root;\n\n  if (key < root -> key) //it lies in left subtree if (key < root->key) ,when the key to be deleted is smaller than the root\'s key\n    root -> left = deleteNode(root -> left, key);\n  else if (key > root -> key) // it lies in right subtree else if (key > root->key) ,when the key to be deleted is greater than the root\'s key\n    root -> right = deleteNode(root -> right, key);\n\n  // This is the node to be deleted ,when key is same as root\'s key\n  else {\n\n    if (root -> left == NULL and root -> right == NULL) // when node has no child\n      return NULL;\n    else if (root -> left == NULL) { // the node with no child or only one child\n      struct node * temp = root -> right;\n      free(root);\n      return temp;\n    } else if (root -> right == NULL) {\n      struct node * temp = root -> left;\n      free(root);\n      return temp;\n    }\n\n    struct node * temp = minValueNode(root -> right); // Get the inorder successor (smallest in the right subtree) when node with two children\n    root -> key = temp -> key; // Copy inorder successor\'s content to this node\n    root -> right = deleteNode(root -> right, temp -> key); // Delete inorder successor\n  }\n  return root;\n}\n\nint main() {\n  struct node * root = NULL;\n  root = insert(root, 10);\n  root = insert(root, 25);\n  root = insert(root, 20);\n  root = insert(root, 90);\n  root = insert(root, 45);\n  root = insert(root, 17);\n  root = insert(root, 12);\n  root = insert(root, 3);\n  root = insert(root, 5);\n\n  cout << \"**Inorder traversal of given tree**\\n\";\n  inorder(root);\n\n  cout << \"\\nDelete node 25\\n\";\n  root = deleteNode(root, 25);\n  cout << \"Inorder traversal of tree after deletion of 25\\n\";\n  inorder(root);\n\n  cout << \"\\nDelete node 90\\n\";\n  root = deleteNode(root, 90);\n  cout << \"Inorder traversal of tree after deletion of 90\\n\";\n  inorder(root);\n\n  return 0;\n}','2021-11-06 15:09:47',0,3,4,0),
+(3519,'Cpp program for Array of vectors','Cpp program for Array of vectors','Cpp program for Array of vectors','#include <iostream>\n#include <vector>\n#include <string>\nusing namespace std;\n\n \nint main()\n{\n    string str=\"\";\n    //Initializing the Vector array in vS\n    vector<string> vS {\"JAVA\", \"C++\", \"C#\",\"Python\",\"PHP\"};\n \n   \n \n    //Iterating the vector array \n    for (int i = 0; i < vS.size(); i++){\n        //adding the first character to the str \n        str += vS[i][0];\n    }\n    \n    //printing the outout\n    cout <<\"Output : \"<< str << \"\\n\";\n}\n\n\noutput\n\nOutput : JCCPP\n','2021-11-07 06:02:40',0,3,4,0),
+(3520,'square root for a java program','square root for a java program','square root for a java program','\nimport java.util.Scanner;\n\npublic class SquareRoot1 {\n	public static void main(String[] args) {\n		int a, b, c;\n\n		Scanner sc = new Scanner(System.in);\n		System.out.print(\"Enter a : \");\n		a = sc.nextInt();\n		System.out.print(\"Enter b : \");\n		b = sc.nextInt();\n		System.out.print(\"Enter c : \");\n		c = sc.nextInt();\n		area(a, b, c);\n	}\n\n	// Function to find out the squareRoot of a number\n	public static double squareRoot(float num) {\n		double t;\n		double sqrtroot = num / 2;\n		do {\n			t = sqrtroot;\n			sqrtroot = (t + (num / t)) / 2;\n		} while ((t - sqrtroot) != 0);\n		return sqrtroot;\n	}\n\n	// Function to find the Area\n	public static void area(int a, int b, int c) {\n		float s = 0, value;\n		s = (a + b + c) / 2;\n		value = s * (s - a) * (s - b) * (s - c);\n\n		System.out.println(\"Area is: \" + squareRoot(value));\n	}\n}\n','2021-11-07 07:20:37',0,3,1,0),
+(3521,'Java multithreading using thread example','Java multithreading using thread example','Java multithreading using thread example','class MultithreadingDem extends Thread {\n	public void run() {\n		try {\n			System.out.println(\"Thread  No : \" + Thread.currentThread().getId());\n		} catch (Exception e) {\n			System.out.println(\"Exception is caught\");\n		}\n	}\n}\n\npublic class Multithread {\n	public static void main(String[] args) {\n		int limit = 8;\n		for (int index = 0; index < limit; index++) {\n			MultithreadingDem object = new MultithreadingDem();\n			object.start();\n		}\n	}\n}\n\n\n\noutput\n\nThread  No : 10\nThread  No : 11\nThread  No : 12\nThread  No : 13\nThread  No : 14\nThread  No : 15\nThread  No : 16\nThread  No : 17\n','2021-11-07 14:51:44',0,3,1,0),
+(3522,'java program for ATM transactions','java program for ATM transactions','Please find the flow chart and java program for ATM transactions with 4 functions in below steps:','// Program for ATM Transaction\nimport java.io.*;\nimport java.util.Scanner;\npublic class Main {\n\n  // Withdraw amount and Display available balance in Account\n  public static int withdraw(int balance) {\n    int withdrawAmt;\n    Scanner sc = new Scanner(System.in);\n    System.out.println(\"Input the amount to be Withdrawn: \");\n    withdrawAmt = sc.nextInt();\n    if (balance >= withdrawAmt) {\n      balance = balance - withdrawAmt;\n      balanceCheck(balance);\n    } else {\n      System.out.println(\"Sorry! Insufficient Balance!!!\");\n      System.out.println();\n    }\n    return balance;\n  }\n\n  // Transfer amount and Display available balance in Account\n  public static int transfer(int balance) {\n    int moneySent, accno;\n    Scanner sc = new Scanner(System.in);\n    System.out.println(\"Input the account number for transfer amount : \");\n    accno = sc.nextInt();\n    System.out.println(\"Input the amount to be transferred: \");\n    moneySent = sc.nextInt();\n    if (balance >= moneySent) {\n      balance = balance - moneySent;\n      System.out.println(\"Your Money has been successfully transferred!!!\");\n      balanceCheck(balance);\n    } else {\n      System.out.println(\"Sorry! Insufficient Balance.\");\n      System.out.println();\n    }\n    return balance;\n  }\n\n  // Deposit amount and Display available balance in Account\n  public static int deposit(int balance) {\n    int depositAmt;\n    Scanner sc = new Scanner(System.in);\n    System.out.println(\"Input the amount to be deposited: \");\n    depositAmt = sc.nextInt();\n    balance = balance + depositAmt;\n    System.out.println(\"Your Money has been successfully deposited!!!\");\n    balanceCheck(balance);\n    return balance;\n  }\n\n  // Display available balance in Account\n  public static void balanceCheck(int balance) {\n    System.out.println(\"Available Balance Amount : \" + balance);\n    System.out.println();\n  }\n\n  //main method\n  public static void main(String args[]) {\n    Scanner sc = new Scanner(System.in);\n    int ch;\n    int balance = 0;\n    do {\n      System.out.println(\"    Welcome \\nSelect one choice \\n1.Deposit\\n2.Withdraw\\n3.Transfer\\n4.Balance Check\\n5.Exit\");\n      ch = sc.nextInt();\n\n      switch (ch) {\n      case 1:\n        balance = deposit(balance);\n        break;\n      case 2:\n        balance = withdraw(balance);\n        break;\n      case 3:\n        balance = transfer(balance);\n        break;\n      case 4:\n        balanceCheck(balance);\n        break;\n      case 5:\n        System.out.println(\"Please collect your card \\n Thank you!!!\");\n        System.exit(0);\n        break;\n      default:\n        System.out.println(\"Invalid selection\");\n        continue;\n      }\n\n    } while (ch != 0);\n\n  }\n}','2021-11-08 05:09:22',0,3,1,0),
+(3523,'C program for reading a file in command line and counting the maximum number of repeated letter in the file','C program for reading a file in command line and counting the maximum number of repeated letter in the file','C program for reading a file in command line and counting the maximum number of repeated letter in the file','#include <stdio.h>\n\n//main function starts here\nint main(int argc, char *input[])\n{\n    //Declaring the variables\n char f[26];\n int ch = 0, m = 0;\n\n FILE * ptr;\n //reading the file and checking the file Exixt or not\n if ((ptr = fopen(input[1], \"r\")) == NULL) {\n     \n  printf(\"File does\'t exists\");\n  return -1;\n }\n\n for (ch = 0; ch < 26; ch++)\n  f[ch] = 0;\n\n    //while loop for iterating the character\n while ((ch = fgetc(ptr)) && (ch != EOF))\n {\n     \n  if (\'a\' <= ch && ch <= \'z\')\n   f[ch - \'a\']++;\n  else if (\'A\' <= ch && ch <= \'Z\')\n   f[ch - \'A\']++;\n }\n\n for (int i = 1; i < 26; ++i)\n  if (f[i] > f[m])\n   m = i;\n\n printf(\"\\nMost Repeated character is \'%c\', it appeared %d times \\n\", (char)(\'a\' + m), f[m]);\n}','2021-11-08 05:11:23',0,3,2,0),
+(3524,'Sum of even fibinocci numbers in java','Sum of even fibinocci numbers in java','Sum of even fibinocci numbers in java','\n//Fibinocci Series: //0 1 1 2 3 5 8 13....\nimport java.util.Scanner;\n\npublic class FibinocciEvenSum {\n	public static void main(String args[]) {\n		int sum = 0;\n		Scanner scanner = new Scanner(System.in);\n\n		// Declaring and initializing variables\n		int nthElement;\n\n		// reading the limit\n		System.out.print(\"Enter the Value of n :  \");\n		nthElement = scanner.nextInt();\n\n		// Calling getFibinocciNumber function\n		sum = sumOFFibinocciNumbers(nthElement);\n		System.out.println(\"Sum of Even fibinocii numbers : \" + sum);\n	}\n\n	// Function for getting the fibinocci number in the Nth position\n	static int sumOFFibinocciNumbers(int nthElement) {\n		int total1 = 0, total2 = 1, nextTerm = 0, index;\n		int sum = 0;\n\n		nextTerm = total1 + total2;\n\n		// While loop for iterating till n>=number\n		while (nthElement >= nextTerm) {\n			total1 = total2;\n			total2 = nextTerm;\n			nextTerm = total1 + total2;\n			// check for even number\n			if (nthElement >= nextTerm && nextTerm % 2 == 0) {\n				sum += nextTerm;\n			}\n		}\n		return sum;\n	}\n\n}\n','2021-11-08 09:27:55',0,3,1,0),
+(3525,'HTML CSS CSS Grid sample program','HTML CSS CSS Grid sample program','HTML CSS CSS Grid sample program','File Name :  NamePage5.html\n\n<!DOCTYPE html>\n\n<html>\n\n<head>\n\n<link rel=\"stylesheet\" href=\"HTML5-CSS-Reset.css\" type=\"text/css\">\n\n</head>\n\n<body>\n\n<!-- defining the div\'s for the module -->\n\n<div class=\"grid-container\">\n\n<div class=\"item1\">Header</div>\n\n<div class=\"item2\">Side Bar</div>\n\n<div class=\"item4\">Content</div>\n\n<div class=\"item5\">Footer</div>\n\n</div>\n\n</body>\n\n</html>\n\nFile Name : HTML5-CSS-Reset.css\n\n.item1 {\n\ngrid-area: header;\n\nheight: 70px;\n\nbackground-color: rgb(175, 175, 250);\n\ncolor: red;\n\n}\n\n.item2 {\n\ngrid-area: menu;\n\nheight: 500px;\n\nbackground-color: rgb(241, 241, 170);\n\n}\n\n.item4 {\n\ngrid-area: right;\n\nheight: 500px;\n\nbackground-color: rgb(236, 129, 156);\n\n}\n\n.item5 {\n\ngrid-area: footer;\n\nheight: 40px;\n\nbackground-color: rgb(126, 226, 151);\n\n}\n\n/* Common css Grid properties */\n\n.grid-container {\n\n/* display: grid; => Setting for enabling the CSS grid property in CSS */\n\ndisplay: grid;\n\n/* Setting the templates */\n\ngrid-template-areas:\n\n\'header header header header header header\'\n\n\'menu right right right right right\'\n\n\'footer footer footer footer footer footer\';\n\n/* Setting the grid gap between each cell */\n\ngrid-gap: 10px;\n\npadding: 10px;\n\n}\n\n/* Common CSS for the grid-container */\n\n.grid-container>div {\n\ntext-align: center;\n\npadding: 20px 0;\n\nfont-size: 30px;\n\n}','2021-11-09 07:40:34',0,2,3,0),
+(3526,'Program in python for taking the intersection of two array or list','Program in python for taking the intersection of two array or list','Program in python for taking the intersection of two array or list','\nA=input(\"Enter the First list of numbers as space separated : \")\nB=input(\"Enter the Second list of numbers as space separated :\")\n\n#Splittingto the array\nA=[int(n) for n in A.split()]\nB=[int(n) for n in B.split()]\nC=[]\n\n#loop for itearating A\nfor i in A:\n    # loop for itearating B\n    for j in B:\n        # check for  for i=j\n        if i==j:\n            C.append(i)\n            C.sort()\n            list=[]\n            for i in C:\n                if i not in list:\n                    list.append(i)\n\nif len(C)!=0:\n    print(\"The Intersection List :\",C)\nelse:\n    print(\"There are no intersections !!!\")\n\n','2021-11-09 07:42:04',0,3,21,0),
+(3527,'Java program for leap year','Java program for leap year','Java program for leap year','import java.util.Scanner;\n\npublic class leapYear {\n	public static void main(String[] args) {\n		readYear();\n		repeatProcess();\n\n	}\n\n	public static int isLeapyear(int year) {\n		if ((year % 400 == 0) || ((year % 4 == 0) && (year % 100 != 0)))\n			return 1;\n		else\n			return 0;\n	}\n\n	public static int readYear() {\n		System.out.print(\"Enter the year: \");\n		Scanner scanner = new Scanner(System.in);\n		int year = scanner.nextInt();\n		if (year <= 1582)\n			System.out.print(\"Please enter a valid year: \");\n		else {\n			if (isLeapyear(year) == 1)\n				System.out.println(year + \" is Leap year\");\n			else\n				System.out.println(year + \" is not a Leap year\");\n		}\n		return year;\n	}\n\n	public static void repeatProcess() {\n\n		char cType;\n		Scanner scanner = new Scanner(System.in);\n\n		while (true) {\n			System.out.println(\"Do you want to repeat the process of checking if a year is a leap year?\");\n			System.out.print(\"Enter y for yes and n for no: \");\n			cType = scanner.next().charAt(0);\n			cType = Character.toLowerCase(cType);\n			if (cType == \'y\') {\n				System.out.print(\"enter the year: \");\n				int year = scanner.nextInt();\n				if (year <= 1582)\n					System.out.print(\"Please enter a valid year\");\n\n				if (isLeapyear(year) == 1)\n					System.out.println(year + \" is Leap year\");\n				else\n					System.out.println(year + \" is not a Leap year\");\n			}\n\n			if (cType == \'n\') {\n				System.out.println(\"Thank you\");\n				break;\n			}\n\n		}\n	}\n\n}','2021-11-09 10:00:41',0,3,1,0),
+(3528,'MIPS program to add array of 10 numbers','MIPS program to add array of 10 numbers','MIPS program to add array of 10 numbers','\n.data \n	array: .space 40    #declaring 10 number integer array\n	mess: .asciiz \" Enter 10 Integers. \"\n	arr:.word 4,6,2,4,7,9,7,8,6,20\n	msg: .asciiz \"SUM : : \"\n.text\n.globl main\n	main:\n		addi $t0, $0, 0         # clear the value of  i\n		addi $t1, $0, 0         # clear value of result\n		ori $t2, $0, 10         # setting t2 to its value 10\n		la $t3, arr             # store address of array into t4\n		loop:\n			slt $t4, $t0, $t2       # compare, $t4 = i < sum ? 1 : 0\n			beq $t4, $0, end        # if i is not < 10, exit the loop\n			lw $t4, 0($t3)          # store current array element into t4\n			add $t1, $t1, $t4       # add it to sum\n			add $t0, $t0, 1         # increase  i\n			add $t3, $t3, 4         # increment current array element pointer\n			j loop\n		end:\n		addi $v0, $0, 4        \n		la $a0, msg\n		syscall\n		addi $v0, $0, 1        \n		add $a0, $t1, $0\n		syscall\n		jr $ra\n	.end main','2021-11-09 10:04:42',0,3,5,0),
+(3529,'python program to have class and parameterized constructor','python program to have class and parameterized constructor','python program to have class and parameterized constructor','#Class is definition\nclass Joker:\n\n    # default constructor\n    def __init__(self,name,power,is_he_psycho):\n        self.name=name\n        self.power=power\n        self.is_he_psycho = is_he_psycho\n\n\nj1 = Joker(\'Heath Ledger\', \'Mind Game\', False)\nprint(j1.name)\nprint(j1.power)\nprint(j1.is_he_psycho)\nprint(\"=====================\")\nj2 = Joker(\'Joaquin Phoenix\', \'Laughing out Loud\', True)\nprint(j2.name)\nprint(j2.power)\nprint(j2.is_he_psycho)\nprint(\"=====================\")\nif j1 == j2:\n print(\'same\')\nelse:\n print(\'different\')\nj2.name = \'Heath Ledger\'\nif j1.name == j2.name:\n print(\'same\')\nelse:\n print(\'different\')\n','2021-11-09 10:53:24',0,3,21,0),
+(3530,'Python program for random number and splicing an array','Python program for random number and splicing an array','Python program for random number and splicing an array','import random\nimport array as arr\n\n#middle function\ndef middle(array_before_splice,n):\n   #Splcing the first and last element in the array and returning tha same\n   return  array_before_splice[1:n-1]\n\n#min function definition\ndef main():\n    #Genereating the random number\n    n = random.randint(1, 10)\n    print(\"List length : \",n)\n    #a = arr.array(\'d\', [])\n    array_before_splice=[]\n    array_after_splice = []\n\n    #Iterating and creating the array with the generated random number n\n    for x in range(1,n+1    ):\n        array_before_splice.append(x)\n\n    print(array_before_splice)\n    #Calling the middle function\n    array_after_splice=middle(array_before_splice,n)\n    print(array_after_splice)\n\n\nif __name__ == \"__main__\":\n    main()\n\n\n\n\noutput\n\nList length :  7\n[1, 2, 3, 4, 5, 6, 7]\n[2, 3, 4, 5, 6]','2021-11-09 14:20:28',0,3,21,0),
+(3531,'HTML and Javascript program to check a number is even or odd','HTML and Javascript program to check a number is even or odd','HTML and Javascript program to check a number is even or odd','<!doctype html>\n<html>\n<html lang=\"en\">\n<head>\n</head>\n<body>\n    Enter a value for n :\n    <input id=\"number\" type=\"text\" />\n    <input type=\"submit\" onclick=\"checkOddOrEven()\" />\n</body>\n<script>\n    /* Function for checking the number is Odd or Even */\n    function checkOddOrEven() {\n        var number = document.getElementById(\"number\").value;\n        number = parseInt(number)\n        /* Checking the remainter for checking odd or even */\n        if (number % 2 == 0) {\n            alert(\"Number is Even\")\n        } else {\n            alert(\"Number is Odd\")\n        }\n    }\n</script>\n</html>','2021-11-09 14:37:11',0,3,3,0),
+(3532,'Python Program to print a pattern','Python Program to print a pattern','Python Program to print a pattern','\n#Reading the inputs\nbuttonName = str(input(\"Button Name : \"))\nnoOfTop = int(input(\"Number of  the border characters for the top and the Bottom : \"))\nleftNoOfSpaces=int(input(\"Number of spaces between the left side boarder  and the first character of the button name : \"))\nrightNoOfSpaces=int(input(\"Number of spaces between the right side boarder  and the last character of the button name : \"))\nchracter=str(input(\"Character representing the boarder : \"))\n\n#Printing the first row\nprint(chracter*noOfTop)\n#Printing the second  row including the sapces\nprint(chracter,\" \"*leftNoOfSpaces,buttonName,\" \"*rightNoOfSpaces,chracter)\n#Printing the third row\nprint(chracter*noOfTop)\n\n\n\nOutput\n\nButton Name : SAVE PROGRESS\nNumber of  the border characters for the top and the Bottom : 25\nNumber of spaces between the left side boarder  and the first character of the button name : 3\nNumber of spaces between the right side boarder  and the last character of the button name : 3\nCharacter representing the boarder : !\n!!!!!!!!!!!!!!!!!!!!!!!!!\n!     SAVE PROGRESS     !\n!!!!!!!!!!!!!!!!!!!!!!!!!\n','2021-11-09 16:05:10',0,3,21,0),
+(3533,'Java Swing program for creating a UI and printing the results. JButton JFrame JLabel JTextArea','Java Swing program for creating a UI and printing the results. JButton JFrame JLabel JTextArea','Java Swing program for creating a UI and printing the results. JButton JFrame JLabel JTextArea','import java.awt.Container;\nimport java.awt.Font;\nimport java.awt.event.ActionEvent;\nimport java.awt.event.ActionListener;\n\nimport javax.swing.JButton;\nimport javax.swing.JFrame;\nimport javax.swing.JLabel;\nimport javax.swing.JTextArea;\nimport javax.swing.JTextField;\n\n//Jframe class for result\nclass ResultFrame extends JFrame {\n\n	private Container p;\n	private JTextArea textArea;\n\n	private JButton reset;\n\n	// Constuctor\n	public ResultFrame(String details) {\n		setTitle(\"OUTPUT\");\n		setBounds(100, 90, 400, 600);\n		setDefaultCloseOperation(EXIT_ON_CLOSE);\n		setResizable(false);\n\n		p = getContentPane();\n		p.setLayout(null);\n\n		textArea = new JTextArea();\n		textArea.setFont(new Font(\"Arial\", Font.PLAIN, 20));\n		textArea.setSize(300, 330);\n		textArea.setLocation(100, 50);\n		textArea.setText(details);\n		p.add(textArea);\n\n		reset = new JButton(\"Okey\");\n		reset.setFont(new Font(\"Arial\", Font.PLAIN, 15));\n		reset.setSize(100, 20);\n		reset.setLocation(200, 550);\n		p.add(reset);\n\n		setVisible(true);\n	}\n\n}\n\n//calss for main form\nclass MyFrame extends JFrame implements ActionListener {\n\n	private Container c;\n	private JLabel fName;\n	private JLabel lName;\n	private JLabel mName;\n	private JLabel mobileNo;\n	private JLabel email;\n\n	private JTextField tfName;\n	private JTextField tlName;\n	private JTextField tmName;\n	private JTextField tMobile;\n	private JTextField tEmail;\n\n	private JButton submit;\n	private JButton reset;\n\n	// Constuctor\n	public MyFrame() {\n\n		setTitle(\"INPUT\");\n		setBounds(300, 90, 400, 700);\n		setDefaultCloseOperation(EXIT_ON_CLOSE);\n		setResizable(false);\n\n		c = getContentPane();\n		c.setLayout(null);\n\n		fName = new JLabel(\"First Name\");\n		fName.setFont(new Font(\"Arial\", Font.PLAIN, 20));\n		fName.setSize(100, 20);\n		fName.setLocation(100, 50);\n		c.add(fName);\n\n		tfName = new JTextField();\n		tfName.setFont(new Font(\"Arial\", Font.PLAIN, 15));\n		tfName.setSize(190, 20);\n		tfName.setLocation(100, 100);\n		c.add(tfName);\n\n		lName = new JLabel(\"Last Name\");\n		lName.setFont(new Font(\"Arial\", Font.PLAIN, 20));\n		lName.setSize(100, 20);\n		lName.setLocation(100, 150);\n		c.add(lName);\n\n		tlName = new JTextField();\n		tlName.setFont(new Font(\"Arial\", Font.PLAIN, 15));\n		tlName.setSize(190, 20);\n		tlName.setLocation(100, 200);\n		c.add(tlName);\n\n		mName = new JLabel(\"Middle Name\");\n		mName.setFont(new Font(\"Arial\", Font.PLAIN, 20));\n		mName.setSize(190, 20);\n		mName.setLocation(100, 250);\n		c.add(mName);\n\n		tmName = new JTextField();\n		tmName.setFont(new Font(\"Arial\", Font.PLAIN, 15));\n		tmName.setSize(190, 20);\n		tmName.setLocation(100, 300);\n		c.add(tmName);\n\n		mobileNo = new JLabel(\"Mobile Number\");\n		mobileNo.setFont(new Font(\"Arial\", Font.PLAIN, 20));\n		mobileNo.setSize(100, 20);\n		mobileNo.setLocation(100, 350);\n		c.add(mobileNo);\n\n		tMobile = new JTextField();\n		tMobile.setFont(new Font(\"Arial\", Font.PLAIN, 15));\n		tMobile.setSize(190, 20);\n		tMobile.setLocation(100, 400);\n		c.add(tMobile);\n\n		email = new JLabel(\"Email Address\");\n		email.setFont(new Font(\"Arial\", Font.PLAIN, 20));\n		email.setSize(190, 20);\n		email.setLocation(100, 450);\n		c.add(email);\n\n		tEmail = new JTextField();\n		tEmail.setFont(new Font(\"Arial\", Font.PLAIN, 15));\n		tEmail.setSize(190, 20);\n		tEmail.setLocation(100, 500);\n		c.add(tEmail);\n\n		submit = new JButton(\"Submit\");\n		submit.setFont(new Font(\"Arial\", Font.PLAIN, 15));\n		submit.setSize(100, 20);\n		submit.setLocation(100, 550);\n		submit.addActionListener(this);\n		c.add(submit);\n\n		reset = new JButton(\"Clear All\");\n		reset.setFont(new Font(\"Arial\", Font.PLAIN, 15));\n		reset.setSize(100, 20);\n		reset.setLocation(200, 550);\n		reset.addActionListener(this);\n		c.add(reset);\n\n		setVisible(true);\n	}\n\n	public void actionPerformed(ActionEvent e) {\n		if (e.getSource() == submit) {\n			String details = \"First Name : \" + tfName.getText();\n			details += \"\\nLast Name : \" + tlName.getText();\n			details += \"\\nMiddle Name : \" + tmName.getText();\n			details += \"\\nMobile Number : \" + tMobile.getText();\n			details += \"\\nEmail Address : \" + tEmail.getText();\n\n			ResultFrame f = new ResultFrame(details);\n		}\n\n		else if (e.getSource() == reset) {\n\n			tmName.setText(\"\");\n			tfName.setText(\"\");\n			tMobile.setText(\"\");\n			tEmail.setText(\"\");\n			tlName.setText(\"\");\n\n		}\n	}\n}\n\nclass Registration {\n\n	public static void main(String[] args) {\n		MyFrame f = new MyFrame();\n\n	}\n}','2021-11-11 06:06:14',0,3,1,0),
+(3534,'Java program for Item Class and management and display function','Java program for Item Class and management and display function','Java program for Item Class and management and display function','import java.util.ArrayList;\nimport java.util.List;\nimport java.util.Scanner;\n\npublic class Item {\n\n	// Declaring the class variables\n	String itemCode;\n	String itmeName;\n	int itemPrice;\n\n	// Main function\n	public static void main(String[] args) {\n		Scanner sc = new Scanner(System.in);\n		List<Item> obj1 = new ArrayList();\n		String itemCode;\n		String itemName;\n		int itemPrice;\n\n		// Reading the input values\n		for (int index = 1; index <= 3; index++) {\n			System.out.print(\"Enter code, name, price of Object \" + index + \": \");\n			itemCode = sc.next();\n			itemName = sc.next();\n			itemPrice = sc.nextInt();\n			obj1.add(new Item(itemCode, itemName, itemPrice));\n		}\n\n		// Reading the frequency values\n		for (int index = 1; index <= 3; index++) {\n			System.out.print(\"Enter frequency of Object \" + index + \": \");\n			char f = sc.next().charAt(0);\n		}\n		sc.close();\n		for (int index = 0; index < 3; index++) {\n			obj1.get(index).display();\n		}\n	}\n\n	// default constructor\n	public Item() {\n	}\n\n	// Parameterized constructor\n	public Item(String itemCode, String itmeName, int itemPrice) {\n		this.itemCode = itemCode;\n		this.itmeName = itmeName;\n		this.itemPrice = itemPrice;\n	}\n\n	// getters and setters\n	public void setItmeName(String itmeName) {\n		this.itmeName = itmeName;\n	}\n\n	public int getItemPrice() {\n		return itemPrice;\n	}\n\n	public void setItemPrice(int itemPrice) {\n		this.itemPrice = itemPrice;\n	}\n\n	public String getItemCode() {\n		return itemCode;\n	}\n\n	public void setItemCode(String itemCode) {\n		this.itemCode = itemCode;\n	}\n\n	public String getItmeName() {\n		return itmeName;\n	}\n\n	// display function\n	public void display() {\n		int price;\n		if (itemPrice == 750) {\n			price = 600;\n		} else if (itemPrice == 500) {\n			price = 475;\n		} else {\n			price = itemPrice;\n		}\n		System.out.println(\"The price of the item \" + itmeName + \" (\" + itemCode + \") is \" + itemPrice\n				+ \", its final price is \" + price);\n	}\n\n}\n\n\noutput\n\nEnter code, name, price of Object 1: E001 iPhone11 750\nEnter code, name, price of Object 2: F001 Table 500\nEnter code, name, price of Object 3: A001 AirPodPro 230\nEnter frequency of Object 1: h\nEnter frequency of Object 2: L\nEnter frequency of Object 3: a\nThe price of the item iPhone11 (E001) is 750, its final price is 600\nThe price of the item Table (F001) is 500, its final price is 475\nThe price of the item AirPodPro (A001) is 230, its final price is 230\n','2021-11-11 10:58:45',0,3,1,0),
+(3535,'C++ Program for reading a file and writting output to another file (File : sensordata.txt,SensorSUM_AVG.txt)','C++ Program for reading a file and writting output to another file (File : sensordata.txt,SensorSUM_AVG.txt)','C++ Program for reading a file and writting output to another file (File : sensordata.txt,SensorSUM_AVG.txt)','#include <iostream>\n#include <fstream>\nusing namespace std;\n\n//Main function for starting the code flow\nint main() {\n    \n  //reading the sensordata.txt file for the input\n  ifstream read(\"sensordata.txt\");\n\n  //reading the file \n  if (read.is_open()) {\n    cout << \"Reading Input File ...\" << endl;\n    \n    //Initializing the variables\n    double total = 0;\n    int number = 0;\n    double average = 0;\n    \n    read >> number;\n    cout << \"Total number of readings : \" << number << endl;\n    cout << endl;\n    \n    //loop for iterating the records\n    for (int sensorNum = 1; sensorNum <= number; sensorNum++) {\n      double sensorReading;\n      read >> sensorReading;\n      total += sensorReading;\n      cout << \"Sensor Number \" << sensorNum << \" is : \" << sensorReading << endl;\n\n    }\n\n    cout << endl;\n    average = total / number;\n    cout << \"Total : \" << total << endl;\n    cout << \"Average : \" << average << endl;\n\n    ofstream write(\"SensorSUM_AVG.txt\");\n\n    write << total << endl;\n    write << average << endl;\n\n    //closing the file and write onj connections\n    write.close();\n    read.close();\n\n  } else {\n\n    cout << \"Error while opening the file\" << endl;\n  }\n\n  return 0;\n}','2021-11-11 11:43:27',0,3,4,0),
+(3536,'Python program to find the ingredients of cookies count','Python program to find the ingredients of cookies count','Python program to find the ingredients of cookies count','#main function definition\ndef main():\n    #reading the no.of cookies\n    cookies = float(input(\"Number of cookies you like to make : \"))\n\n    # Calulate the quantity of the  sugar\n    sugar = (2.5 * cookies) / 45.0\n\n    # Calculate the quantity of  butter\n    butter = cookies / 45\n\n    # Calculate quantity of flour\n    flour = (3.75 * cookies) / 45\n\n    # Tell user results\n    print(\"To make \", cookies, \" cookies, you will need:\\n\", \\\n          format(sugar, \'.2f\'), \" cups of sugar\\n\", \\\n          format(butter, \'.2f\'), \" cups of butter\\n\", \\\n          format(flour, \'.2f\'), \" cups of flour\", sep=\'\')\n\n\n# Run program\nmain()\n\n\n\noutput\n\nNumber of cookies you like to make : 45\nTo make 45.0 cookies, you will need:\n2.50 cups of sugar\n1.00 cups of butter\n3.75 cups of flour','2021-11-12 16:17:19',0,3,21,0),
+(3537,'You are roaming in a random city and you have lost. You see a sign board and where that is return in that you can go to C and Y street','You are roaming in a random city and you have lost. You see a sign board and where that is return in that you can go to C and Y street','You are roaming in a random city and you have lost. You see a sign board and where that is return in that you can go to C and Y street','#include<bits/stdc++.h>\n\n#include<iostream>\n\n#define ll long long int\nusing namespace std;\n\n//main function. Here the execution starts\nint main() {\n\n  //declaring and initializing the variables\n  ll n, k, z = 0;\n  \n  //Reading the inputs\n  cout << \"Enter the Values : \\n\";\n  cin >> n >> k;\n  ll array[n];\n  \n  //Loooping in the for loop for finding the results\n  for (ll index = 0; index < n; index++)\n    cin >> array[index];\n  for (ll index = 0; index < n; index++) {\n    if (array[index] == k) {\n      z = array[index];\n    }\n  }\n  \n  //looping for priting the outputs\n  for (ll index = 0; index < n; index++) {\n    if (array[index] - z == k) {\n      cout << array[index] * z;\n    }\n  }\n  return 0;\n}\n\n\n\nOutput\n=============\n\n\nEnter the Values : \n3 1\n2 5 1\n2','2021-11-14 05:41:50',0,3,4,0),
+(3538,'Java program for sorting  names (nicknames)','Java program for sorting  names (nicknames)','Java program for sorting  names (nicknames)','\nimport java.util.ArrayList;\nimport java.util.List;\nimport java.util.Scanner;\n\npublic class StringSort {\n	public static void main(String args[]) {\n		Scanner sc = new Scanner(System.in);\n		List<String> names = new ArrayList<String>();\n\n		System.out.println(\"Enter the nicknames of 4 of your classmates : \");\n\n		/* Reading the 4 classmates mick names */\n		for (int i = 0; i < 4; i++) {\n			names.add(sc.nextLine());\n		}\n\n		/* Sorting the data */\n		int size = names.size();\n		for (int i = 0; i < size - 1; i++) {\n			for (int j = i + 1; j < names.size(); j++) {\n				if (names.get(i).compareTo(names.get(j)) > 0) {\n					String temp = names.get(i);\n					names.set(i, names.get(j));\n					names.set(j, temp);\n				}\n			}\n		}\n\n		/* looping for sai HI */\n		System.out.println(\"Press H to say Hi to each of them.\");\n		for (String string : names) {\n			String ch = sc.nextLine();\n			if (ch.equalsIgnoreCase(\"H\")) {\n				System.out.println(\"Hi \" + string);\n			}\n\n		}\n		System.out.println(\"Done saying Hi\");\n	}\n}\n\n\nOutput\n\nEnter the nicknames of 4 of your classmates : \nSam\nAlex\nNoble\nJune\nPress H to say Hi to each of them.\nh\nHi Alex\nh\nHi June\nh\nHi Noble\nh\nHi Sam\nDone saying Hi\n','2021-11-14 07:47:15',0,3,1,0),
+(3539,'Java program for creating a half arrow (->)','Java program for creating a half arrow (->)','Java program for creating a half arrow (->)','import java.util.Scanner;\n\npublic class HalfArrow {\n	public static void main(String[] args) {\n		Scanner sc = new Scanner(System.in);\n\n		// Initializing the variables\n		int arrowBaseHeight = 0;\n		int arrowBaseWidth = 0;\n		int arrowHeadWidth = 0;\n\n		// Reading the inputs\n		System.out.println(\"Enter arrow base  height :\");\n		arrowBaseHeight = sc.nextInt();\n\n		System.out.println(\"Enter arrow base  Width :\");\n		arrowBaseWidth = sc.nextInt();\n\n		System.out.println(\"Enter arrow head width :\");\n		arrowHeadWidth = sc.nextInt();\n\n		// Printing the rectangle block(base of the arrow)\n		for (int i = 0; i < arrowBaseHeight; i++) {\n			for (int j = 0; j < arrowBaseWidth; j++) {\n				System.out.print(\"*\");\n			}\n			System.out.println();\n		}\n\n		// priting the arrow head\n		for (int i = 0; i < arrowHeadWidth; i++) {\n			for (int j = arrowHeadWidth; j > i; j--) {\n				System.out.print(\"*\");\n			}\n			System.out.println();\n		}\n\n	}\n}\n\n\nOutput\n\n\nEnter arrow base  height :\n4\nEnter arrow base  Width :\n2\nEnter arrow head width :\n4\n**\n**\n**\n**\n****\n***\n**\n*\n','2021-11-14 12:16:11',0,3,1,0),
+(3540,'Python Program for File writing the player score goal details','Python Program for File writing the player score goal details','Write a program that uses a while loop to store goals and assists for Lightning players in a text file called player_data.txt. The program should prompt the user for player names, goals, and assists as shown below. Enter data for at least five players. You can make up the names and data. Each datum should be stored on its own line in the file.','\ntopScorer=\"\"\ntopScore=0\n\n#Opening the file file test.txt\nwith open(\"test.txt\", \'w\') as f:\n    \n    #Writting the heades to the file\n    f.writelines(\"{:<10s}{:<10s}{:<10s}{:<10s}\\n\".format(\"Name\", \"Goals\", \"Assist\",\"Total\"))\n    \n    #Loop will iterate till press the enter\n    while True:\n        name = input(\"\\nInput Player Name or Enter to quit : \")\n        if name==\"\":\n            break\n        goals = int(input(\"Enter goals scored by \"+name+\" : \"))\n        assist = int(input(\"Enter Assist scored by this player :  \"))\n        \n        #Wrtiting the content to the file\n        f.writelines(\"{:<10s}{:<10d}{:<10d}{:<10d}\\n\".format(name, goals, assist,goals+assist))\n        \n        if(topScore<(goals+assist)):\n            topScore=goals+assist;\n            topScorer=name\n            \n    str=topScorer +\" is top scorer with \"+str(topScore)+\" points\"\n    f.writelines(\"{:<100s}\\n\".format(str))\n            \n\n\noutput\n\nName      Goals     Assist    Total     \nAlex      3         2         5         \nRobin     2         5         7         \nAlbert    2         6         8         \nAlbert is top scorer with 8 points                                                                  ','2021-11-15 07:06:32',0,3,21,0),
+(3541,'Program to String and numer palindrome in c++','Program to String and numer palindrome in c++','Program to String and numer palindrome in c++','#include <iostream>  \nusing namespace std; \n\n//check for integer palindrome\nbool checkPalindrome(int n){\n    int r,sum=0,temp;    \n    temp=n;    \n    while(n>0)    \n    {    \n        r=n%10;    \n        sum=(sum*10)+r;    \n        n=n/10;    \n    }    \n    if(temp==sum)    \n        return true;\n    else    \n        return false;\n}\n\n//check for String palindrome\nbool checkPalindrome(string S)\n{\n    for (int i = 0; i < S.length() / 2; i++) {\n        if (S[i] != S[S.length() - i - 1]) {\n            return false;\n        }\n    }\n    return true;\n}\n\n\nint main()  \n{ \n\n  if(checkPalindrome(121)){\n      cout<<\"121 is Palindrome.\"<<endl;    \n  }else{\n      cout<<\"121 is not Palindrome.\"<<endl;       \n  }\n  \n   if(checkPalindrome(\"&quot;1122&quot;\")){\n      cout<<\"&quot;1122&quot; is Palindrome.\"<<endl;        \n  }else{\n      cout<<\"&quot;1122&quot; is not Palindrome.\"<<endl;      \n  }\n\n  return 0;  \n} \n\n\n\noutput\n\n121 is Palindrome.\n&quot;1122&quot; is not Palindrome.\n','2021-11-15 08:51:43',0,3,4,0),
+(3542,'C++ Program for blood bank (age,name,blood group,weight, Exception handling)','C++ Program for blood bank (age,name,blood group,weight, Exception handling)','C++ Program for blood bank (age,name,blood group,weight, Exception handling)','#include <iostream>\n#include <fstream>\nusing namespace std;\n\nclass Age : public exception{  \n    public:  \n        const char * what() const throw()  \n        {  \n            return \"Exception: Age must be greater than 17!\\n\";  \n        }  \n};  \nclass Weight : public exception{  \n    public:  \n        const char * what() const throw()  \n        {  \n            return \"Exception: The weight must be greater than 45\\n\";  \n        }  \n}; \nclass Blood : public exception{  \n    public:  \n        const char * what() const throw()  \n        {  \n            return \"Exception: Maximum amount of blood can be drawn is 350ml\\n\";  \n        }  \n}; \n\nint main()\n{\n    string name,group;\n    int age,weight,amount_blood;\n    \n    try{\n    cout << \"Enter Donor name: \"; \n    cin >> name; \n    \n    cout << \"Enter Donor Age: \"; \n    cin >> age; \n    if( age <=17 ) {\n       Age z;  \n       throw z;  \n    }\n   \n    cout << \"Enter Donor Blood Group: \"; \n    cin >> group; \n    \n    cout << \"Enter Donor\'s Weight: \"; \n    cin >> weight; \n    if( weight <=44 ) {\n       Weight z;  \n       throw z;  \n    }\n    \n    cout << \"Enter the amount of blood Collected: \"; \n    cin >> amount_blood;\n    if( amount_blood >=351 ) {\n       Blood z;  \n       throw z;  \n    }\n    \n    cout << \"Thanks. Your request is processing!!!!!: \";  \n    }catch(Age e){\n        cout << e.what();  \n    }catch(Weight e){\n        cout << e.what();  \n    }\n    catch(Blood e){\n        cout << e.what();  \n    }\n    return 0;\n}\n\noutput\n\nEnter Donor name: Don\nEnter Donor Age: 26\nEnter Donor Blood Group: O-\nEnter Donor\'s Weight: 56\nEnter the amount of blood Collected: 300\nThanks. Your request is processing!!!!!: ','2021-11-15 11:41:02',0,3,4,0),
+(3543,'Java program to search a course from the file','Java program to search a course from the file','Java program to search a course from the file','\nimport java.io.BufferedReader;\nimport java.io.File;\nimport java.io.FileReader;\nimport java.io.IOException;\nimport java.util.Scanner;\n\npublic class SearchInFile {\n	public static void main(String args[]) {\n		try {\n\n			Scanner sc = new Scanner(System.in);\n			String qualification;\n			int i = 0;\n			// Initializing the variables\n			int totalPoppulation = 0, record_count = 0;\n			float sum_of_new_born_babys = 0.0f;\n\n			System.out.println(\"Enter the Qualification to search\");\n			qualification = sc.nextLine(); // reads string.\n\n			// file is loading here. provide the full file path\n			File file = new File(\"E:\\\\search.txt\");\n\n			FileReader fr = new FileReader(file);\n			BufferedReader br = new BufferedReader(fr);\n			StringBuffer sb = new StringBuffer();\n			String line;\n\n			// looping the file content line by line\n			System.out.println(\"Election Candidate Details\");\n			while ((line = br.readLine()) != null) {\n				sb.append(line);\n				sb.append(\"\\n\");\n\n				if (line != null) {\n					if (line.split(\",\")[2].trim().equalsIgnoreCase(qualification)) {\n						i++;\n						System.out.println(\"Candidate : \" + i);\n						System.out.println(\"Candidate Name : \" + line.split(\",\")[0]);\n						System.out.println(\"Age : \" + line.split(\",\")[1]);\n						System.out.println(\"Qualification : \" + line.split(\",\")[2]);\n						System.out.println(\"Location : \" + line.split(\",\")[3]);\n					}\n				}\n\n			}\n			if (i == 0) {\n				System.out.println(\"No candidate found\");\n			}\n\n			// closing the file\n			fr.close();\n\n		} catch (IOException e) {\n			e.printStackTrace();\n		}\n	}\n}\n\n\nOutput\n\nEnter the Qualification to search\nBSc\nElection Candidate Details\nCandidate : 1\nCandidate Name : Rajkumar\nAge : 32\nQualification : BSc\nLocation : Chennai\nCandidate : 2\nCandidate Name : Rajkumar\nAge : 26\nQualification : BSc\nLocation : Chennai\nCandidate : 3\nCandidate Name : Selvan\nAge : 27\nQualification : BSc\nLocation : Chennai\nCandidate : 4\nCandidate Name : Pratap Raj\nAge : 34\nQualification : BSc\nLocation : Chennai\n','2021-11-15 12:04:38',0,3,1,0),
+(3544,'Java program to check the array is sorted or not','Java program to check the array is sorted or not','Java program to check the array is sorted or not','\nimport java.util.Scanner;\n\npublic class ArrayIsSorted {\n	public static void main(String args[]) {\n		double[] list;\n\n		list = getNumsFromUser();\n		if (isSorted(list)) {\n			System.out.println(\"The list is already sorted\");\n		} else {\n			System.out.println(\"The list is not sorted\");\n		}\n\n	}\n\n	public static double[] getNumsFromUser() {\n\n		Scanner scanner = new Scanner(System.in);\n		int n;\n		System.out.print(\"How many numbers in the list?  \");\n		n = scanner.nextInt();\n\n		double[] list = new double[n];\n\n		for (int i = 0; i < n; i++) {\n			list[i] = scanner.nextDouble();\n\n		}\n		return list;\n	}\n\n	public static boolean isSorted(double[] list) {\n		double prevNo = 0;\n		for (int i = 0; i < list.length; i++) {\n			System.out.println(\"Itearation  : \" + (i + 1));\n			if (i != 0) {\n				if (prevNo > list[i]) {\n					System.out.println(\"inside\");\n					return false;\n				}\n			}\n			prevNo = list[i];\n		}\n		return true;\n	}\n\n}\n','2021-11-16 03:08:58',0,3,1,0),
+(3545,'Ruby program for checking the start and end elements are same in an array','Ruby program for checking the start and end elements are same in an array','Ruby program for checking the start and end elements are same in an array','#!/usr/bin/ruby\n\nnums = [5, 2, 3, 4, 5]\n\n#setting the first element from the 0th position\nfirst_element=nums[0]\n\n#setting the last element from the n-1 th position\nlast_elemnt= nums[nums.length()-1]\n\nif first_element == last_elemnt\n   puts \"Starting element and Ending element are same\"\nelse\n   puts \"Starting element and Ending element are different\"\n\nend\n','2021-11-16 06:10:49',0,3,6,0),
+(3546,'C program for Student mark and grades with average','C program for Student mark and grades with average','Write a program that process 10 assessment marks of student. Input the marks and process the data','#include <stdio.h>\n\nint main() {\n  //Array with 10 memory locations\n  int marks[10];\n\n  printf(\"\\nPlease Enter marks of the student:\\n\");\n  for (int index = 0; index < 10; index++) {\n    printf(\"Mark %d: \", (index + 1));\n    scanf(\"%d\", & marks[index]);\n  }\n\n  //Finding Grade of each student\n  int sum = 0;\n  printf(\"\\n\");\n  \n  for (int index = 0; index < 10; index++) {\n    printf(\"\\nStudent %d\", (index + 1));\n    if (marks[index] >= 90 && marks[index] <= 100){\n      printf(\": Grade A-\");\n    }\n    else if (marks[index] >= 80 && marks[index] <= 89){\n      printf(\": Grade A\");\n    }\n    else if (marks[index] >= 70 && marks[index] <= 79){\n      printf(\": Grade B+\");\n    }\n    else if (marks[index] >= 60 && marks[index] <= 69){\n      printf(\": Grade B\");\n    }\n    else if (marks[index] >= 50 && marks[index] <= 59){\n      printf(\": Grade B-\");\n    }\n    else if (marks[index] >= 40 && marks[index] <= 49){\n      printf(\": Grade C+\");\n    }\n    else if (marks[index] >= 30 && marks[index] <= 39){\n      printf(\": Grade C\");\n    }\n    else if (marks[index] >= 0 && marks[index] <= 29){\n      printf(\": Fail\");\n    }\n\n    sum = sum + marks[index];\n  }\n\n  //for getting average average\n  float average = sum / 10;\n\n  printf(\"\\n\\nAverage: %f\", average);\n\n  //checking the number of the sy=tudents having the mark greater than the average\n  int count = 0;\n  for (int index = 0; index < 10; index++) {\n    if (marks[index] > average)\n      count++;\n  }\n\n  printf(\"\\n\\n %d Students having marks greater than average\", count);\n  return 0;\n}','2021-11-18 06:17:12',0,3,2,0),
+(3547,'Python program to draw a structure','Python program to draw a structure','Python program to draw a structure','import turtle\nboard = turtle.Turtle()\n\n#left is used to change the direction\nboard.left(90)\n\n#forward used for printing the number of pixels\nboard.forward(200)\n\nboard.right(90)\nboard.forward(200)\n\n\nboard.left(45)\nboard.backward(280)\n\nboard.left(100)\nboard.backward(280)\n\nboard.left(70)\nboard.backward(240)\n\nboard.left(101)\nboard.backward(320)\n\nboard.left(90)\nboard.backward(280)\n\nboard.left(131)\nboard.backward(422)\n\nturtle.done()','2021-11-25 12:07:12',0,3,21,0),
+(3548,'Python program for finding the Nth Fibonacci number from user input(fibinocci)','Python program for finding the Nth Fibonacci number from user input','Python program for finding the Nth Fibonacci number from user input','#function for calculating the fibinocci number\ndef NthFibonacci(number):\n    \n    #check for less than or equals to 0\n    if number<= 0:\n        print(\"Incorrect input\")\n        \n    #check for 1\n    elif number == 1:\n        return 0\n        \n    #check for 2\n    elif number == 2:\n        return 1\n        \n    #recursive function call\n    else:\n        return NthFibonacci(number-1)+NthFibonacci(number-2)\n \n \nnumber=int(input(\"Enter the value of n : \"))\nprint(NthFibonacci(number))','2021-11-25 14:15:33',0,3,21,0),
+(3549,'prime and compisite number','prime and compisite number','prime and compisite number','package prince;\n\nimport java.util.Scanner;\n\npublic class Prime {\n	public static void main(String[] args) {\n		int number;\n		number = readNumber();\n		if (isPrime(number)) {\n			System.out.println(number + \" is a prime number \");\n		} else {\n			System.out.println(number + \" is a composite number \");\n		}\n\n	}\n\n	// function to read a number\n	private static int readNumber() {\n		Scanner sc = new Scanner(System.in);\n		System.out.print(\"Enter a Number : \");\n		int number = sc.nextInt();\n		return number;\n\n	}\n\n	// function for checking the number is prime or not\n	private static boolean isPrime(int number) {\n		for (int i = 2; i < number / 2; i++) {\n			if (number % i == 0) {\n				return false;\n			}\n		}\n		return true;\n\n	}\n\n}\n','2021-12-02 08:23:14',0,3,1,0),
+(3550,'Factores of a number in C','Factores of a number in C','Factores of a number in C','#include <stdio.h>\n\nint main() {\n  int number;\n  printf(\"Enter the number : \");\n  scanf(\"%d\", & number);\n\n  printf(\"Factors of %d : \", number);\n\n  //loop for checking the factors\n  for (int i = 2; i <= number / 2; i++) {\n    //checking the remainder\n    if (number % i == 0) {\n      printf(\"%d \", i);\n    }\n  }\n\n  return 0;\n}','2021-12-02 08:35:02',0,3,2,0),
+(3551,'Cpp backtracking program for linked list reversal','Cpp backtracking program for linked list reversal','Cpp backtracking program for linked list reversal','#include <bits/stdc++.h>\n#include <iostream>\nusing namespace std;\n\n//Node Structure\nstruct Node {\n    //Declaring the variables\n    int val;\n    Node* next;\n\n    //Constructor in setting the values\n    Node(int value){\n        val = value;\n        next = NULL;\n    }\n};\n\n\n//function for the reversing\nvoid reverse(Node** head){\n    if(*head == NULL || (*head)->next == NULL) return;\n\n    stack<int> st;\n\n    //loop for the iteration\n    for(Node* i= *head; i!=NULL; i=i->next){\n        st.push(i->val);\n    }\n\n//loop for the iteration\n    for(Node* i= *head; i!=NULL; i=i->next){\n        i->val = st.top();\n        st.pop();\n    }\n}\n\nvoid pushFront(Node** head, int value){\n    Node* value1 = new Node(value);\n    value1->next = *head;\n    *head = value1;\n}\n\nvoid printList(Node* head){\n    Node* i = head;\n    //while loop for the iteration\n    while(i){\n        cout<<i->val<<\" \";\n        i = i->next;\n    }\n    cout<<\"\\n\";\n}\n\nint main(){\n    Node* head = NULL;\n\n    //adding element in the front of linked list\n    pushFront(&head, 45);\n    pushFront(&head, 21);\n    pushFront(&head, 34);\n    pushFront(&head, 6);\n    pushFront(&head, 94);\n    pushFront(&head, 64);\n\n    cout<<\"Initial Values : \";\n    printList(head);\n    \n    //Reversal function\n    reverse(&head);\n\n    cout<<\"Values After the reversal: \";\n    printList(head);\n}','2021-12-02 14:48:29',0,3,4,0),
+(3552,'Cpp program for hetting the leaf nodes in a tree','Cpp program for hetting the leaf nodes in a tree','Cpp program for hetting the leaf nodes in a tree','#include <iostream>\nusing namespace std;\n\n//defining the node structure\nstruct node {\n  int data;\n  struct node * left;\n  struct node * right;\n};\n\n//function for adding a new node\nstruct node * newNode(int data) {\n  struct node * node = (struct node * )\n  malloc(sizeof(struct node));\n  node -> data = data;\n  node -> left = NULL;\n  node -> right = NULL;\n\n  return (node);\n}\n\n//function for getting the getLeafCount\nunsigned int getLeafNodeCount(struct node * node) {\n  if (node == NULL)\n    return 0;\n  if (node -> left == NULL && node -> right == NULL)\n    return 1;\n  else\n    return getLeafNodeCount(node -> left) +\n      getLeafNodeCount(node -> right);\n}\n\n\n//Driver funvtion\nint main() {\n  struct node * root = newNode(1);\n  \n  //Adding nodes\n  root -> left = newNode(2);\n  root -> right = newNode(3);\n  root -> left -> left = newNode(4); //leaf node\n  root -> left -> right = newNode(5); //leaf node\n  root -> right -> left = newNode(6); //leaf node\n  root -> right -> right = newNode(7); //leaf node\n\n  cout << \"No.of Leaf nodes in the tree :  \" <<\n    getLeafNodeCount(root) << endl;\n  return 0;\n}','2021-12-04 04:08:14',0,3,4,0),
+(3553,'Python program to add and subtract two numbers using GUI','Python program to add and subtract two numbers using GUI','Python program to add and subtract two numbers using GUI','from tkinter import *\n\n#add function\ndef addNumbers():\n    print(\"1\")\n    res = int(e1.get()) + int(e2.get())\n    myText.set(res)\n\n#substract function\ndef substarctNumbers():\n    print(\"2\")\n    res = int(e1.get()) - int(e2.get())\n    myText.set(res)\n\n\nmaster = Tk()\nmyText = StringVar()\n\n#defining text boxes\nLabel(master, text=\"First Number\").grid(row=0, sticky=W)\nLabel(master, text=\"Second Number\").grid(row=1, sticky=W)\n\nLabel(master, text=\"Result:\").grid(row=5, sticky=W)\nresult = Label(master, text=\"\", textvariable=myText).grid(row=5, column=1, sticky=W)\n\ne1 = Entry(master)\ne2 = Entry(master)\n\ne1.grid(row=0, column=1)\ne2.grid(row=1, column=1)\n\n\n#defining buttons\nb = Button(master, text=\"Add\", command=addNumbers)\nb.grid(row=3,column=0,  rowspan=2, sticky=W + E + N + S, padx=5, pady=5)\n\nc = Button(master, text=\"Substract\", command=substarctNumbers)\nc.grid(row=3, column=1, rowspan=2, sticky=W + E + N + S, padx=5, pady=5)\n\n\n\nmainloop()\n','2021-12-09 14:03:30',0,3,21,0),
+(3554,'Pattern','Pattern','Pattern','\nprint(\"Enter the Inputs : \")\na=int(input());\nb=int(input());\nc=int(input());\nd=int(input());\n\n\nprint(\".\"*a)\ni=0\nfor x in range(b):\n    print(\" \"*a, end = \'\')\n    print(\" \"*i, end = \'\')\n    i=i+1;\n    print(\"\\\\\")\n    \ni=i-1;\nfor x in range(c):\n    print(\" \"*(a+i), end = \'\')\n    i=i-1;\n    print(\"/\")\n    \nprint(\" \"*(a+i+1), end = \'\')\nprint(\"-\"*d)\n\n\n','2021-12-10 08:43:19',0,3,21,0),
+(3555,'Patttern','Patttern','Patttern','#include <stdio.h>\n\nint getNum(){\n    int a;\n    scanf(\"%d\",&a);\n    return a;\n}\n\nvoid display(int n1, int n2, int n3, int n4){\n    \n    for(int i=0;i<n1;i++){\n        printf(\".\");\n    }\n    \n    int e=0;\n    printf(\"\\n\");\n    for(int i=0;i<n2;i++){\n        for(int j=0;j<n1+e;j++){\n            printf(\" \");\n        }\n        e++;\n        printf(\"\\\\\");\n        printf(\"\\n\");\n    }\n    \n    for(int i=0;i<n3;i++){\n        for(int j=0;j<n1+e-1;j++){\n            printf(\" \");\n        }\n        e--;\n        printf(\"/\");\n        if(i<n3-1)\n            printf(\"\\n\");\n    }\n    \n    for(int i=0;i<n4;i++){\n         printf(\"_\");\n     }\n \n}\n\nint main()\n{\n    int n1,n2,n3,n4;\n    printf(\"Enter the Inputs: \");\n    \n    n1=getNum();\n    n2=getNum();\n    n3=getNum();\n    n4=getNum();\n    display(n1, n2, n3, n4);\n    \n    return 0;\n}\n','2021-12-10 09:05:33',0,3,2,0),
+(3556,'Python program for exception handling to remove a file','Python program for exception handling to remove a file','Python program for exception handling to remove a file','import os\n\nfilename = input(\'Enter the name of the file, that is to be deleted : \')\n\ntry:\n    os.remove(filename)\n\n    print(\'Remove Complete!!!\')\nexcept FileNotFoundError:\n    print(\"INCOMPLETE!!!\")\n','2021-12-16 05:27:52',0,3,21,0),
+(3557,'Object Oriented concept in C#','Object-Oriented concept in C#','Object-Oriented concept in C#','\nusing System;\nclass Student\n{\n  public string name;\n  public int eng;\n  public int math;\n  public int science;\n  \n \n  public Student(string name1,int engMark,int mathMark,int scienceMark)\n  {\n    name = name1;\n    eng = engMark;\n    math = mathMark;\n    science = scienceMark;\n  }\n  \n  public void display(){\n      Console.WriteLine(\"======Details========\");\n      Console.WriteLine(\"Name : {0}\",name);\n      Console.WriteLine(\"English : {0}\",eng);\n      Console.WriteLine(\"Maths : {0}\",math);\n      Console.WriteLine(\"Science : {0}\",science);\n      Console.WriteLine(\"Average : {0}\",average());\n  }\n\n\n  public float average(){\n      float average;\n      average=(eng+math+science)/3;\n      return average;\n  }\n  \n  static void Main(string[] args)\n  {\n      int eng,math,sceince;\n      string name,val;\n      \n      Console.WriteLine(\"Name : \");\n      name = Console.ReadLine();\n      \n      Console.WriteLine(\"English : \");\n      val=Console.ReadLine();\n      eng = Convert.ToInt32(val);\n     \n      Console.WriteLine(\"Math : \");\n      val=Console.ReadLine();\n      math = Convert.ToInt32(val);\n     \n      Console.WriteLine(\"Science : \");\n      val=Console.ReadLine();\n      sceince = Convert.ToInt32(val);\n      \n      Student student = new Student(name,eng,math,sceince);  \n      Console.WriteLine(student.name); \n    \n      student.display();\n  }\n}\n','2021-12-16 16:44:07',0,3,8,0),
+(3558,'Stack and Queue implementation using Java','Stack and Queue implementation using Java','Stack and Queue implementation using Java','package prince;\n\nimport java.util.LinkedList;\nimport java.util.Queue;\nimport java.util.Scanner;\nimport java.util.Stack;\n\npublic class QueueStack {\n	public static void main(String[] args) {\n		Queue<Integer> queue = new LinkedList<>();\n		Stack<Integer> evenStack = new Stack<Integer>();\n		Stack<Integer> oddStack = new Stack<Integer>();\n		Scanner sc = new Scanner(System.in);\n\n		System.out.println(\"Please input mix of Odd and Even Numbers(\'-1\' to stop) : \");\n		while (true) {\n			int val = sc.nextInt();\n			if (val == -1)\n				break;\n			queue.offer(val);\n\n		}\n\n		System.out.println(\"Queue: \" + queue);\n\n		for (Integer number : queue) {\n			if (number % 2 == 0) {\n				evenStack.push(number);\n			} else {\n				oddStack.push(number);\n			}\n		}\n\n		System.out.println(\"Even Stack: \" + evenStack);\n		System.out.println(\"Odd Stack: \" + oddStack);\n\n	}\n}\n','2021-12-17 11:23:13',0,3,1,0),
+(3559,'Class and constructor program for integer array sorting and searching','Class and constructor program for integer array sorting and searching','Class and constructor program for integer array sorting and searching','class KeyIndex:\n    def __init__(self,k):\n        self.array = k\n\n    def bubbleSort(self):\n        n = len(self.array)\n        for i in range(n - 1):\n            for j in range(0, n - i - 1):\n                if self.array[j] > self.array[j + 1]:\n                    self.array[j], self.array[j + 1] = self.array[j + 1], self.array[j]\n\n        for i in range(len(self.array)):\n            print(\"% d\" % self.array[i],end=\" \"),\n\n    def search(self, x):\n        for i in range(len(self.array)):\n            if self.array[i] == x:\n                return True\n        return False\n\n\narr = [];\nn=int(input(\"Enter the size of the array : \"))\n\nfor x in range(0,n):\n  arr.append(int(input()))\n\ns = KeyIndex(arr)\nkey=int(input(\"\\nEnter the element to be searched : \"))\nif s.search(key)==True:\n    print(\"Element\",key,\" Present in the array\")\nelse:\n    print(\"Element \",key,\"  Not Present in the array\")\n\nprint (\"\\nSorted array is:\")\ns.bubbleSort()\n\n','2021-12-21 05:38:47',0,3,21,0),
+(3560,'Class, Parameterized Constructor in C#','Class, Parameterized Constructor in C#','Class, Parameterized Constructor in C#','using System;\nclass Person {\n  //declaring variables\n  public float height;\n  public float weight;\n\n  //default constructor\n  public Person() {\n    \n    height = 65; //setting height\n    weight = 110; //setting weight\n  }\n\n  //function to calculate the value\n  public float getBmiIndex() {\n    float index = (weight / (height * height)) * 703;  //calculating thr Bmi index\n    return index;\n  }\n  \n  //parameterized constructor\n  public Person(float height_of_person, float weight_of_person) {\n    height = height_of_person; //setting height\n    weight = weight_of_person; //setting weight\n  }\n\n\n  //main driver function\n  static void Main(string[] args) {\n    Person Zeynep = new Person(60, 120);   //creating the object\n    float bmi = Zeynep.getBmiIndex();\n    Console.WriteLine(\"BMI of Zeynep is \" + bmi);\n  }\n}','2021-12-27 05:45:55',0,3,8,0),
+(3561,'Python Program to read student info and write to a file','Python Program to read student info and write to a file','Python Program to read student info and write to a file','from builtins import print\r\n\r\nfileName = input(\"Enter the FIle Name : \")\r\nnumber = int(input(\"Enter the number of Students: \"))\r\n\r\n# Opening the file file test.txt\r\nwith open(fileName, \'w\') as f:\r\n    # Writting the heades to the file\r\n    f.writelines(\"{:<10s}{:<10s}\\n\".format(\"REG_NO\", \"NAME\"))\r\n\r\n    list = []\r\n    for x in range(number):\r\n        record = input(\"Enter the Registration Number and Name : \")\r\n        list.append(record)\r\n\r\n        # Wrtiting the content to the file\r\n        f.writelines(\"{:<10s}\\n\".format(record))\r\n\r\n    list.sort()\r\n    print(\"Student Details :\")\r\n    for i in range(len(list)):\r\n        print(list[i])\r\n','2022-01-09 09:41:26',0,3,21,0);
+
+/*Table structure for table `ROLES_PERMISSIONS` */
+
+DROP TABLE IF EXISTS `ROLES_PERMISSIONS`;
+
+CREATE TABLE `ROLES_PERMISSIONS` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `ROLE_ID` int(11) NOT NULL,
+  `FEATURE_ID` int(11) NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+
+/*Data for the table `ROLES_PERMISSIONS` */
+
+insert  into `ROLES_PERMISSIONS`(`ID`,`ROLE_ID`,`FEATURE_ID`) values 
+(1,1,10),
+(2,1,11),
+(3,1,12),
+(4,1,13),
+(5,1,20),
+(6,1,21),
+(7,1,22),
+(8,1,23),
+(9,1,30),
+(10,1,31),
+(11,1,32),
+(12,1,33);
+
+/*Table structure for table `ROLE_MASTER` */
+
+DROP TABLE IF EXISTS `ROLE_MASTER`;
+
+CREATE TABLE `ROLE_MASTER` (
+  `ROLE_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `ROLE_NAME` varchar(30) NOT NULL,
+  `ROLE_DESC` varchar(100) NOT NULL,
+  `PARENT_ID` int(11) DEFAULT NULL,
+  `ENTITY_ID` int(11) NOT NULL,
+  `CREATE_USER` varchar(30) NOT NULL DEFAULT 'ADMIN',
+  `CREATED_DATE` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `CHANGE_USER` varchar(30) DEFAULT NULL,
+  `CHANGE_DATE` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `CAN_APPROVE` tinyint(4) NOT NULL DEFAULT '0',
+  `IS_ENT` tinyint(2) DEFAULT '0',
+  `IS_CC` tinyint(2) DEFAULT '0',
+  PRIMARY KEY (`ROLE_ID`),
+  UNIQUE KEY `ROLE_NAME` (`ROLE_NAME`,`PARENT_ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+/*Data for the table `ROLE_MASTER` */
+
+insert  into `ROLE_MASTER`(`ROLE_ID`,`ROLE_NAME`,`ROLE_DESC`,`PARENT_ID`,`ENTITY_ID`,`CREATE_USER`,`CREATED_DATE`,`CHANGE_USER`,`CHANGE_DATE`,`CAN_APPROVE`,`IS_ENT`,`IS_CC`) values 
+(1,'Admin','Admin',NULL,1,'1','2021-09-13 14:20:03',NULL,'2014-07-10 11:48:13',0,0,0);
+
+/*Table structure for table `SUBJECT_CATEGORIES` */
+
+DROP TABLE IF EXISTS `SUBJECT_CATEGORIES`;
+
+CREATE TABLE `SUBJECT_CATEGORIES` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `NAME` varchar(200) NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=latin1;
+
+/*Data for the table `SUBJECT_CATEGORIES` */
+
+insert  into `SUBJECT_CATEGORIES`(`ID`,`NAME`) values 
+(1,'Java'),
+(2,'C'),
+(3,'HTML'),
+(4,'CPP'),
+(5,'MIPS-Assembly'),
+(6,'Ruby'),
+(8,'C#'),
+(13,'Linux'),
+(14,'DBMS'),
+(21,'Python');
+
+/*Table structure for table `TOKEN_MASTER` */
+
+DROP TABLE IF EXISTS `TOKEN_MASTER`;
+
+CREATE TABLE `TOKEN_MASTER` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `TOKEN` varchar(1000) DEFAULT NULL,
+  `USER_ID` int(11) DEFAULT NULL,
+  `LAST_ACTIVE_TIME` datetime DEFAULT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=105 DEFAULT CHARSET=latin1;
+
+/*Data for the table `TOKEN_MASTER` */
+
+insert  into `TOKEN_MASTER`(`ID`,`TOKEN`,`USER_ID`,`LAST_ACTIVE_TIME`) values 
+(104,'188532de-e5a2-49da-ab0d-f20d48bbc9d5',1,'2023-01-28 07:13:41');
+
+/*Table structure for table `TRADE_EVENTS` */
+
+DROP TABLE IF EXISTS `TRADE_EVENTS`;
+
+CREATE TABLE `TRADE_EVENTS` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `EVENT_NAME` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+
+/*Data for the table `TRADE_EVENTS` */
+
+insert  into `TRADE_EVENTS`(`ID`,`EVENT_NAME`) values 
+(1,'Weekly Expiry'),
+(2,'Monthly Expiry'),
+(3,'News Based');
+
+/*Table structure for table `TRADE_LOG_DETAILS` */
+
+DROP TABLE IF EXISTS `TRADE_LOG_DETAILS`;
+
+CREATE TABLE `TRADE_LOG_DETAILS` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `TRADE_LOG_ID` int(11) DEFAULT NULL,
+  `SYMBOL_ID` int(11) DEFAULT NULL,
+  `PRE_OPEN` int(11) DEFAULT NULL,
+  `FIRST_HALF` int(11) DEFAULT NULL,
+  `SECOND_HALF` int(11) DEFAULT NULL,
+  `COMMENTS` text,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=latin1;
+
+/*Data for the table `TRADE_LOG_DETAILS` */
+
+insert  into `TRADE_LOG_DETAILS`(`ID`,`TRADE_LOG_ID`,`SYMBOL_ID`,`PRE_OPEN`,`FIRST_HALF`,`SECOND_HALF`,`COMMENTS`) values 
+(1,1,1,1,2,2,'A slight downtrend happens at the end of the first half'),
+(2,1,2,1,1,1,'In the second half, it has a downtrend and uptrend'),
+(3,2,1,1,2,1,NULL),
+(4,2,2,1,2,1,NULL),
+(5,3,1,3,1,1,NULL),
+(6,3,2,3,3,1,NULL),
+(7,3,4,1,3,3,NULL),
+(8,3,6,1,3,3,NULL),
+(9,3,5,2,3,1,NULL),
+(16,6,1,1,1,3,NULL),
+(17,6,2,2,2,1,NULL),
+(18,6,4,3,1,2,NULL),
+(19,6,6,3,3,2,NULL),
+(20,6,5,3,3,2,NULL),
+(21,7,1,2,1,1,NULL),
+(22,7,2,2,1,1,NULL),
+(23,7,4,1,2,2,NULL),
+(24,7,6,1,2,2,NULL),
+(25,7,5,1,2,2,NULL),
+(26,8,1,2,3,3,NULL),
+(27,8,2,2,3,3,NULL),
+(28,8,4,1,2,1,NULL),
+(29,8,6,1,2,1,NULL),
+(30,8,5,1,2,1,NULL),
+(31,9,1,1,3,1,'Heavy fall in the first half'),
+(32,9,2,1,3,1,'Heavy fall in the first half'),
+(33,9,4,3,2,2,NULL),
+(34,9,6,3,2,1,NULL),
+(35,9,5,3,2,1,NULL),
+(36,10,4,3,2,2,NULL),
+(37,10,6,3,2,2,NULL),
+(38,10,5,3,2,2,NULL),
+(39,11,1,1,3,3,NULL),
+(40,11,2,3,3,3,NULL),
+(41,11,4,1,1,2,NULL),
+(42,11,6,2,1,1,NULL),
+(43,11,5,2,1,1,NULL);
+
+/*Table structure for table `TRADE_LOG_IMAGE_DETAILS` */
+
+DROP TABLE IF EXISTS `TRADE_LOG_IMAGE_DETAILS`;
+
+CREATE TABLE `TRADE_LOG_IMAGE_DETAILS` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `TRADE_LOG_ID` int(11) DEFAULT NULL,
+  `TRADE_LOG_DETAILS_ID` int(11) DEFAULT NULL,
+  `IMAGE_PATH` varchar(500) DEFAULT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=54 DEFAULT CHARSET=latin1;
+
+/*Data for the table `TRADE_LOG_IMAGE_DETAILS` */
+
+insert  into `TRADE_LOG_IMAGE_DETAILS`(`ID`,`TRADE_LOG_ID`,`TRADE_LOG_DETAILS_ID`,`IMAGE_PATH`) values 
+(1,1,1,'E:/Online_Teaching/APP/TRADES/1/IMG_2023-01-17-543_NIFTY.jpg'),
+(2,1,2,'E:/Online_Teaching/APP/TRADES/1/IMG_2023-01-17-878_BANK_NIFTY.jpg'),
+(3,2,3,'E:/Online_Teaching/APP/TRADES/2/IMG_2023-01-18-350_NIFTY.jpg'),
+(4,2,4,'E:/Online_Teaching/APP/TRADES/2/IMG_2023-01-18-767_BANK_NIFTY.jpg'),
+(5,3,5,'E:/Online_Teaching/APP/TRADES/3/IMG_2023-01-19-628_NIFTY.jpg'),
+(6,3,6,'E:/Online_Teaching/APP/TRADES/3/IMG_2023-01-19-801_BANK_NIFTY.jpg'),
+(7,3,7,'E:/Online_Teaching/APP/TRADES/3/IMG_2023-01-19-001_DOW_JOHNS.jpg'),
+(8,3,8,'E:/Online_Teaching/APP/TRADES/3/IMG_2023-01-19-255_SP_500.jpg'),
+(9,3,9,'E:/Online_Teaching/APP/TRADES/3/IMG_2023-01-19-255_NASDAQ.jpg'),
+(16,6,0,'E:/Online_Teaching/APP/TRADES/6/IMG_2023-01-20-447_COMMON.jpg'),
+(17,6,0,'E:/Online_Teaching/APP/TRADES/6/IMG_2023-01-20-597_COMMON.jpg'),
+(18,6,16,'E:/Online_Teaching/APP/TRADES/6/IMG_2023-01-20-928_NIFTY.jpg'),
+(19,6,17,'E:/Online_Teaching/APP/TRADES/6/IMG_2023-01-20-267_BANK_NIFTY.jpg'),
+(20,6,18,'E:/Online_Teaching/APP/TRADES/6/IMG_2023-01-20-596_DOW_JOHNS.jpg'),
+(21,6,19,'E:/Online_Teaching/APP/TRADES/6/IMG_2023-01-20-416_SP_500.jpg'),
+(22,6,20,'E:/Online_Teaching/APP/TRADES/6/IMG_2023-01-20-976_NASDAQ.jpg'),
+(23,7,0,'E:/Online_Teaching/APP/TRADES/7/IMG_2023-01-23-875_COMMON.jpg'),
+(24,7,0,'E:/Online_Teaching/APP/TRADES/7/IMG_2023-01-23-971_COMMON.jpg'),
+(25,7,21,'E:/Online_Teaching/APP/TRADES/7/IMG_2023-01-23-312_NIFTY.jpg'),
+(26,7,22,'E:/Online_Teaching/APP/TRADES/7/IMG_2023-01-23-602_BANK_NIFTY.jpg'),
+(27,7,23,'E:/Online_Teaching/APP/TRADES/7/IMG_2023-01-23-850_DOW_JOHNS.jpg'),
+(28,7,24,'E:/Online_Teaching/APP/TRADES/7/IMG_2023-01-23-114_SP_500.jpg'),
+(29,7,25,'E:/Online_Teaching/APP/TRADES/7/IMG_2023-01-23-378_NASDAQ.jpg'),
+(30,8,0,'E:/Online_Teaching/APP/TRADES/8/IMG_2023-01-24-727_COMMON.jpg'),
+(31,8,0,'E:/Online_Teaching/APP/TRADES/8/IMG_2023-01-24-969_COMMON.jpg'),
+(32,8,26,'E:/Online_Teaching/APP/TRADES/8/IMG_2023-01-24-288_NIFTY.jpg'),
+(33,8,27,'E:/Online_Teaching/APP/TRADES/8/IMG_2023-01-24-769_BANK_NIFTY.jpg'),
+(34,8,28,'E:/Online_Teaching/APP/TRADES/8/IMG_2023-01-24-109_DOW_JOHNS.jpg'),
+(35,8,29,'E:/Online_Teaching/APP/TRADES/8/IMG_2023-01-24-697_SP_500.jpg'),
+(36,8,30,'E:/Online_Teaching/APP/TRADES/8/IMG_2023-01-24-986_NASDAQ.jpg'),
+(37,9,0,'E:/Online_Teaching/APP/TRADES/9/IMG_2023-01-25-817_COMMON.jpg'),
+(38,9,0,'E:/Online_Teaching/APP/TRADES/9/IMG_2023-01-25-958_COMMON.jpg'),
+(39,9,31,'E:/Online_Teaching/APP/TRADES/9/IMG_2023-01-25-223_NIFTY.jpg'),
+(40,9,32,'E:/Online_Teaching/APP/TRADES/9/IMG_2023-01-25-007_BANK_NIFTY.jpg'),
+(41,9,33,'E:/Online_Teaching/APP/TRADES/9/IMG_2023-01-25-494_DOW_JOHNS.jpg'),
+(42,9,34,'E:/Online_Teaching/APP/TRADES/9/IMG_2023-01-25-962_SP_500.jpg'),
+(43,9,35,'E:/Online_Teaching/APP/TRADES/9/IMG_2023-01-25-886_NASDAQ.jpg'),
+(44,10,36,'E:/Online_Teaching/APP/TRADES/10/IMG_2023-01-27-366_DOW_JOHNS.jpg'),
+(45,10,37,'E:/Online_Teaching/APP/TRADES/10/IMG_2023-01-27-788_SP_500.jpg'),
+(46,10,38,'E:/Online_Teaching/APP/TRADES/10/IMG_2023-01-27-133_NASDAQ.jpg'),
+(47,11,0,'E:/Online_Teaching/APP/TRADES/11/IMG_2023-01-27-050_COMMON.jpg'),
+(48,11,0,'E:/Online_Teaching/APP/TRADES/11/IMG_2023-01-27-285_COMMON.jpg'),
+(49,11,39,'E:/Online_Teaching/APP/TRADES/11/IMG_2023-01-27-488_NIFTY.jpg'),
+(50,11,40,'E:/Online_Teaching/APP/TRADES/11/IMG_2023-01-27-772_BANK_NIFTY.jpg'),
+(51,11,41,'E:/Online_Teaching/APP/TRADES/11/IMG_2023-01-27-193_DOW_JOHNS.jpg'),
+(52,11,42,'E:/Online_Teaching/APP/TRADES/11/IMG_2023-01-27-600_SP_500.jpg'),
+(53,11,43,'E:/Online_Teaching/APP/TRADES/11/IMG_2023-01-27-990_NASDAQ.jpg');
+
+/*Table structure for table `TRADE_LOG_MASTER` */
+
+DROP TABLE IF EXISTS `TRADE_LOG_MASTER`;
+
+CREATE TABLE `TRADE_LOG_MASTER` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `TRADE_DATE` varchar(20) DEFAULT NULL,
+  `DAY` varchar(100) DEFAULT NULL,
+  `DATE_` int(11) DEFAULT NULL,
+  `COMMENTS` text,
+  `INDIA_VIX` varchar(10) DEFAULT NULL,
+  `EVENTS` varchar(500) DEFAULT NULL,
+  `CREATE_DATE` datetime DEFAULT NULL,
+  `MODIFIED_DATE` datetime DEFAULT NULL,
+  `SOFT_DELETE` int(11) DEFAULT '0',
+  PRIMARY KEY (`ID`),
+  UNIQUE KEY `UNIQUE_KEY_TRADE_DATE` (`TRADE_DATE`)
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
+
+/*Data for the table `TRADE_LOG_MASTER` */
+
+insert  into `TRADE_LOG_MASTER`(`ID`,`TRADE_DATE`,`DAY`,`DATE_`,`COMMENTS`,`INDIA_VIX`,`EVENTS`,`CREATE_DATE`,`MODIFIED_DATE`,`SOFT_DELETE`) values 
+(1,'2023-1-17','Tuesday',17,NULL,'15','','2023-01-17 13:21:14',NULL,0),
+(2,'2023-1-18','Wednesday',18,NULL,'14.60','','2023-01-18 16:35:47',NULL,0),
+(3,'2023-1-19','Thursday',19,NULL,'14.37','Weekly Expiry','2023-01-19 16:09:46',NULL,0),
+(6,'2023-1-20','Friday',20,NULL,'13.95','','2023-01-20 14:09:08',NULL,0),
+(7,'2023-1-23','Monday',23,'As the Friday, the US market was up significantly and the same was indicated in the nifty opening and given a consolidating market','13.8','','2023-01-23 15:43:40',NULL,0),
+(8,'2023-1-24','Tuesday',24,'FIN-NIFTY EXPIRY','13.62','','2023-01-24 12:44:39',NULL,0),
+(9,'2023-1-25','Wednesday',25,'Weekly and Monthly expiry one day before because of the Republic Day(on 26). Very much volatile day towards downside. The market fall was happen because of the aligations of the Hindenberg report against the high share price of the Adani stocks.','13.66','Monthly Expiry,Weekly Expiry,News Based','2023-01-25 13:19:59','2023-01-27 13:54:14',0),
+(10,'2023-1-26','Thursday',26,'Indian Markets are closed because of   Republic day.',NULL,'','2023-01-27 13:43:04',NULL,0),
+(11,'2023-1-27','Friday',27,'Hindenberg aligation against the Adani stocks continues the fall. All the Adani stocks are below 10% compared to last 2 days.','14.60','News Based','2023-01-27 13:53:45',NULL,0);
+
+/*Table structure for table `TRADE_SYMBOLS` */
+
+DROP TABLE IF EXISTS `TRADE_SYMBOLS`;
+
+CREATE TABLE `TRADE_SYMBOLS` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `SYMBOL` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+
+/*Data for the table `TRADE_SYMBOLS` */
+
+insert  into `TRADE_SYMBOLS`(`ID`,`SYMBOL`) values 
+(1,'NIFTY'),
+(2,'BANK-NIFTY'),
+(3,'FIN-NIFTY'),
+(4,'DOW-JOHNS'),
+(5,'NASDAQ'),
+(6,'S&P 500'),
+(7,'Stock 1'),
+(8,'Stock 2');
+
+/*Table structure for table `USER_MASTER` */
+
+DROP TABLE IF EXISTS `USER_MASTER`;
+
+CREATE TABLE `USER_MASTER` (
+  `USER_ID` bigint(15) NOT NULL AUTO_INCREMENT,
+  `PARENT_ID` bigint(15) DEFAULT NULL,
+  `CREATED_BY` int(11) NOT NULL,
+  `UPDATED_BY` int(11) DEFAULT '0',
+  `USER_NAME` varchar(80) NOT NULL,
+  `PASSWORD` varchar(200) NOT NULL,
+  `CHANNEL_TYPE` int(11) NOT NULL,
+  `DESIGNATION_ID` int(11) NOT NULL,
+  `ENTITY_ID` varchar(15) DEFAULT NULL,
+  `WRONG_PWD_ATTEMPT` int(11) NOT NULL DEFAULT '0',
+  `PWD_EXPIRY_DATE` datetime DEFAULT NULL,
+  `IS_FORCE_PASSWORD` tinyint(1) NOT NULL DEFAULT '1',
+  `LAST_LOGIN_TIME` datetime DEFAULT NULL,
+  `STATUS` smallint(2) NOT NULL DEFAULT '1',
+  `EMPLOYEE_ID` varchar(20) DEFAULT NULL,
+  `FIRST_NAME` varchar(80) NOT NULL,
+  `LAST_NAME` varchar(80) DEFAULT NULL,
+  `MSISDN` varchar(20) NOT NULL,
+  `EMAIL_ID` varchar(60) DEFAULT NULL,
+  `ERP_CODE` varchar(30) DEFAULT NULL,
+  `GENDER` varchar(2) DEFAULT 'M',
+  `DOB` datetime DEFAULT NULL,
+  `CONTACT_NUMBER` varchar(20) DEFAULT NULL,
+  `ID_TYPE` int(11) DEFAULT NULL,
+  `ID_NUMBER` varchar(20) DEFAULT NULL,
+  `CONTRACT_START_DATE` datetime DEFAULT NULL,
+  `CONTRACT_END_DATE` datetime DEFAULT NULL,
+  `ASSIGNMENT_START_DATE` datetime DEFAULT NULL,
+  `IMAGE` longblob,
+  `LOCATION_ID` int(11) DEFAULT NULL,
+  `ADDRESS_1` varchar(90) DEFAULT NULL,
+  `ADDRESS_2` varchar(90) DEFAULT NULL,
+  `CITY` varchar(40) DEFAULT NULL,
+  `REGION` varchar(20) DEFAULT NULL,
+  `ZIP` varchar(15) DEFAULT NULL,
+  `REGISTERED_DATE` datetime DEFAULT NULL,
+  `ACTIVATED_DATE` datetime DEFAULT NULL,
+  `USER_TYPE` tinyint(3) DEFAULT NULL COMMENT '1-FREELANCER,2-EMPLOYEE',
+  `BLOCKED_DATE` datetime DEFAULT NULL,
+  `IS_APPROVAL_REQUIRED` varchar(10) DEFAULT '0',
+  `APPROVAL_TYPE` varchar(10) DEFAULT '0',
+  `CHANNEL_TYPE_NAME` varchar(100) DEFAULT '0',
+  `DESIGNATION_NAME` varchar(100) DEFAULT '0',
+  `CREATED_DATE` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `MODIFIED_DATE` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `RADIO_FLAG` varchar(5) NOT NULL DEFAULT 'USR',
+  `SOFT_DELETE` tinyint(1) NOT NULL DEFAULT '0',
+  `REPORTING_USER` int(10) DEFAULT '0',
+  `NAME` varchar(1000) DEFAULT NULL,
+  `ROLE_ID` int(11) DEFAULT NULL,
+  PRIMARY KEY (`USER_ID`),
+  UNIQUE KEY `SD_USER_MASTER_U01` (`USER_NAME`),
+  UNIQUE KEY `SD_USER_MASTER_U02` (`MSISDN`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+/*Data for the table `USER_MASTER` */
+
+insert  into `USER_MASTER`(`USER_ID`,`PARENT_ID`,`CREATED_BY`,`UPDATED_BY`,`USER_NAME`,`PASSWORD`,`CHANNEL_TYPE`,`DESIGNATION_ID`,`ENTITY_ID`,`WRONG_PWD_ATTEMPT`,`PWD_EXPIRY_DATE`,`IS_FORCE_PASSWORD`,`LAST_LOGIN_TIME`,`STATUS`,`EMPLOYEE_ID`,`FIRST_NAME`,`LAST_NAME`,`MSISDN`,`EMAIL_ID`,`ERP_CODE`,`GENDER`,`DOB`,`CONTACT_NUMBER`,`ID_TYPE`,`ID_NUMBER`,`CONTRACT_START_DATE`,`CONTRACT_END_DATE`,`ASSIGNMENT_START_DATE`,`IMAGE`,`LOCATION_ID`,`ADDRESS_1`,`ADDRESS_2`,`CITY`,`REGION`,`ZIP`,`REGISTERED_DATE`,`ACTIVATED_DATE`,`USER_TYPE`,`BLOCKED_DATE`,`IS_APPROVAL_REQUIRED`,`APPROVAL_TYPE`,`CHANNEL_TYPE_NAME`,`DESIGNATION_NAME`,`CREATED_DATE`,`MODIFIED_DATE`,`RADIO_FLAG`,`SOFT_DELETE`,`REPORTING_USER`,`NAME`,`ROLE_ID`) values 
+(1,1,0,1,'admin','21232f297a57a5a743894a0e4a801fc3',1,1,NULL,0,'2022-03-01 15:33:38',1,NULL,0,'8uhn','Client','Admin','919811232300','admin@gmail.com',NULL,'M',NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,1,'#16, JP Naga1r, Bannerghatta Road','banglore','Bangalore','KA','673638','2017-09-19 00:00:00','2019-10-03 16:22:31',1,'2019-10-01 18:46:59','0','0','PARENT_BRANCH','Client_Admin_Designation','2021-05-20 10:08:11','2021-06-04 12:02:04','USR',0,0,'Admin',1);
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
