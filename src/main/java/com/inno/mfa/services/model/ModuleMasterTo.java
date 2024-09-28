@@ -18,7 +18,7 @@ import lombok.Data;
  * @author Arun Jose
  * @Date : March, 2021
  */
-@Data
+
 @Entity
 @Table(name = "MODULE_MASTER")
 public class ModuleMasterTo implements Serializable {
@@ -35,5 +35,29 @@ public class ModuleMasterTo implements Serializable {
 
 	@Transient
 	private List<FeatureMasterTo> features;
+
+	public int getModuleId() {
+		return moduleId;
+	}
+
+	public void setModuleId(int moduleId) {
+		this.moduleId = moduleId;
+	}
+
+	public String getModuleName() {
+		return moduleName;
+	}
+
+	public void setModuleName(String moduleName) {
+		this.moduleName = moduleName;
+	}
+
+	public List<FeatureMasterTo> getFeatures() {
+		return features;
+	}
+
+	public void setFeatures(List<FeatureMasterTo> features) {
+		this.features = features;
+	}
 
 }

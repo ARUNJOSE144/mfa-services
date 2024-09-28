@@ -15,7 +15,7 @@ import lombok.Data;
  * @author Arun Jose
  * @Date : March, 2021
  */
-@Data
+
 @Entity
 @Table(name = "FEATURE_MASTER")
 public class FeatureMasterTo implements Serializable {
@@ -35,5 +35,37 @@ public class FeatureMasterTo implements Serializable {
 
 	@Column(name = "IS_DEFAULT")
 	private int isDefault;
+
+	public int getFeatureId() {
+		return featureId;
+	}
+
+	public void setFeatureId(int featureId) {
+		this.featureId = featureId;
+	}
+
+	public String getFeaturName() {
+		return featurName;
+	}
+
+	public void setFeaturName(String featurName) {
+		this.featurName = featurName;
+	}
+
+	public int getModuleId() {
+		return moduleId;
+	}
+
+	public void setModuleId(int moduleId) {
+		this.moduleId = moduleId;
+	}
+
+	public int getIsDefault() {
+		return isDefault;
+	}
+
+	public void setIsDefault(int isDefault) {
+		this.isDefault = isDefault;
+	}
 
 }

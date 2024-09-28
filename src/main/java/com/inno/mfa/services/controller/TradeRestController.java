@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.inno.mfa.services.dao.TradeDAO;
 import com.inno.mfa.services.model.CommonRespTo;
+import com.inno.mfa.services.model.OIDataTo;
 import com.inno.mfa.services.model.PaginationTo;
 import com.inno.mfa.services.model.trade.TradeMasterTo;
 
@@ -76,4 +77,5 @@ public class TradeRestController {
 		return to;
 	}
 
+	
 }

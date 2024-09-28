@@ -15,7 +15,7 @@ import lombok.Data;
  * @author Arun Jose
  * @Date : March, 2021
  */
-@Data
+
 @Entity
 @Table(name = "QUESTION_IMAGE_DETAILS")
 public class QuestionImageTo implements Serializable {
@@ -32,5 +32,29 @@ public class QuestionImageTo implements Serializable {
 
 	@Column(name = "IMAGE", nullable = false)
 	private String image;
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public int getQuestionId() {
+		return questionId;
+	}
+
+	public void setQuestionId(int questionId) {
+		this.questionId = questionId;
+	}
+
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
 
 }

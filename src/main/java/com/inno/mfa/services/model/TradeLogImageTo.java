@@ -18,7 +18,7 @@ import lombok.Data;
  * @author Arun Jose
  * @Date : March, 2021
  */
-@Data
+
 @Entity
 @Table(name = "TRADE_LOG_IMAGE_DETAILS")
 public class TradeLogImageTo implements Serializable {
@@ -41,5 +41,45 @@ public class TradeLogImageTo implements Serializable {
 
 	@Transient
 	private MultipartFile image;
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public int getTradeLogId() {
+		return tradeLogId;
+	}
+
+	public void setTradeLogId(int tradeLogId) {
+		this.tradeLogId = tradeLogId;
+	}
+
+	public int getTradeLogDetailsId() {
+		return tradeLogDetailsId;
+	}
+
+	public void setTradeLogDetailsId(int tradeLogDetailsId) {
+		this.tradeLogDetailsId = tradeLogDetailsId;
+	}
+
+	public String getImagePath() {
+		return imagePath;
+	}
+
+	public void setImagePath(String imagePath) {
+		this.imagePath = imagePath;
+	}
+
+	public MultipartFile getImage() {
+		return image;
+	}
+
+	public void setImage(MultipartFile image) {
+		this.image = image;
+	}
 
 }

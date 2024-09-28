@@ -20,7 +20,7 @@ import lombok.Data;
  * @author Arun Jose
  * @Date : March, 2021
  */
-@Data
+
 @Entity
 @Table(name = "QUESTION_MASTER")
 public class QuestionMasterTo implements Serializable {
@@ -76,5 +76,133 @@ public class QuestionMasterTo implements Serializable {
 
 	@Transient
 	private List questionsFromIds;
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getKey() {
+		return key;
+	}
+
+	public void setKey(String key) {
+		this.key = key;
+	}
+
+	public String getQuestion() {
+		return question;
+	}
+
+	public void setQuestion(String question) {
+		this.question = question;
+	}
+
+	public String getAnswer() {
+		return answer;
+	}
+
+	public void setAnswer(String answer) {
+		this.answer = answer;
+	}
+
+	public Integer getQuestionFrom() {
+		return questionFrom;
+	}
+
+	public void setQuestionFrom(Integer questionFrom) {
+		this.questionFrom = questionFrom;
+	}
+
+	public Date getCreatedTime() {
+		return createdTime;
+	}
+
+	public void setCreatedTime(Date createdTime) {
+		this.createdTime = createdTime;
+	}
+
+	public int getSoftDelete() {
+		return softDelete;
+	}
+
+	public void setSoftDelete(int softDelete) {
+		this.softDelete = softDelete;
+	}
+
+	public int getSubjectId() {
+		return subjectId;
+	}
+
+	public void setSubjectId(int subjectId) {
+		this.subjectId = subjectId;
+	}
+
+	public int getBookmark() {
+		return bookmark;
+	}
+
+	public void setBookmark(int bookmark) {
+		this.bookmark = bookmark;
+	}
+
+	public List<MultipartFile> getFiles() {
+		return files;
+	}
+
+	public void setFiles(List<MultipartFile> files) {
+		this.files = files;
+	}
+
+	public int getHavingAnswer() {
+		return havingAnswer;
+	}
+
+	public void setHavingAnswer(int havingAnswer) {
+		this.havingAnswer = havingAnswer;
+	}
+
+	public int getRowCount() {
+		return rowCount;
+	}
+
+	public void setRowCount(int rowCount) {
+		this.rowCount = rowCount;
+	}
+
+	public int getPage() {
+		return page;
+	}
+
+	public void setPage(int page) {
+		this.page = page;
+	}
+
+	public List getSubjectIds() {
+		return subjectIds;
+	}
+
+	public void setSubjectIds(List subjectIds) {
+		this.subjectIds = subjectIds;
+	}
+
+	public List getQuestionsFromIds() {
+		return questionsFromIds;
+	}
+
+	public void setQuestionsFromIds(List questionsFromIds) {
+		this.questionsFromIds = questionsFromIds;
+	}
 
 }

@@ -18,7 +18,7 @@ import lombok.Data;
  * @author Arun Jose
  * @Date : March, 2021
  */
-@Data
+
 @Entity
 @Table(name = "ROLE_MASTER")
 public class RolesTo implements Serializable {
@@ -45,4 +45,53 @@ public class RolesTo implements Serializable {
 	@Transient
 	private List<RolePermissionsTo> featureList;
 
+	public int getRoleId() {
+		return roleId;
+	}
+
+	public void setRoleId(int roleId) {
+		this.roleId = roleId;
+	}
+
+	public String getRoleName() {
+		return roleName;
+	}
+
+	public void setRoleName(String roleName) {
+		this.roleName = roleName;
+	}
+
+	public Timestamp getCreatedDate() {
+		return createdDate;
+	}
+
+	public void setCreatedDate(Timestamp createdDate) {
+		this.createdDate = createdDate;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public int[] getFeatureIds() {
+		return featureIds;
+	}
+
+	public void setFeatureIds(int[] featureIds) {
+		this.featureIds = featureIds;
+	}
+
+	public List<RolePermissionsTo> getFeatureList() {
+		return featureList;
+	}
+
+	public void setFeatureList(List<RolePermissionsTo> featureList) {
+		this.featureList = featureList;
+	}
+
+	
 }

@@ -16,7 +16,7 @@ import lombok.Data;
  * @author Arun Jose
  * @Date : March, 2021
  */
-@Data
+
 @Entity
 @Table(name = "TRADE_LOG_DETAILS")
 public class TradeLogDetailsTo implements Serializable {
@@ -48,5 +48,69 @@ public class TradeLogDetailsTo implements Serializable {
 
 	@Transient
 	private TradeLogImageTo tradeLogImageTo;
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public int getTradeLogId() {
+		return tradeLogId;
+	}
+
+	public void setTradeLogId(int tradeLogId) {
+		this.tradeLogId = tradeLogId;
+	}
+
+	public int getSymbol() {
+		return symbol;
+	}
+
+	public void setSymbol(int symbol) {
+		this.symbol = symbol;
+	}
+
+	public String getPreOpen() {
+		return preOpen;
+	}
+
+	public void setPreOpen(String preOpen) {
+		this.preOpen = preOpen;
+	}
+
+	public String getFirstHalf() {
+		return firstHalf;
+	}
+
+	public void setFirstHalf(String firstHalf) {
+		this.firstHalf = firstHalf;
+	}
+
+	public String getSecondHalf() {
+		return secondHalf;
+	}
+
+	public void setSecondHalf(String secondHalf) {
+		this.secondHalf = secondHalf;
+	}
+
+	public String getComments() {
+		return comments;
+	}
+
+	public void setComments(String comments) {
+		this.comments = comments;
+	}
+
+	public TradeLogImageTo getTradeLogImageTo() {
+		return tradeLogImageTo;
+	}
+
+	public void setTradeLogImageTo(TradeLogImageTo tradeLogImageTo) {
+		this.tradeLogImageTo = tradeLogImageTo;
+	}
 
 }

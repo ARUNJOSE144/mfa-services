@@ -15,7 +15,7 @@ import lombok.Data;
  * @author Arun Jose
  * @Date : March, 2021
  */
-@Data
+
 @Entity
 @Table(name = "TRADE_MASTER")
 public class TradeMasterTo implements Serializable {
@@ -56,6 +56,94 @@ public class TradeMasterTo implements Serializable {
 
 	@Column(name = "QTY", nullable = true)
 	private int qty;
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getSymbolName() {
+		return symbolName;
+	}
+
+	public void setSymbolName(String symbolName) {
+		this.symbolName = symbolName;
+	}
+
+	public String getStrike() {
+		return strike;
+	}
+
+	public void setStrike(String strike) {
+		this.strike = strike;
+	}
+
+	public String getCallOrPut() {
+		return callOrPut;
+	}
+
+	public void setCallOrPut(String callOrPut) {
+		this.callOrPut = callOrPut;
+	}
+
+	public String getBuyOrSell() {
+		return buyOrSell;
+	}
+
+	public void setBuyOrSell(String buyOrSell) {
+		this.buyOrSell = buyOrSell;
+	}
+
+	public Integer getStatus() {
+		return status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
+
+	public String getAboveOrBelow() {
+		return aboveOrBelow;
+	}
+
+	public void setAboveOrBelow(String aboveOrBelow) {
+		this.aboveOrBelow = aboveOrBelow;
+	}
+
+	public float getPrice() {
+		return price;
+	}
+
+	public void setPrice(float price) {
+		this.price = price;
+	}
+
+	public float getProfitPrice() {
+		return profitPrice;
+	}
+
+	public void setProfitPrice(float profitPrice) {
+		this.profitPrice = profitPrice;
+	}
+
+	public float getSlPrice() {
+		return slPrice;
+	}
+
+	public void setSlPrice(float slPrice) {
+		this.slPrice = slPrice;
+	}
+
+	public int getQty() {
+		return qty;
+	}
+
+	public void setQty(int qty) {
+		this.qty = qty;
+	}
 
 	/*
 	 * @Column(name = "CREATE_DATE", nullable = true, updatable = false) private

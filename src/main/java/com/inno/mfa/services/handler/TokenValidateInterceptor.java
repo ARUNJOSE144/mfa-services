@@ -73,13 +73,14 @@ public class TokenValidateInterceptor implements HandlerInterceptor {
 				System.out.println("EXCLUDE_URL_LIST :" + EXCLUDE_URL_LIST);
 				if (!EXCLUDE_URL_LIST.contains(resourcePath)) {
 					String token = request.getHeader(XTOKEN);
-					int userId = Integer.parseInt(request.getHeader(XUSER_ID));
-					System.out.println("Token : " + token);
-					System.out.println("userId : " + userId);
-
-					if (!tokenDao.sessionExist(token, userId)) {
-						throw new BadCredentialsException("Invalid Token.");
-					}
+					/*
+					 * int userId = Integer.parseInt(request.getHeader(XUSER_ID));
+					 * System.out.println("Token : " + token); System.out.println("userId : " +
+					 * userId);
+					 * 
+					 * if (!tokenDao.sessionExist(token, userId)) { throw new
+					 * BadCredentialsException("Invalid Token."); }
+					 */
 				}
 			} catch (InternalAuthenticationServiceException internalAuthenticationServiceException) {
 				SecurityContextHolder.clearContext();

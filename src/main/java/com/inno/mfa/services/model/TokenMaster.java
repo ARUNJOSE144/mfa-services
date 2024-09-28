@@ -16,7 +16,7 @@ import lombok.Data;
  * @author Arun Jose
  * @Date : March, 2021
  */
-@Data
+
 @Entity
 @Table(name = "TOKEN_MASTER")
 public class TokenMaster implements Serializable {
@@ -36,5 +36,37 @@ public class TokenMaster implements Serializable {
 
 	@Column(name = "LAST_ACTIVE_TIME")
 	private Date lastActiveTime;
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getToken() {
+		return token;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
+	}
+
+	public int getUserId() {
+		return userId;
+	}
+
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
+
+	public Date getLastActiveTime() {
+		return lastActiveTime;
+	}
+
+	public void setLastActiveTime(Date lastActiveTime) {
+		this.lastActiveTime = lastActiveTime;
+	}
 
 }
